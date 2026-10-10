@@ -134,6 +134,26 @@ function showResults(content) {
     }
 
     goToStep('results');
+    announceResult();
+}
+
+// Screen-reader announcement of the classification banner (role=alert alone is not
+// reliably announced when the element becomes visible after insertion).
+function announceResult() {
+    var live = document.getElementById('announce');
+    if (!live) {
+        live = document.createElement('div');
+        live.id = 'announce';
+        live.setAttribute('aria-live', 'assertive');
+        live.setAttribute('aria-atomic', 'true');
+        live.className = 'sr-only';
+        document.body.appendChild(live);
+    }
+    var title = document.querySelector('#resultsContent .class-banner-title .lang-' + currentLanguage);
+    live.textContent = '';
+    if (title) {
+        setTimeout(function () { live.textContent = title.textContent; }, 50);
+    }
 }
 
 function resetEvaluation() {
@@ -155,10 +175,10 @@ function classBanner(kind, opts) {
     opts = opts || {};
     var key = String(kind || 'NONE').toUpperCase();
     var defs = {
-        A:    { cls: 'a',    icon: '⚠️', role: 'alert',  en: 'CLASS A — INADMISSIBLE', es: 'CLASE A — INADMISIBLE' },
-        B:    { cls: 'b',    icon: 'ℹ️', role: 'status', en: 'CLASS B — ADMISSIBLE, FOLLOW-UP REQUIRED', es: 'CLASE B — ADMISIBLE, REQUIERE SEGUIMIENTO' },
+        A:    { cls: 'a',    icon: '🛑', role: 'alert',  en: 'CLASS A — INADMISSIBLE — DO NOT CLEAR', es: 'CLASE A — INADMISIBLE — NO AUTORICE' },
+        B:    { cls: 'b',    icon: '📋', role: 'status', en: 'CLASS B — MAY BE CLEARED — FOLLOW-UP REQUIRED', es: 'CLASE B — PUEDE AUTORIZARSE — REQUIERE SEGUIMIENTO' },
         NONE: { cls: 'none', icon: '✅', role: 'status', en: 'NO CLASS A OR CLASS B', es: 'SIN CLASE A NI CLASE B' },
-        HOLD: { cls: 'hold', icon: '⏸️', role: 'alert',  en: 'DO NOT CLASSIFY OR SIGN YET', es: 'NO CLASIFIQUE NI FIRME TODAVÍA' }
+        HOLD: { cls: 'hold', icon: '⏳', role: 'alert',  en: 'PENDING — DO NOT CLASSIFY OR SIGN YET', es: 'PENDIENTE — NO CLASIFIQUE NI FIRME TODAVÍA' }
     };
     var d = defs[key] || defs.NONE;
     var title = getLangSpan(opts.labelEn || d.en, opts.labelEs || d.es);
@@ -169,6 +189,118 @@ function classBanner(kind, opts) {
         '<div class="class-banner-icon" aria-hidden="true">' + d.icon + '</div>' +
         '<div class="class-banner-text"><div class="class-banner-title">' + title + '</div>' + sub + '</div>' +
         '</div>';
+}
+
+/**
+ * Form I-693 label box. The label is ALWAYS shown in English (the form is completed in
+ * English); the caption and the optional plain-language meaning are bilingual.
+ * opts: { meaningEn, meaningEs }
+ */
+function formLabel(label, opts) {
+    opts = opts || {};
+    var meaning = (opts.meaningEn || opts.meaningEs)
+        ? '<div class="form-label-meaning">' + getLangSpan(opts.meaningEn || '', opts.meaningEs || '') + '</div>'
+        : '';
+    return '<div class="form-label">' +
+        '<div class="form-label-caption">' + getLangSpan('Write exactly this on Form I-693:', 'Escriba exactamente este texto en el Formulario I-693:') + '</div>' +
+        '<div class="form-label-row"><code class="form-label-text" lang="en">' + label + '</code>' +
+        '<button type="button" class="copy-btn" onclick="copyFormLabel(this)">' + getLangSpan('Copy', 'Copiar') + '</button></div>' +
+        meaning + '</div>';
+}
+
+function copyFormLabel(btn) {
+    var code = btn.parentNode.querySelector('.form-label-text');
+    var text = code ? code.textContent : '';
+    function done(ok) {
+        btn.innerHTML = ok ? getLangSpan('Copied ✓', 'Copiado ✓') : getLangSpan('Copy', 'Copiar');
+        setTimeout(function () { btn.innerHTML = getLangSpan('Copy', 'Copiar'); }, 1500);
+    }
+    try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+        } else {
+            done(false);
+        }
+    } catch (e) { done(false); }
+}
+
+/**
+ * "Based on your answers" summary shown under the banner.
+ * items: array of { en, es } (already-formatted short strings).
+ */
+function answersSummary(items) {
+    if (!items || !items.length) { return ''; }
+    var lis = items.map(function (it) { return '<li>' + getLangSpan(it.en, it.es) + '</li>'; }).join('');
+    return '<div class="answers"><div class="answers-title">' + getLangSpan('Based on your answers', 'Según sus respuestas') + '</div><ul>' + lis + '</ul></div>';
+}
+
+/**
+ * Required-actions box coloured by class. kind: 'A' | 'B' | 'NONE' | 'HOLD'
+ * itemsHtml: inner HTML of the <ul class="checklist"> (li elements).
+ */
+function actionsBox(kind, itemsHtml, titleEn, titleEs) {
+    var cls = { A: 'a', B: 'b', NONE: 'none', HOLD: 'hold' }[String(kind || 'NONE').toUpperCase()] || 'none';
+    return '<div class="actions actions-' + cls + '"><strong>' +
+        getLangSpan(titleEn || 'Required actions', titleEs || 'Acciones requeridas') +
+        '</strong><ul class="checklist">' + itemsHtml + '</ul></div>';
+}
+
+// ---------------------------------------------------------------------------
+// Multi-select ("check all that apply") helpers
+//   <div class="choice-group" id="g"> <button class="choice" role="checkbox" aria-checked="false" data-value="x" onclick="choiceToggle(this)">…</button> … </div>
+//   A choice with data-none="true" is exclusive ("None of the above").
+//   A button with data-continue-for="g" gets a dynamic label.
+// ---------------------------------------------------------------------------
+function setChoice(btn, on) {
+    btn.classList.toggle('selected', !!on);
+    btn.setAttribute('aria-checked', on ? 'true' : 'false');
+}
+
+function choiceToggle(btn) {
+    var group = btn.closest('.choice-group');
+    if (!group) { return; }
+    var isNone = btn.hasAttribute('data-none');
+    var nowSelected = !btn.classList.contains('selected');
+    if (isNone) {
+        group.querySelectorAll('.choice').forEach(function (b) { setChoice(b, false); });
+        setChoice(btn, nowSelected);
+    } else {
+        setChoice(btn, nowSelected);
+        if (nowSelected) {
+            group.querySelectorAll('.choice[data-none]').forEach(function (b) { setChoice(b, false); });
+        }
+    }
+    updateChoiceContinue(group);
+}
+
+function choiceValues(group) {
+    if (typeof group === 'string') { group = document.getElementById(group); }
+    if (!group) { return []; }
+    return Array.prototype.map.call(group.querySelectorAll('.choice.selected:not([data-none])'), function (b) {
+        return b.getAttribute('data-value');
+    });
+}
+
+function clearChoices(group) {
+    if (typeof group === 'string') { group = document.getElementById(group); }
+    if (!group) { return; }
+    group.querySelectorAll('.choice').forEach(function (b) { setChoice(b, false); });
+    updateChoiceContinue(group);
+}
+
+function updateChoiceContinue(group) {
+    if (!group || !group.id) { return; }
+    var btn = document.querySelector('[data-continue-for="' + group.id + '"]');
+    if (!btn) { return; }
+    var n = choiceValues(group).length;
+    var noneChosen = group.querySelector('.choice.selected[data-none]') !== null;
+    if (n === 0) {
+        btn.innerHTML = noneChosen
+            ? getLangSpan('Continue — none apply', 'Continuar — ninguna aplica')
+            : getLangSpan('Continue — none apply', 'Continuar — ninguna aplica');
+    } else {
+        btn.innerHTML = getLangSpan('Continue (' + n + ' selected)', 'Continuar (' + n + ' seleccionadas)');
+    }
 }
 
 // ---------------------------------------------------------------------------
