@@ -1,0 +1,39 @@
+{
+  "name": "Syphilis Evaluation Guide",
+  "short_name": "Syphilis Guide",
+  "description": "CDC Guidelines for Syphilis Evaluation and Treatment - Guía de Evaluación de Sífilis",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "./imm_syph_icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./imm_syph_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["medical", "health", "reference"],
+  "shortcuts": [
+    {
+      "name": "Quick Evaluation",
+      "short_name": "Evaluate",
+      "description": "Start syphilis evaluation",
+      "url": "./index.html",
+      "icons": [
+        {
+          "src": "./imm_syph_icon_192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
