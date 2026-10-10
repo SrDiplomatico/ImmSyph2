@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuberculosis Evaluation Guide - CDC Technical Instructions / Guía de Evaluación de Tuberculosis</title>
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1e40af">
+    <meta name="msapplication-TileColor" content="#1e40af">
+    <meta name="msapplication-navbutton-color" content="#1e40af">
+    <meta name="application-name" content="CS Guide">
+
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CS Guide">
+    <link rel="apple-touch-icon" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon-precomposed" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./imm_syph_icon_192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="./imm_syph_icon_192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./imm_syph_icon_512.png">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        /* Page-specific rules (shared layout classes live in styles.css) */
+        .tb-reasons { margin: 8px 0 8px 20px; color: #1e40af; }
+        .tb-reasons li { margin: 4px 0; }
+        .info ul, .result ul.plain { margin: 8px 0 8px 20px; line-height: 1.5; }
+        .info p { margin: 8px 0 0 0; line-height: 1.5; color: #1e3a8a; }
+        .warning p { margin: 8px 0 0 0; line-height: 1.5; color: #7f1d1d; }
+        .step .status-pill { margin-bottom: 12px; }
+        .ref-table td.class-cell { min-width: 130px; }
+        .pregnancy-note { background: #fdf2f8; border-left: 4px solid #db2777; padding: 12px; border-radius: 8px; margin: 12px 0; color: #831843; line-height: 1.5; }
+        .pregnancy-note strong { color: #9d174d; }
+        #flagChoices button.choice { line-height: 1.35; }
+        /* Defensive: screen-reader-only live region created by app.js (announceResult) */
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="home-link" href="./index.html">← <span class="lang-en">Home</span><span class="lang-es">Inicio</span></a>
+            <button class="language-toggle" onclick="toggleLanguage()">
+                <span class="lang-en">Español</span>
+                <span class="lang-es">English</span>
+            </button>
+            <h1>
+                <span class="lang-en">Tuberculosis (IGRA) Evaluation Guide</span>
+                <span class="lang-es">Guía de Evaluación de Tuberculosis (IGRA)</span>
+            </h1>
+            <p>
+                <span class="lang-en">CDC Technical Instructions for Civil Surgeons (effective March 11, 2024)</span>
+                <span class="lang-es">Instrucciones Técnicas de los CDC para Cirujanos Civiles (vigentes desde el 11 de marzo de 2024)</span>
+            </p>
+        </div>
+
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+
+            <!-- Step 1: Applicant age -->
+            <div class="step active" id="step1">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Step 1: Applicant Age</span>
+                        <span class="lang-es">Paso 1: Edad del Solicitante</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">How old is the applicant?</span>
+                        <span class="lang-es">¿Qué edad tiene el solicitante?</span>
+                    </p>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Rule:</span>
+                            <span class="lang-es">Regla:</span>
+                        </strong>
+                        <span class="lang-en">Every applicant 2 years of age or older must have an IGRA blood test (interferon-gamma release assay: QuantiFERON-TB Gold Plus or T-SPOT.TB). A tuberculin skin test (TST) cannot substitute for the IGRA at this age. The civil surgeon orders the test.</span>
+                        <span class="lang-es">Todo solicitante de 2 años o más debe tener una prueba de sangre IGRA (prueba de liberación de interferón gamma: QuantiFERON-TB Gold Plus o T-SPOT.TB). La prueba cutánea de tuberculina (TST) no puede sustituir al IGRA a esta edad. El cirujano civil ordena la prueba.</span>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="chooseAge(false)">
+                            <span class="lang-en">2 years or older</span>
+                            <span class="lang-es">2 años o más</span>
+                        </button>
+                        <button onclick="chooseAge(true)">
+                            <span class="lang-en">Under 2 years</span>
+                            <span class="lang-es">Menor de 2 años</span>
+                        </button>
+                    </div>
+                    <div class="button-group" style="margin-top: 12px;">
+                        <button class="secondary" onclick="goToStep('ref')">
+                            <span class="lang-en">View TB class reference</span>
+                            <span class="lang-es">Ver referencia de clases de TB</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button" style="display: none;">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.5: Under 2 years - indication? -->
+            <div class="step" id="step1.5">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Under 2 Years: Is Testing Indicated?</span>
+                        <span class="lang-es">Menor de 2 Años: ¿Está Indicada la Prueba?</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Children under 2 years are tested only when there is an indication. Does the applicant have any of the following?</span>
+                        <span class="lang-es">Los niños menores de 2 años se evalúan solo cuando hay una indicación. ¿El solicitante tiene alguno de los siguientes?</span>
+                    </p>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Indications for testing under 2 years:</span>
+                            <span class="lang-es">Indicaciones para la prueba en menores de 2 años:</span>
+                        </strong>
+                        <ul>
+                            <li>
+                                <span class="lang-en">Signs or symptoms of TB disease (cough, fever, poor weight gain, enlarged lymph nodes)</span>
+                                <span class="lang-es">Signos o síntomas de enfermedad de tuberculosis (tos, fiebre, poca ganancia de peso, ganglios linfáticos agrandados)</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Known HIV infection</span>
+                                <span class="lang-es">Infección por VIH conocida</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Known contact with a person with infectious TB</span>
+                                <span class="lang-es">Contacto conocido con una persona con tuberculosis infecciosa</span>
+                            </li>
+                        </ul>
+                        <p>
+                            <span class="lang-en">If yes: a TST is acceptable at this age (IGRA where the laboratory accepts it) and a chest x-ray is also required.</span>
+                            <span class="lang-es">Si la respuesta es sí: a esta edad se acepta la prueba cutánea de tuberculina (TST) (o IGRA si el laboratorio la acepta) y también se requiere radiografía de tórax.</span>
+                        </p>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="under2Indication(true)">
+                            <span class="lang-en">Yes – test required</span>
+                            <span class="lang-es">Sí – se requiere prueba</span>
+                        </button>
+                        <button onclick="under2Indication(false)">
+                            <span class="lang-en">No – no testing required</span>
+                            <span class="lang-es">No – no se requiere prueba</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: History & risk screen (multi-select) -->
+            <div class="step" id="step2">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Step 2: History and Risk Screen</span>
+                        <span class="lang-es">Paso 2: Antecedentes y Factores de Riesgo</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Check all that apply, then press Continue.</span>
+                        <span class="lang-es">Marque todo lo que corresponda y luego presione Continuar.</span>
+                    </p>
+                    <div class="info" id="under2Note2" style="display: none;">
+                        <strong>
+                            <span class="lang-en">Under 2 years:</span>
+                            <span class="lang-es">Menor de 2 años:</span>
+                        </strong>
+                        <span class="lang-en">TST acceptable under 2 years (IGRA where the laboratory accepts it); chest x-ray required when testing is indicated by signs/symptoms, HIV infection or contact with infectious TB. Check the boxes below that apply.</span>
+                        <span class="lang-es">Se acepta la prueba cutánea de tuberculina (TST) en menores de 2 años (o IGRA si el laboratorio la acepta); se requiere radiografía de tórax cuando la prueba está indicada por signos/síntomas, infección por VIH o contacto con tuberculosis infecciosa. Marque las casillas que correspondan.</span>
+                    </div>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Signs or symptoms of TB disease include:</span>
+                            <span class="lang-es">Los signos o síntomas de enfermedad de tuberculosis incluyen:</span>
+                        </strong>
+                        <ul>
+                            <li><span class="lang-en">Cough lasting 2–3 weeks or longer</span><span class="lang-es">Tos de 2–3 semanas o más</span></li>
+                            <li><span class="lang-en">Coughing up blood (hemoptysis)</span><span class="lang-es">Tos con sangre (hemoptisis)</span></li>
+                            <li><span class="lang-en">Fever, night sweats</span><span class="lang-es">Fiebre, sudores nocturnos</span></li>
+                            <li><span class="lang-en">Unexplained weight loss, fatigue</span><span class="lang-es">Pérdida de peso sin explicación, fatiga</span></li>
+                            <li><span class="lang-en">Chest pain</span><span class="lang-es">Dolor de pecho</span></li>
+                            <li><span class="lang-en">Enlarged lymph nodes (lymphadenopathy)</span><span class="lang-es">Ganglios linfáticos agrandados (linfadenopatía)</span></li>
+                        </ul>
+                    </div>
+                    <div class="choice-group" id="flagChoices">
+                        <button type="button" class="choice" data-flag="symptoms" aria-pressed="false" onclick="toggleFlag('symptoms', this)">
+                            <span class="lang-en">Signs or symptoms of TB disease</span>
+                            <span class="lang-es">Signos o síntomas de enfermedad de tuberculosis</span>
+                        </button>
+                        <button type="button" class="choice" data-flag="hiv" aria-pressed="false" onclick="toggleFlag('hiv', this)">
+                            <span class="lang-en">Known HIV infection</span>
+                            <span class="lang-es">Infección por VIH conocida</span>
+                        </button>
+                        <button type="button" class="choice" data-flag="priorPositive" aria-pressed="false" onclick="toggleFlag('priorPositive', this)">
+                            <span class="lang-en">Documented prior positive IGRA or TST (written lab copy)</span>
+                            <span class="lang-es">Prueba IGRA o TST positiva previa documentada (copia escrita del laboratorio)</span>
+                        </button>
+                        <button type="button" class="choice" data-flag="priorTB" aria-pressed="false" onclick="toggleFlag('priorTB', this)">
+                            <span class="lang-en">Prior TB disease, treatment completed before this exam (documented)</span>
+                            <span class="lang-es">Enfermedad de tuberculosis previa, tratamiento completado antes de este examen (documentado)</span>
+                        </button>
+                        <button type="button" class="choice" data-flag="priorLTBI" aria-pressed="false" onclick="toggleFlag('priorLTBI', this)">
+                            <span class="lang-en">Prior LTBI treatment completed (documented)</span>
+                            <span class="lang-es">Tratamiento previo de infección tuberculosa latente (ITBL) completado (documentado)</span>
+                        </button>
+                        <button type="button" class="choice" data-flag="contact" aria-pressed="false" onclick="toggleFlag('contact', this)">
+                            <span class="lang-en">Recent contact with a person with infectious TB</span>
+                            <span class="lang-es">Contacto reciente con una persona con tuberculosis infecciosa</span>
+                        </button>
+                        <button type="button" class="choice" data-flag="pregnant" aria-pressed="false" onclick="toggleFlag('pregnant', this)">
+                            <span class="lang-en">Pregnant</span>
+                            <span class="lang-es">Embarazada</span>
+                        </button>
+                        <button type="button" class="choice" data-flag="none" data-none="true" aria-pressed="false" onclick="toggleFlag('none', this)">
+                            <span class="lang-en">None of the above</span>
+                            <span class="lang-es">Ninguna de las anteriores</span>
+                        </button>
+                    </div>
+                    <div class="choice-continue">
+                        <div class="button-group">
+                            <button class="primary-wide" onclick="continueFromHistory()">
+                                <span class="lang-en">Continue</span>
+                                <span class="lang-es">Continuar</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: IGRA result -->
+            <div class="step" id="step3">
+                <div class="question">
+                    <div id="statusPill3"></div>
+                    <h2>
+                        <span class="lang-en">Step 3: IGRA Result</span>
+                        <span class="lang-es">Paso 3: Resultado del IGRA</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">What is the result of the IGRA (QuantiFERON-TB Gold Plus or T-SPOT.TB)?</span>
+                        <span class="lang-es">¿Cuál es el resultado del IGRA (QuantiFERON-TB Gold Plus o T-SPOT.TB)?</span>
+                    </p>
+                    <div class="info" id="under2Note3" style="display: none;">
+                        <strong>
+                            <span class="lang-en">Under 2 years:</span>
+                            <span class="lang-es">Menor de 2 años:</span>
+                        </strong>
+                        <span class="lang-en">TST acceptable under 2 years. Enter the TST or IGRA result below; a chest x-ray is required for this child.</span>
+                        <span class="lang-es">Se acepta la prueba cutánea de tuberculina (TST) en menores de 2 años. Ingrese el resultado de la TST o del IGRA a continuación; se requiere radiografía de tórax para este niño.</span>
+                    </div>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Remember:</span>
+                            <span class="lang-es">Recuerde:</span>
+                        </strong>
+                        <ul>
+                            <li>
+                                <span class="lang-en">The IGRA is required for every applicant 2 years of age or older; a TST is not a substitute.</span>
+                                <span class="lang-es">El IGRA es obligatorio para todo solicitante de 2 años o más; la TST no es un sustituto.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">The civil surgeon orders the IGRA — do not refer the applicant to the health department just for testing.</span>
+                                <span class="lang-es">El cirujano civil ordena el IGRA — no refiera al solicitante al departamento de salud solo para la prueba.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Record the IGRA type, date and result on Form I-693 for everyone tested, including negative and indeterminate results.</span>
+                                <span class="lang-es">Registre el tipo de IGRA, la fecha y el resultado en el Formulario I-693 para toda persona evaluada, incluidos los resultados negativos e indeterminados.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Indeterminate or borderline: record as indeterminate. The Technical Instructions do not require a repeat test, chest x-ray or Class B2; advise the applicant to repeat the test for their own health.</span>
+                                <span class="lang-es">Indeterminado o limítrofe: regístrelo como indeterminado. Las Instrucciones Técnicas no exigen repetir la prueba, radiografía de tórax ni Clase B2; aconseje al solicitante repetir la prueba por su propia salud.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="setIgra('pos')">
+                            <span class="lang-en">Positive</span>
+                            <span class="lang-es">Positivo</span>
+                        </button>
+                        <button onclick="setIgra('neg')">
+                            <span class="lang-en">Negative</span>
+                            <span class="lang-es">Negativo</span>
+                        </button>
+                        <button onclick="setIgra('indet')">
+                            <span class="lang-en">Indeterminate / borderline</span>
+                            <span class="lang-es">Indeterminado / limítrofe</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Chest x-ray result -->
+            <div class="step" id="step4">
+                <div class="question">
+                    <div id="statusPill4"></div>
+                    <h2>
+                        <span class="lang-en">Step 4: Chest X-ray Result</span>
+                        <span class="lang-es">Paso 4: Resultado de la Radiografía de Tórax</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">What does the chest x-ray show?</span>
+                        <span class="lang-es">¿Qué muestra la radiografía de tórax?</span>
+                    </p>
+                    <div id="cxrInfo"></div>
+                    <div class="button-group stacked">
+                        <button onclick="setCxr('normal')">
+                            <span class="lang-en">Normal</span>
+                            <span class="lang-es">Normal</span>
+                        </button>
+                        <button onclick="setCxr('suggestive')">
+                            <span class="lang-en">Abnormal – suggestive of TB disease</span>
+                            <span class="lang-es">Anormal – sugestiva de enfermedad de tuberculosis</span>
+                        </button>
+                        <button onclick="setCxr('other')">
+                            <span class="lang-en">Abnormal – NOT suggestive of TB</span>
+                            <span class="lang-es">Anormal – NO sugestiva de tuberculosis</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Health department referral -->
+            <div class="step" id="step5">
+                <div class="question">
+                    <div id="holdBanner"></div>
+                    <div id="statusPill5"></div>
+                    <h2>
+                        <span class="lang-en">Step 5: Health Department Referral</span>
+                        <span class="lang-es">Paso 5: Referencia al Departamento de Salud</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Refer the applicant to the health department of jurisdiction for further TB evaluation.</span>
+                        <span class="lang-es">Refiera al solicitante al departamento de salud de la jurisdicción para una evaluación adicional de tuberculosis.</span>
+                    </p>
+                    <div id="referReason"></div>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Health department evaluation:</span>
+                            <span class="lang-es">Evaluación del departamento de salud:</span>
+                        </strong>
+                        <ul>
+                            <li>
+                                <span class="lang-en">Three sputum specimens for AFB smear, culture and NAAT; drug-susceptibility testing on positive cultures.</span>
+                                <span class="lang-es">Tres muestras de esputo para baciloscopia, cultivo y NAAT; pruebas de sensibilidad a fármacos en cultivos positivos.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Send the chest x-ray, IGRA result and your clinical findings with the referral.</span>
+                                <span class="lang-es">Envíe la radiografía de tórax, el resultado del IGRA y sus hallazgos clínicos con la referencia.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="warning">
+                        <strong>
+                            <span class="lang-en">Do NOT classify, issue TB medical clearance, or sign Form I-693 until the applicant returns with the health department’s findings.</span>
+                            <span class="lang-es">NO clasifique, NO emita la autorización médica de TB ni firme el Formulario I-693 hasta que el solicitante regrese con los hallazgos del departamento de salud.</span>
+                        </strong>
+                    </div>
+                    <p>
+                        <span class="lang-en"><strong>What did the health department determine?</strong></span>
+                        <span class="lang-es"><strong>¿Qué determinó el departamento de salud?</strong></span>
+                    </p>
+                    <div class="button-group stacked">
+                        <button onclick="hdOutcome('TB-A')">
+                            <span><span class="lang-en">TB disease – treatment NOT completed</span><span class="lang-es">Enfermedad de tuberculosis – tratamiento NO completado</span></span>
+                            <span class="class-tag a"><span class="lang-en">Class A</span><span class="lang-es">Clase A</span></span>
+                        </button>
+                        <button onclick="hdOutcome('TB-B0')">
+                            <span><span class="lang-en">TB disease – treatment COMPLETED during this process (HD documented)</span><span class="lang-es">Enfermedad de tuberculosis – tratamiento COMPLETADO durante este proceso (documentado por el departamento de salud)</span></span>
+                            <span class="class-tag b"><span class="lang-en">Class B0</span><span class="lang-es">Clase B0</span></span>
+                        </button>
+                        <button onclick="hdOutcome('TB-B1')">
+                            <span><span class="lang-en">TB disease excluded – findings consistent with TB, sputum negative</span><span class="lang-es">Enfermedad de tuberculosis descartada – hallazgos compatibles con TB, esputo negativo</span></span>
+                            <span class="class-tag b"><span class="lang-en">Class B1</span><span class="lang-es">Clase B1</span></span>
+                        </button>
+                        <button onclick="hdOutcome('TB-B1X')">
+                            <span><span class="lang-en">Extrapulmonary TB only</span><span class="lang-es">Solo tuberculosis extrapulmonar</span></span>
+                            <span class="class-tag b"><span class="lang-en">Class B1</span><span class="lang-es">Clase B1</span></span>
+                        </button>
+                        <button onclick="hdOutcome('TB-BOTHER')">
+                            <span><span class="lang-en">Not TB – other chest condition</span><span class="lang-es">No es TB – otra afección torácica</span></span>
+                            <span class="class-tag b"><span class="lang-en">Class B</span><span class="lang-es">Clase B</span></span>
+                        </button>
+                        <button onclick="hdOutcome('TB-B2')">
+                            <span><span class="lang-en">Latent TB infection only</span><span class="lang-es">Solo infección tuberculosa latente</span></span>
+                            <span class="class-tag b"><span class="lang-en">Class B2</span><span class="lang-es">Clase B2</span></span>
+                        </button>
+                        <button onclick="hdOutcome('TB-NEG-REFER')">
+                            <span><span class="lang-en">No TB disease or infection</span><span class="lang-es">Sin enfermedad ni infección tuberculosa</span></span>
+                            <span class="class-tag none"><span class="lang-en">No class</span><span class="lang-es">Sin clase</span></span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reference: TB classes -->
+            <div class="step" id="ref">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">TB Class Reference (Form I-693)</span>
+                        <span class="lang-es">Referencia de Clases de TB (Formulario I-693)</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Classifications used by civil surgeons under the CDC Technical Instructions. Class A = inadmissible until treatment is completed; Class B = admissible with documentation and health-department follow-up.</span>
+                        <span class="lang-es">Clasificaciones que usan los cirujanos civiles según las Instrucciones Técnicas de los CDC. Clase A = inadmisible hasta completar el tratamiento; Clase B = admisible con documentación y seguimiento del departamento de salud.</span>
+                    </p>
+                    <div class="ref-table-wrap">
+                        <table class="ref-table">
+                            <thead>
+                                <tr>
+                                    <th><span class="lang-en">Class</span><span class="lang-es">Clase</span></th>
+                                    <th><span class="lang-en">Criteria</span><span class="lang-es">Criterios</span></th>
+                                    <th><span class="lang-en">Admissible?</span><span class="lang-es">¿Admisible?</span></th>
+                                    <th><span class="lang-en">Civil surgeon action</span><span class="lang-es">Acción del cirujano civil</span></th>
+                                    <th><span class="lang-en">Reporting</span><span class="lang-es">Notificación</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="refTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="ref-cards" id="refCards"></div>
+                    <p class="source">
+                        <span class="lang-en">Source: CDC Technical Instructions for Civil Surgeons — Tuberculosis (effective March 11, 2024)</span>
+                        <span class="lang-es">Fuente: Instrucciones Técnicas de los CDC para Cirujanos Civiles — Tuberculosis (vigentes desde el 11 de marzo de 2024)</span>
+                    </p>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                        <button onclick="resetEvaluation()"><span class="lang-en">Start Over</span><span class="lang-es">Comenzar de Nuevo</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="step" id="results">
+                <div id="resultsContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+    <script>
+        // =====================================================================
+        // Tuberculosis module state (shared engine lives in app.js)
+        // =====================================================================
+        var tb = newState();
+
+        function newState() {
+            return {
+                under2: false,
+                igra: '',          // '' | 'pos' | 'neg' | 'indet'
+                cxr: '',           // '' | 'normal' | 'suggestive' | 'other'
+                viaHD: false,      // result reached through the health-department step
+                ageUnder2: false,  // answered "Under 2 years" at step 1
+                noneSelected: false,
+                hdChoice: '',      // health-department outcome chosen at step 5 (result id)
+                kind: '',          // banner kind of the result being built ('A' | 'B' | 'NONE')
+                labelKey: '',      // FORM_LABELS key of the result being built
+                flags: {
+                    symptoms: false,
+                    hiv: false,
+                    priorPositive: false,
+                    priorTB: false,
+                    priorLTBI: false,
+                    contact: false,
+                    pregnant: false
+                }
+            };
+        }
+
+        var FORM_LABELS = {
+            A:      { en: 'Class A TB',                               es: 'Clase A TB' },
+            B0:     { en: 'Class B0 TB, Pulmonary',                   es: 'Clase B0 TB, Pulmonar' },
+            B1:     { en: 'Class B1 TB, Pulmonary',                   es: 'Clase B1 TB, Pulmonar' },
+            B1X:    { en: 'Class B1 TB, Extrapulmonary',              es: 'Clase B1 TB, Extrapulmonar' },
+            B2:     { en: 'Class B2 TB, Latent TB Infection',         es: 'Clase B2 TB, Infección Tuberculosa Latente' },
+            BOTHER: { en: 'Class B, Other Chest Condition (non-TB)',  es: 'Clase B, Otra Afección Torácica (no TB)' },
+            NONE:   { en: 'No Class A or Class B TB',                 es: 'Sin Clase A ni Clase B de TB' }
+        };
+
+        // ---------------------------------------------------------------------
+        // Step 1 / 1.5 — age and under-2 indication
+        // ---------------------------------------------------------------------
+        function chooseAge(isUnder2) {
+            tb.ageUnder2 = isUnder2;
+            tb.under2 = false;
+            goToStep(isUnder2 ? 1.5 : 2);
+        }
+
+        function under2Indication(yes) {
+            if (yes) {
+                tb.under2 = true;
+                goToStep(2);
+            } else {
+                finish('TB-NOTEST');
+            }
+        }
+
+        // ---------------------------------------------------------------------
+        // Step 2 — multi-select history / risk flags
+        // ---------------------------------------------------------------------
+        function toggleFlag(flag, btn) {
+            if (flag === 'none') {
+                // Exclusive: "None of the above" clears every other flag
+                var wasSelected = btn.classList.contains('selected');
+                Object.keys(tb.flags).forEach(function (k) { tb.flags[k] = false; });
+                tb.noneSelected = !wasSelected;
+            } else {
+                tb.flags[flag] = !tb.flags[flag];
+                tb.noneSelected = false;
+            }
+            syncChoiceButtons();
+        }
+
+        function syncChoiceButtons() {
+            document.querySelectorAll('#flagChoices button.choice').forEach(function (b) {
+                var flag = b.getAttribute('data-flag');
+                var on = flag === 'none' ? !!tb.noneSelected : !!tb.flags[flag];
+                b.classList.toggle('selected', on);
+                b.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+        }
+
+        function continueFromHistory() {
+            if (tb.flags.priorPositive) {
+                // Written documentation of a prior positive IGRA/TST: do not repeat the IGRA; proceed to chest x-ray
+                tb.igra = 'pos';
+                goToStep(4);
+            } else {
+                goToStep(3);
+            }
+        }
+
+        // ---------------------------------------------------------------------
+        // Step 3 — IGRA result
+        // ---------------------------------------------------------------------
+        function setIgra(value) {
+            tb.igra = value;
+            tb.cxr = '';          // a new IGRA answer invalidates any earlier x-ray / HD answers
+            tb.hdChoice = '';
+            if (value === 'pos') {
+                goToStep(4);
+            } else {
+                evalNeg(value);
+            }
+        }
+
+        // ---------------------------------------------------------------------
+        // Step 4 — chest x-ray result
+        // ---------------------------------------------------------------------
+        function setCxr(value) {
+            tb.cxr = value;
+            tb.hdChoice = '';
+            if (value === 'suggestive') {
+                goToStep(5);
+            } else {
+                evalCxr(value);
+            }
+        }
+
+        // ---------------------------------------------------------------------
+        // Step 5 — health department outcome
+        // ---------------------------------------------------------------------
+        function hdOutcome(resultId) {
+            tb.viaHD = true;
+            tb.hdChoice = resultId;
+            finish(resultId);
+        }
+
+        // =====================================================================
+        // Evaluation logic
+        // =====================================================================
+        function igraPositive() { return tb.igra === 'pos'; }
+
+        // Chest x-ray is required after a negative/indeterminate IGRA when:
+        function cxrRequiredAfterNegative() {
+            var f = tb.flags;
+            return f.symptoms || f.hiv || f.priorTB || f.priorLTBI || (tb.under2 && f.contact);
+        }
+
+        // IGRA negative or indeterminate
+        function evalNeg(igra) {
+            tb.igra = igra;
+            tb.viaHD = false;
+            if (cxrRequiredAfterNegative()) {
+                goToStep(4);
+            } else {
+                finish('TB-NEG');
+            }
+        }
+
+        // cxr: 'normal' | 'other' ('suggestive' goes straight to step 5)
+        function evalCxr(cxr) {
+            var f = tb.flags;
+            tb.cxr = cxr;
+            tb.viaHD = false;
+            if (f.symptoms) {
+                goToStep(5);                                   // referral mandatory with signs/symptoms
+            } else if (igraPositive() && f.hiv) {
+                goToStep(5);                                   // HIV + positive IGRA: HD evaluation before classifying
+            } else if (igraPositive()) {
+                if (f.priorTB) {
+                    finish('TB-B1-HIST');                      // history of treated TB disease, no active disease now
+                } else if (cxr === 'normal' && f.priorLTBI) {
+                    finish('TB-NOCLASS-LTBI-TREATED');
+                } else if (cxr === 'normal') {
+                    finish('TB-B2');
+                } else {
+                    finish('TB-B2-OTHER');
+                }
+            } else {
+                if (cxr === 'normal') {
+                    finish('TB-NEG-CXR');
+                } else {
+                    finish('TB-BOTHER');
+                }
+            }
+        }
+
+        function finish(resultId) {
+            tb.result = resultId;
+            var builder = RESULTS[resultId];
+            if (!builder) {
+                console.error('Unknown TB result: ' + resultId);
+                return;
+            }
+            showResults(builder());
+        }
+
+        // =====================================================================
+        // HTML helpers
+        // =====================================================================
+        function L(en, es) { return getLangSpan(en, es); }
+
+        // Banner wrapper: remembers the kind (actions-box colour) and adds the "Based on your answers" summary
+        function tbBanner(kind, opts) {
+            tb.kind = kind;
+            return classBanner(kind, opts) + (kind === 'HOLD' ? '' : answersHtml());
+        }
+
+        var FLAG_LABELS = {
+            symptoms:      { en: 'Signs or symptoms of TB disease', es: 'Signos o síntomas de enfermedad de tuberculosis' },
+            hiv:           { en: 'Known HIV infection', es: 'Infección por VIH conocida' },
+            priorPositive: { en: 'Documented prior positive IGRA/TST', es: 'IGRA/TST positivo previo documentado' },
+            priorTB:       { en: 'Prior TB disease, treatment completed', es: 'Enfermedad de tuberculosis previa, tratamiento completado' },
+            priorLTBI:     { en: 'Prior LTBI treatment completed', es: 'Tratamiento previo de ITBL completado' },
+            contact:       { en: 'Recent contact with infectious TB', es: 'Contacto reciente con tuberculosis infecciosa' },
+            pregnant:      { en: 'Pregnant', es: 'Embarazada' }
+        };
+
+        var HD_LABELS = {
+            'TB-A':         { en: 'TB disease, treatment not completed', es: 'Enfermedad de tuberculosis, tratamiento no completado' },
+            'TB-B0':        { en: 'TB disease, treatment completed (documented)', es: 'Enfermedad de tuberculosis, tratamiento completado (documentado)' },
+            'TB-B1':        { en: 'TB disease excluded, sputum negative', es: 'Enfermedad de tuberculosis descartada, esputo negativo' },
+            'TB-B1X':       { en: 'Extrapulmonary TB only', es: 'Solo tuberculosis extrapulmonar' },
+            'TB-BOTHER':    { en: 'Not TB, other chest condition', es: 'No es TB, otra afección torácica' },
+            'TB-B2':        { en: 'Latent TB infection only', es: 'Solo infección tuberculosa latente' },
+            'TB-NEG-REFER': { en: 'No TB disease or infection', es: 'Sin enfermedad ni infección tuberculosa' }
+        };
+
+        // Plain-language meaning shown under the Form I-693 label box
+        var FORM_MEANING = {
+            A:      { en: 'TB disease, treatment not completed — inadmissible; do not medically clear.', es: 'Enfermedad de tuberculosis, tratamiento no completado — inadmisible; no autorice médicamente.' },
+            B0:     { en: 'TB disease treated and completed during this process — admissible; report + eMedical.', es: 'Enfermedad de tuberculosis tratada y completada durante este proceso — admisible; notifique + eMedical.' },
+            B1:     { en: 'Pulmonary TB excluded, or previously treated — admissible; health-department follow-up; report + eMedical.', es: 'Tuberculosis pulmonar descartada o previamente tratada — admisible; seguimiento del departamento de salud; notifique + eMedical.' },
+            B1X:    { en: 'Extrapulmonary TB, non-infectious — admissible; treatment with the health department; report + eMedical.', es: 'Tuberculosis extrapulmonar, no infecciosa — admisible; tratamiento con el departamento de salud; notifique + eMedical.' },
+            B2:     { en: 'Latent TB infection — admissible; report + eMedical within 5 business days; offer treatment.', es: 'Infección tuberculosa latente — admisible; notifique + eMedical dentro de 5 días hábiles; ofrezca tratamiento.' },
+            BOTHER: { en: 'Non-TB chest finding — admissible; routine medical follow-up; no TB report.', es: 'Hallazgo torácico no tuberculoso — admisible; seguimiento médico de rutina; sin notificación de TB.' },
+            NONE:   { en: 'No TB classification — admissible; record the test results.', es: 'Sin clasificación de TB — admisible; registre los resultados de las pruebas.' }
+        };
+
+        // "Based on your answers" summary (uses the shared answersSummary helper from app.js when present)
+        function answersHtml() {
+            if (typeof answersSummary !== 'function') { return ''; }
+            var f = tb.flags;
+            var items = [];
+            if (tb.ageUnder2) {
+                items.push(tb.under2
+                    ? { en: 'Age: under 2 years, testing indicated', es: 'Edad: menor de 2 años, prueba indicada' }
+                    : { en: 'Age: under 2 years, no indication for testing', es: 'Edad: menor de 2 años, sin indicación de prueba' });
+            } else {
+                items.push({ en: 'Age: 2 years or older', es: 'Edad: 2 años o más' });
+            }
+            if (!tb.ageUnder2 || tb.under2) {
+                var chosen = Object.keys(FLAG_LABELS).filter(function (k) { return f[k]; });
+                items.push(chosen.length
+                    ? { en: 'History/risk: ' + chosen.map(function (k) { return FLAG_LABELS[k].en; }).join('; '),
+                        es: 'Antecedentes/riesgo: ' + chosen.map(function (k) { return FLAG_LABELS[k].es; }).join('; ') }
+                    : { en: 'History/risk: none reported', es: 'Antecedentes/riesgo: ninguno reportado' });
+            }
+            if (tb.igra) {
+                var ig = tb.igra === 'pos'
+                    ? (f.priorPositive ? { en: 'documented prior positive (IGRA not repeated)', es: 'positivo previo documentado (IGRA no repetido)' } : { en: 'positive', es: 'positivo' })
+                    : (tb.igra === 'indet' ? { en: 'indeterminate / borderline', es: 'indeterminado / limítrofe' } : { en: 'negative', es: 'negativo' });
+                items.push({ en: (tb.under2 ? 'IGRA/TST: ' : 'IGRA: ') + ig.en, es: (tb.under2 ? 'IGRA/TST: ' : 'IGRA: ') + ig.es });
+            }
+            if (tb.cxr) {
+                var cx = {
+                    normal: { en: 'normal', es: 'normal' },
+                    suggestive: { en: 'abnormal, suggestive of TB disease', es: 'anormal, sugestiva de enfermedad de tuberculosis' },
+                    other: { en: 'abnormal, not suggestive of TB', es: 'anormal, no sugestiva de tuberculosis' }
+                }[tb.cxr];
+                items.push({ en: 'Chest x-ray: ' + cx.en, es: 'Radiografía de tórax: ' + cx.es });
+            }
+            if (tb.viaHD && HD_LABELS[tb.hdChoice]) {
+                items.push({ en: 'Health department: ' + HD_LABELS[tb.hdChoice].en, es: 'Departamento de salud: ' + HD_LABELS[tb.hdChoice].es });
+            }
+            return answersSummary(items);
+        }
+
+        function badge(cls, key) {
+            var lbl = FORM_LABELS[key];
+            tb.labelKey = key;
+            return '<span class="badge ' + cls + '">' + L(lbl.en, lbl.en + ' (' + lbl.es + ')') + '</span>';
+        }
+
+        function resultBox(titleEn, titleEs, badgeHtml, meaningEn, meaningEs, extraHtml) {
+            return '<div class="result">' +
+                '<h3>' + L(titleEn, titleEs) + '</h3>' +
+                badgeHtml +
+                '<p style="margin-top: 12px;"><strong>' + L('What this means:', 'Qué significa:') + '</strong> ' + L(meaningEn, meaningEs) + '</p>' +
+                (extraHtml || '') +
+                '</div>';
+        }
+
+        function checklist(items) {
+            return '<ul class="checklist">' + items.map(function (it) {
+                return '<li>' + L(it[0], it[1]) + '</li>';
+            }).join('') + '</ul>';
+        }
+
+        // "Required actions" box, colour-coded by the class of the result being built
+        function tbActionsBox(items) {
+            var cls = { A: 'a', B: 'b', NONE: 'none' }[tb.kind] || 'none';
+            return '<div class="warning actions actions-' + cls + '"><strong>' + L('Required actions', 'Acciones requeridas') + '</strong>' + checklist(items) + '</div>';
+        }
+
+        // "Form I-693 documentation" box: exact form label (shared formLabel helper when present) + checklist
+        function formBox(items) {
+            var lbl = FORM_LABELS[tb.labelKey];
+            var meaning = FORM_MEANING[tb.labelKey] || { en: '', es: '' };
+            var labelBox = (typeof formLabel === 'function' && lbl)
+                ? formLabel(lbl.en, { meaningEn: meaning.en, meaningEs: meaning.es })
+                : '';
+            return '<div class="info"><strong>' + L('Form I-693 documentation', 'Documentación en el Formulario I-693') + '</strong>' + labelBox + checklist(items) + '</div>';
+        }
+
+        function reportingBox(kind) {
+            var items;
+            if (kind === 'A') {
+                items = [
+                    ['Suspected or confirmed TB disease is reportable by law: report immediately to the health department of jurisdiction (the health department usually already knows from the referral).',
+                     'La enfermedad de tuberculosis sospechada o confirmada es de notificación obligatoria por ley: notifique de inmediato al departamento de salud de la jurisdicción (el departamento de salud normalmente ya lo sabe por la referencia).'],
+                    ['Civil surgeons must report all TB classifications (A, B0, B1, B2) promptly to the health department.',
+                     'Los cirujanos civiles deben notificar todas las clasificaciones de TB (A, B0, B1, B2) con prontitud al departamento de salud.']
+                ];
+            } else if (kind === 'B') {
+                items = [
+                    ['Report this TB classification promptly to the health department of jurisdiction.',
+                     'Notifique esta clasificación de TB con prontitud al departamento de salud de la jurisdicción.'],
+                    ['Enter the classification in eMedical within 5 business days of completing (signing) Form I-693.',
+                     'Ingrese la clasificación en eMedical dentro de los 5 días hábiles de completar (firmar) el Formulario I-693.']
+                ];
+            } else {
+                items = [
+                    ['Class B, Other Chest Condition is not a TB classification: no TB report or eMedical entry is required.',
+                     'La Clase B, Otra Afección Torácica no es una clasificación de tuberculosis: no se requiere notificación de TB ni ingreso en eMedical.']
+                ];
+            }
+            return '<div class="info"><strong>' + L('Reporting', 'Notificación') + '</strong>' + checklist(items) + '</div>';
+        }
+
+        function sourceLine() {
+            return '<p class="source">' + L(
+                'Source: CDC Technical Instructions for Civil Surgeons — Tuberculosis (effective March 11, 2024)',
+                'Fuente: Instrucciones Técnicas de los CDC para Cirujanos Civiles — Tuberculosis (vigentes desde el 11 de marzo de 2024)'
+            ) + '</p>';
+        }
+
+        function refButton() {
+            return '<div class="button-group" style="margin-top: 15px;">' +
+                '<button class="secondary" onclick="goToStep(\'ref\')">' +
+                L('View TB class reference', 'Ver referencia de clases de TB') +
+                '</button></div>';
+        }
+
+        function contactNote() {
+            if (!tb.flags.contact) { return ''; }
+            return '<div class="info"><strong>' + L('Recent contact with infectious TB:', 'Contacto reciente con tuberculosis infecciosa:') + '</strong> ' +
+                L('Coordinate with the health department’s contact investigation (CDC contact-evaluation class B3). This does not change the classification above.',
+                  'Coordine con la investigación de contactos del departamento de salud (clase B3 de evaluación de contactos de los CDC). Esto no cambia la clasificación anterior.') +
+                '</div>';
+        }
+
+        function indeterminateNote() {
+            if (tb.igra !== 'indet') { return ''; }
+            return '<div class="info"><strong>' + L('Indeterminate / borderline IGRA:', 'IGRA indeterminado / limítrofe:') + '</strong> ' +
+                L('Record as indeterminate. No repeat test, chest x-ray or B2 classification is required by the Technical Instructions; advise the applicant to repeat the test for their own health.',
+                  'Regístrelo como indeterminado. Las Instrucciones Técnicas no exigen repetir la prueba, radiografía de tórax ni clasificación B2; aconseje al solicitante repetir la prueba por su propia salud.') +
+                '</div>';
+        }
+
+        function under2Note() {
+            if (!tb.under2) { return ''; }
+            return '<div class="info"><strong>' + L('Under 2 years:', 'Menor de 2 años:') + '</strong> ' +
+                L('Testing was indicated (signs/symptoms, HIV infection or contact). A TST is acceptable at this age; record the test used, date and result.',
+                  'La prueba estaba indicada (signos/síntomas, infección por VIH o contacto). A esta edad se acepta la TST; registre la prueba utilizada, la fecha y el resultado.') +
+                '</div>';
+        }
+
+        function hdNote() {
+            if (!tb.viaHD) { return ''; }
+            return '<p style="margin-top: 10px;">' + L(
+                'This classification is based on the health department’s evaluation. Keep a copy of the health department report with the applicant’s record.',
+                'Esta clasificación se basa en la evaluación del departamento de salud. Conserve una copia del informe del departamento de salud en el expediente del solicitante.'
+            ) + '</p>';
+        }
+
+        function igraDocItem() {
+            if (tb.flags.priorPositive && tb.igra === 'pos') {
+                return ['Record the documented prior positive IGRA/TST (test type, date, result) and attach the written lab copy; the IGRA was not repeated.',
+                        'Registre la prueba IGRA/TST positiva previa documentada (tipo de prueba, fecha, resultado) y adjunte la copia escrita del laboratorio; el IGRA no se repitió.'];
+            }
+            var res = tb.igra === 'pos' ? 'positive' : (tb.igra === 'indet' ? 'indeterminate' : 'negative');
+            var resEs = tb.igra === 'pos' ? 'positivo' : (tb.igra === 'indet' ? 'indeterminado' : 'negativo');
+            return ['Record the IGRA type (QuantiFERON-TB Gold Plus or T-SPOT.TB' + (tb.under2 ? ', or TST' : '') + '), date and result (' + res + ').',
+                    'Registre el tipo de IGRA (QuantiFERON-TB Gold Plus o T-SPOT.TB' + (tb.under2 ? ', o TST' : '') + '), la fecha y el resultado (' + resEs + ').'];
+        }
+
+        function cxrDocItem() {
+            var desc = { normal: ['normal', 'normal'], other: ['abnormal, not suggestive of TB', 'anormal, no sugestiva de tuberculosis'], suggestive: ['abnormal, suggestive of TB disease', 'anormal, sugestiva de enfermedad de tuberculosis'] }[tb.cxr] || ['', ''];
+            return ['Record the chest x-ray date, views and result (' + desc[0] + ').',
+                    'Registre la fecha, las proyecciones y el resultado de la radiografía de tórax (' + desc[1] + ').'];
+        }
+
+        function ltbiTreatmentTable() {
+            return '<table class="treatment-table">' +
+                '<thead><tr><th>' + L('LTBI regimen', 'Régimen de ITBL') + '</th><th>' + L('Drugs and schedule', 'Fármacos y esquema') + '</th><th>' + L('Duration', 'Duración') + '</th></tr></thead>' +
+                '<tbody>' +
+                '<tr><td><strong>3HP</strong></td><td>' + L('Isoniazid + rifapentine, once weekly (12 doses)', 'Isoniazida + rifapentina, una vez por semana (12 dosis)') + '</td><td>' + L('3 months (12 weeks)', '3 meses (12 semanas)') + '</td></tr>' +
+                '<tr><td><strong>4R</strong></td><td>' + L('Rifampin, daily', 'Rifampicina, diaria') + '</td><td>' + L('4 months', '4 meses') + '</td></tr>' +
+                '<tr><td><strong>3HR</strong></td><td>' + L('Isoniazid + rifampin, daily', 'Isoniazida + rifampicina, diaria') + '</td><td>' + L('3 months', '3 meses') + '</td></tr>' +
+                '<tr><td><strong>6H / 9H</strong></td><td>' + L('Isoniazid, daily', 'Isoniazida, diaria') + '</td><td>' + L('6–9 months', '6–9 meses') + '</td></tr>' +
+                '</tbody></table>' +
+                '<p class="source">' + L(
+                    'Rifamycin-based short regimens (3HP, 4R, 3HR) are preferred. Check drug interactions, liver disease and pregnancy before starting. The civil surgeon may treat or refer to the health department; treatment is NOT required to complete Form I-693.',
+                    'Se prefieren los regímenes cortos con rifamicinas (3HP, 4R, 3HR). Revise interacciones medicamentosas, enfermedad hepática y embarazo antes de iniciar. El cirujano civil puede tratar o referir al departamento de salud; el tratamiento NO es requerido para completar el Formulario I-693.'
+                ) + '</p>';
+        }
+
+        function tbDiseaseTable() {
+            return '<table class="treatment-table">' +
+                '<thead><tr><th>' + L('Phase', 'Fase') + '</th><th>' + L('Standard regimen (drug-susceptible TB) — managed by the health department', 'Régimen estándar (TB sensible a fármacos) — manejado por el departamento de salud') + '</th><th>' + L('Duration', 'Duración') + '</th></tr></thead>' +
+                '<tbody>' +
+                '<tr><td>' + L('Intensive', 'Intensiva') + '</td><td>' + L('Rifampin + isoniazid + pyrazinamide + ethambutol (RIPE), daily', 'Rifampicina + isoniazida + pirazinamida + etambutol (RIPE), diaria') + '</td><td>' + L('2 months', '2 meses') + '</td></tr>' +
+                '<tr><td>' + L('Continuation', 'Continuación') + '</td><td>' + L('Rifampin + isoniazid, daily', 'Rifampicina + isoniazida, diaria') + '</td><td>' + L('4 months (longer when the health department indicates)', '4 meses (más tiempo cuando lo indique el departamento de salud)') + '</td></tr>' +
+                '<tr><td>' + L('Administration', 'Administración') + '</td><td>' + L('Directly observed therapy (DOT) through the health department; regimen adjusted to drug-susceptibility results per CDC/ATS/IDSA guidance', 'Terapia directamente observada (DOT) a través del departamento de salud; régimen ajustado a los resultados de sensibilidad según las guías CDC/ATS/IDSA') + '</td><td>' + L('Until documented completion', 'Hasta la finalización documentada') + '</td></tr>' +
+                '</tbody></table>';
+        }
+
+        // =====================================================================
+        // Results
+        // =====================================================================
+        var RESULTS = {};
+
+        RESULTS['TB-NOTEST'] = function () {
+            return tbBanner('NONE', {
+                subEn: 'Under 2 years with no indication — no TB testing required',
+                subEs: 'Menor de 2 años sin indicación — no se requieren pruebas de TB'
+            }) +
+            resultBox('No TB testing required', 'No se requieren pruebas de TB', badge('no-class', 'NONE'),
+                'The applicant is under 2 years of age and has no signs or symptoms of TB disease, no known HIV infection and no known contact with a person with infectious TB. The Technical Instructions do not require an IGRA, TST or chest x-ray.',
+                'El solicitante es menor de 2 años y no tiene signos ni síntomas de enfermedad de tuberculosis, no tiene infección por VIH conocida ni contacto conocido con una persona con tuberculosis infecciosa. Las Instrucciones Técnicas no exigen IGRA, TST ni radiografía de tórax.') +
+            tbActionsBox([
+                ['Document that TB testing was not indicated (age under 2 years; no signs/symptoms, HIV infection or contact).',
+                 'Documente que la prueba de TB no estaba indicada (edad menor de 2 años; sin signos/síntomas, infección por VIH ni contacto).'],
+                ['Re-evaluate if symptoms, HIV infection or a TB contact become known before Form I-693 is signed.',
+                 'Reevalúe si se conocen síntomas, infección por VIH o un contacto de TB antes de firmar el Formulario I-693.']
+            ]) +
+            formBox([
+                ['Mark "No Class A or Class B TB".', 'Marque "No Class A or Class B TB" (Sin Clase A ni Clase B de TB).'],
+                ['Record that no IGRA/TST or chest x-ray was required because the applicant is under 2 years of age with no indication.',
+                 'Registre que no se requirió IGRA/TST ni radiografía de tórax porque el solicitante es menor de 2 años sin indicación.']
+            ]) +
+            sourceLine() + refButton();
+        };
+
+        RESULTS['TB-NEG'] = function () {
+            var indet = tb.igra === 'indet';
+            return tbBanner('NONE', {
+                subEn: indet ? 'IGRA indeterminate — no further TB evaluation required for Form I-693' : 'IGRA negative — no further TB evaluation required for Form I-693',
+                subEs: indet ? 'IGRA indeterminado — no se requiere más evaluación de TB para el Formulario I-693' : 'IGRA negativo — no se requiere más evaluación de TB para el Formulario I-693'
+            }) +
+            resultBox(indet ? 'IGRA indeterminate — no TB classification' : 'IGRA negative — no TB classification',
+                      indet ? 'IGRA indeterminado — sin clasificación de TB' : 'IGRA negativo — sin clasificación de TB',
+                      badge('no-class', 'NONE'),
+                (indet ? 'The IGRA is indeterminate (or borderline)' : 'The IGRA is negative') + ' and there is no indication for a chest x-ray (no signs or symptoms of TB disease, no known HIV infection, no history of TB disease or LTBI treatment). No chest x-ray and no TB classification are required for Form I-693.',
+                (indet ? 'El IGRA es indeterminado (o limítrofe)' : 'El IGRA es negativo') + ' y no hay indicación de radiografía de tórax (sin signos ni síntomas de enfermedad de tuberculosis, sin infección por VIH conocida, sin antecedente de enfermedad de tuberculosis ni de tratamiento de ITBL). No se requiere radiografía de tórax ni clasificación de TB para el Formulario I-693.') +
+            indeterminateNote() + under2Note() + contactNote() +
+            tbActionsBox([
+                ['Record the IGRA type, date and result on Form I-693 (required even for negative and indeterminate results).',
+                 'Registre el tipo de IGRA, la fecha y el resultado en el Formulario I-693 (obligatorio incluso para resultados negativos e indeterminados).'],
+                indet ? ['Advise the applicant to repeat the test for their own health (not required for Form I-693).',
+                         'Aconseje al solicitante repetir la prueba por su propia salud (no requerido para el Formulario I-693).']
+                      : ['No chest x-ray is required. Complete the TB section of Form I-693.',
+                         'No se requiere radiografía de tórax. Complete la sección de TB del Formulario I-693.'],
+                tb.flags.contact ? ['Coordinate with the health department’s contact investigation.',
+                                    'Coordine con la investigación de contactos del departamento de salud.']
+                                 : ['Re-evaluate if signs or symptoms of TB develop before Form I-693 is signed.',
+                                    'Reevalúe si aparecen signos o síntomas de tuberculosis antes de firmar el Formulario I-693.']
+            ]) +
+            formBox([
+                ['Mark "No Class A or Class B TB".', 'Marque "No Class A or Class B TB" (Sin Clase A ni Clase B de TB).'],
+                igraDocItem()
+            ]) +
+            sourceLine() + refButton();
+        };
+
+        RESULTS['TB-NEG-CXR'] = function () {
+            var f = tb.flags;
+            var why = [];
+            if (f.symptoms) { why.push(['signs or symptoms of TB disease', 'signos o síntomas de enfermedad de tuberculosis']); }
+            if (f.hiv) { why.push(['known HIV infection', 'infección por VIH conocida']); }
+            if (f.priorTB) { why.push(['history of TB disease', 'antecedente de enfermedad de tuberculosis']); }
+            if (f.priorLTBI) { why.push(['history of LTBI treatment', 'antecedente de tratamiento de ITBL']); }
+            if (tb.under2 && f.contact) { why.push(['contact with infectious TB (under 2 years)', 'contacto con tuberculosis infecciosa (menor de 2 años)']); }
+            var whyEn = why.map(function (w) { return w[0]; }).join(', ');
+            var whyEs = why.map(function (w) { return w[1]; }).join(', ');
+            var indet = tb.igra === 'indet';
+            return tbBanner('NONE', {
+                subEn: (indet ? 'IGRA indeterminate' : 'IGRA negative') + ' and normal chest x-ray',
+                subEs: (indet ? 'IGRA indeterminado' : 'IGRA negativo') + ' y radiografía de tórax normal'
+            }) +
+            resultBox('IGRA negative, chest x-ray normal — no TB classification', 'IGRA negativo, radiografía de tórax normal — sin clasificación de TB', badge('no-class', 'NONE'),
+                'The IGRA is ' + (indet ? 'indeterminate' : 'negative') + ' and the chest x-ray, required because of ' + whyEn + ', is normal. There is no evidence of TB disease or latent TB infection. No TB classification is required.',
+                'El IGRA es ' + (indet ? 'indeterminado' : 'negativo') + ' y la radiografía de tórax, requerida por ' + whyEs + ', es normal. No hay evidencia de enfermedad de tuberculosis ni de infección tuberculosa latente. No se requiere clasificación de TB.') +
+            indeterminateNote() + under2Note() + contactNote() +
+            (f.hiv ? '<div class="info"><strong>' + L('Known HIV infection:', 'Infección por VIH conocida:') + '</strong> ' +
+                L('An IGRA can be falsely negative with advanced immunosuppression. For the applicant’s own health, consider further TB evaluation through their HIV care provider; this is not required for Form I-693.',
+                  'Un IGRA puede ser falsamente negativo con inmunosupresión avanzada. Por la salud del solicitante, considere una evaluación adicional de TB a través de su médico de VIH; esto no es requerido para el Formulario I-693.') + '</div>' : '') +
+            tbActionsBox([
+                ['Record the IGRA (type, date, result) and the chest x-ray (date, views, result) on Form I-693.',
+                 'Registre el IGRA (tipo, fecha, resultado) y la radiografía de tórax (fecha, proyecciones, resultado) en el Formulario I-693.'],
+                f.priorTB ? ['Document the prior TB disease treatment (regimen, dates, completion) in the applicant’s record.',
+                             'Documente el tratamiento previo de la enfermedad de tuberculosis (régimen, fechas, finalización) en el expediente del solicitante.']
+                          : (f.priorLTBI ? ['Document the prior LTBI treatment (regimen, dates, completion).',
+                                            'Documente el tratamiento previo de ITBL (régimen, fechas, finalización).']
+                                         : ['Complete the TB section of Form I-693; no further TB evaluation is required.',
+                                            'Complete la sección de TB del Formulario I-693; no se requiere más evaluación de TB.'])
+            ]) +
+            formBox([
+                ['Mark "No Class A or Class B TB".', 'Marque "No Class A or Class B TB" (Sin Clase A ni Clase B de TB).'],
+                igraDocItem(),
+                cxrDocItem()
+            ]) +
+            sourceLine() + refButton();
+        };
+
+        RESULTS['TB-NEG-REFER'] = function () {
+            return tbBanner('NONE', {
+                subEn: 'Health department found no TB disease or infection',
+                subEs: 'El departamento de salud no encontró enfermedad ni infección tuberculosa'
+            }) +
+            resultBox('Health department evaluation: no TB disease or infection', 'Evaluación del departamento de salud: sin enfermedad ni infección tuberculosa', badge('no-class', 'NONE'),
+                'The health department evaluated the applicant (sputum smears, cultures, NAAT and clinical assessment) and found no TB disease and no latent TB infection. No TB classification is required and the applicant can be medically cleared for TB.',
+                'El departamento de salud evaluó al solicitante (baciloscopias, cultivos, NAAT y evaluación clínica) y no encontró enfermedad de tuberculosis ni infección tuberculosa latente. No se requiere clasificación de TB y el solicitante puede ser autorizado médicamente para TB.',
+                hdNote()) +
+            contactNote() +
+            tbActionsBox([
+                ['Obtain and keep the written health department report (sputum results, culture dates, final diagnosis).',
+                 'Obtenga y conserve el informe escrito del departamento de salud (resultados de esputo, fechas de cultivo, diagnóstico final).'],
+                ['Document the health department findings on Form I-693 before signing.',
+                 'Documente los hallazgos del departamento de salud en el Formulario I-693 antes de firmar.'],
+                ['If the applicant had an abnormal chest x-ray, record the final interpretation given by the health department.',
+                 'Si el solicitante tuvo una radiografía de tórax anormal, registre la interpretación final dada por el departamento de salud.']
+            ]) +
+            formBox([
+                ['Mark "No Class A or Class B TB".', 'Marque "No Class A or Class B TB" (Sin Clase A ni Clase B de TB).'],
+                igraDocItem(),
+                cxrDocItem(),
+                ['Record the health department evaluation (dates, sputum smear/culture/NAAT results, conclusion).',
+                 'Registre la evaluación del departamento de salud (fechas, resultados de baciloscopia/cultivo/NAAT, conclusión).']
+            ]) +
+            sourceLine() + refButton();
+        };
+
+        RESULTS['TB-NOCLASS-LTBI-TREATED'] = function () {
+            return tbBanner('NONE', {
+                subEn: 'Positive IGRA with documented completed LTBI treatment, normal chest x-ray',
+                subEs: 'IGRA positivo con tratamiento de ITBL completado documentado, radiografía de tórax normal'
+            }) +
+            resultBox('Previously treated latent TB infection — no TB classification', 'Infección tuberculosa latente previamente tratada — sin clasificación de TB', badge('no-class', 'NONE'),
+                'The IGRA is positive (expected after prior infection), the applicant has documented completed LTBI treatment, a normal chest x-ray, no signs or symptoms of TB disease and no known HIV infection. No Class A or Class B TB applies; no further LTBI treatment is needed.',
+                'El IGRA es positivo (esperado tras una infección previa), el solicitante tiene tratamiento de ITBL completado documentado, radiografía de tórax normal, sin signos ni síntomas de enfermedad de tuberculosis y sin infección por VIH conocida. No aplica Clase A ni Clase B de TB; no se necesita más tratamiento de ITBL.') +
+            contactNote() +
+            tbActionsBox([
+                ['Verify the written documentation of the prior LTBI treatment (regimen, start and completion dates). Without documentation, classify as Class B2 instead.',
+                 'Verifique la documentación escrita del tratamiento previo de ITBL (régimen, fechas de inicio y finalización). Sin documentación, clasifique como Clase B2.'],
+                ['Record the positive IGRA and the normal chest x-ray on Form I-693.',
+                 'Registre el IGRA positivo y la radiografía de tórax normal en el Formulario I-693.'],
+                ['Counsel the applicant to seek care if TB symptoms develop.',
+                 'Aconseje al solicitante buscar atención si aparecen síntomas de tuberculosis.']
+            ]) +
+            formBox([
+                ['Mark "No Class A or Class B TB".', 'Marque "No Class A or Class B TB" (Sin Clase A ni Clase B de TB).'],
+                igraDocItem(),
+                cxrDocItem(),
+                ['Record the prior LTBI treatment: regimen, dates and completion, with the source of the documentation.',
+                 'Registre el tratamiento previo de ITBL: régimen, fechas y finalización, con la fuente de la documentación.']
+            ]) +
+            sourceLine() + refButton();
+        };
+
+        function b2Content(otherFinding) {
+            var meaningEn = (tb.viaHD
+                ? 'The health department completed its evaluation and found latent TB infection only (TB disease excluded). '
+                : 'The IGRA is positive, the applicant has no signs or symptoms of TB disease, the chest x-ray ' + (otherFinding ? 'shows an abnormality that is not suggestive of TB' : 'is normal') + ', and there is no known HIV infection. ') +
+                'The applicant is medically cleared for USCIS purposes and is admissible. LTBI treatment is strongly recommended but is NOT required to complete Form I-693.';
+            var meaningEs = (tb.viaHD
+                ? 'El departamento de salud completó su evaluación y encontró solo infección tuberculosa latente (enfermedad de tuberculosis descartada). '
+                : 'El IGRA es positivo, el solicitante no tiene signos ni síntomas de enfermedad de tuberculosis, la radiografía de tórax ' + (otherFinding ? 'muestra una anomalía que no es sugestiva de tuberculosis' : 'es normal') + ' y no hay infección por VIH conocida. ') +
+                'El solicitante está autorizado médicamente para fines de USCIS y es admisible. El tratamiento de la ITBL es muy recomendado pero NO es requerido para completar el Formulario I-693.';
+
+            var extra = hdNote();
+            if (otherFinding) {
+                extra += '<div class="warning"><strong>' + L('Chest x-ray abnormality not suggestive of TB:', 'Anomalía en la radiografía de tórax no sugestiva de tuberculosis:') + '</strong> ' +
+                    L('Have the TB program / health department confirm that the film is not suggestive of TB before signing Form I-693. Also document the other chest condition and refer for routine medical follow-up.',
+                      'Pida al programa de TB / departamento de salud que confirme que la radiografía no es sugestiva de tuberculosis antes de firmar el Formulario I-693. Documente también la otra afección torácica y refiera para seguimiento médico de rutina.') +
+                    '</div>';
+            }
+
+            var actions = [
+                ['Report to the health department of jurisdiction.', 'Notifique al departamento de salud de la jurisdicción.'],
+                ['Enter "Class B2 TB, Latent TB Infection" in eMedical within 5 business days of signing Form I-693.',
+                 'Ingrese "Class B2 TB, Latent TB Infection" en eMedical dentro de los 5 días hábiles de firmar el Formulario I-693.'],
+                ['Offer LTBI treatment (civil surgeon may treat) or refer to the health department — recommended, not required to complete Form I-693.',
+                 'Ofrezca tratamiento de ITBL (el cirujano civil puede tratar) o refiera al departamento de salud — recomendado, no requerido para completar el Formulario I-693.'],
+                ['Document the IGRA and the chest x-ray; counsel the applicant about TB symptoms.',
+                 'Documente el IGRA y la radiografía de tórax; aconseje al solicitante sobre los síntomas de tuberculosis.']
+            ];
+            if (otherFinding) {
+                actions.splice(0, 0, ['Obtain TB program / health department confirmation that the x-ray abnormality is not suggestive of TB before signing.',
+                                      'Obtenga la confirmación del programa de TB / departamento de salud de que la anomalía radiográfica no es sugestiva de tuberculosis antes de firmar.']);
+            }
+            if (tb.flags.pregnant) {
+                actions.push(['Pregnant: LTBI treatment is usually deferred until 2–3 months after delivery unless there is high risk (e.g. recent contact or HIV); coordinate with the obstetric provider.',
+                              'Embarazada: el tratamiento de ITBL normalmente se difiere hasta 2–3 meses después del parto salvo alto riesgo (p. ej. contacto reciente o VIH); coordine con el obstetra.']);
+            }
+
+            var form = [
+                ['Mark "Class B2 TB, Latent TB Infection".', 'Marque "Class B2 TB, Latent TB Infection" (Clase B2 TB, infección tuberculosa latente).'],
+                igraDocItem(),
+                cxrDocItem()
+            ];
+            if (otherFinding) {
+                form.push(['Describe the non-TB chest finding and the TB program’s confirmation.',
+                           'Describa el hallazgo torácico no tuberculoso y la confirmación del programa de TB.']);
+            }
+            if (tb.viaHD) {
+                form.push(['Record the health department evaluation and its conclusion (LTBI only).',
+                           'Registre la evaluación del departamento de salud y su conclusión (solo ITBL).']);
+            }
+            form.push(['Record whether LTBI treatment was started, offered or referred (regimen and date if started).',
+                       'Registre si el tratamiento de ITBL se inició, se ofreció o se refirió (régimen y fecha si se inició).']);
+
+            return tbBanner('B', {
+                subEn: 'Class B2 TB, Latent TB Infection',
+                subEs: 'Clase B2 TB, Infección Tuberculosa Latente'
+            }) +
+            resultBox('Latent TB infection (LTBI)', 'Infección tuberculosa latente (ITBL)', badge('class-b-tb', 'B2'), meaningEn, meaningEs, extra) +
+            contactNote() +
+            ltbiTreatmentTable() +
+            tbActionsBox(actions) +
+            formBox(form) +
+            reportingBox('B') +
+            sourceLine() + refButton();
+        }
+
+        RESULTS['TB-B2'] = function () { return b2Content(false); };
+        RESULTS['TB-B2-OTHER'] = function () { return b2Content(true); };
+
+        RESULTS['TB-BOTHER'] = function () {
+            return tbBanner('B', {
+                subEn: 'Class B, Other Chest Condition (non-TB)',
+                subEs: 'Clase B, Otra Afección Torácica (no TB)'
+            }) +
+            resultBox('Abnormal chest x-ray not suggestive of TB', 'Radiografía de tórax anormal no sugestiva de tuberculosis', badge('class-b-tb', 'BOTHER'),
+                (tb.viaHD ? 'The health department determined that the chest finding is not tuberculosis. ' : 'The chest x-ray is abnormal but the finding is not suggestive of TB disease' + (tb.igra ? ', and the IGRA is ' + (tb.igra === 'indet' ? 'indeterminate' : 'negative') : '') + '. ') +
+                'The applicant is admissible. No TB treatment is indicated; the condition should be documented and referred for routine medical follow-up.',
+                (tb.viaHD ? 'El departamento de salud determinó que el hallazgo torácico no es tuberculosis. ' : 'La radiografía de tórax es anormal pero el hallazgo no es sugestivo de enfermedad de tuberculosis' + (tb.igra ? ', y el IGRA es ' + (tb.igra === 'indet' ? 'indeterminado' : 'negativo') : '') + '. ') +
+                'El solicitante es admisible. No está indicado tratamiento de tuberculosis; la afección debe documentarse y referirse para seguimiento médico de rutina.',
+                hdNote()) +
+            indeterminateNote() + contactNote() +
+            tbActionsBox([
+                ['Document the chest x-ray finding (description, date, views) on Form I-693.',
+                 'Documente el hallazgo de la radiografía de tórax (descripción, fecha, proyecciones) en el Formulario I-693.'],
+                ['Refer the applicant for routine medical follow-up of the chest condition (primary care or specialist as appropriate).',
+                 'Refiera al solicitante para seguimiento médico de rutina de la afección torácica (atención primaria o especialista según corresponda).'],
+                ['No TB treatment and no health department TB referral are required for this classification.',
+                 'No se requiere tratamiento de tuberculosis ni referencia de TB al departamento de salud para esta clasificación.']
+            ]) +
+            formBox([
+                ['Mark "Class B, Other Chest Condition (non-TB)".', 'Marque "Class B, Other Chest Condition (non-TB)" (Clase B, otra afección torácica, no TB).'],
+                igraDocItem(),
+                cxrDocItem(),
+                ['Describe the chest finding and the follow-up arranged.', 'Describa el hallazgo torácico y el seguimiento organizado.']
+            ]) +
+            reportingBox('NONE') +
+            sourceLine() + refButton();
+        };
+
+        RESULTS['TB-B1'] = function () {
+            return tbBanner('B', {
+                subEn: 'Class B1 TB, Pulmonary',
+                subEs: 'Clase B1 TB, Pulmonar'
+            }) +
+            resultBox('TB disease excluded by the health department', 'Enfermedad de tuberculosis descartada por el departamento de salud', badge('class-b-tb', 'B1'),
+                'The chest x-ray (or history/exam) was suggestive of pulmonary TB, but the health department excluded TB disease: sputum smears and cultures are negative and no treatment is required. The applicant is admissible, with health-department follow-up.',
+                'La radiografía de tórax (o los antecedentes/examen) era sugestiva de tuberculosis pulmonar, pero el departamento de salud descartó la enfermedad: las baciloscopias y los cultivos de esputo son negativos y no se requiere tratamiento. El solicitante es admisible, con seguimiento del departamento de salud.',
+                hdNote()) +
+            contactNote() +
+            tbActionsBox([
+                ['Report to the health department of jurisdiction and enter "Class B1 TB, Pulmonary" in eMedical within 5 business days of signing Form I-693.',
+                 'Notifique al departamento de salud de la jurisdicción e ingrese "Class B1 TB, Pulmonary" en eMedical dentro de los 5 días hábiles de firmar el Formulario I-693.'],
+                ['Document the health department evaluation: sputum dates, smear/culture/NAAT results and the final conclusion.',
+                 'Documente la evaluación del departamento de salud: fechas de esputo, resultados de baciloscopia/cultivo/NAAT y la conclusión final.'],
+                ['Arrange the follow-up the health department recommends; counsel the applicant about TB symptoms.',
+                 'Organice el seguimiento que recomiende el departamento de salud; aconseje al solicitante sobre los síntomas de tuberculosis.']
+            ]) +
+            formBox([
+                ['Mark "Class B1 TB, Pulmonary".', 'Marque "Class B1 TB, Pulmonary" (Clase B1 TB, pulmonar).'],
+                igraDocItem(),
+                cxrDocItem(),
+                ['Record the health department evaluation and attach or reference its report.',
+                 'Registre la evaluación del departamento de salud y adjunte o haga referencia a su informe.']
+            ]) +
+            reportingBox('B') +
+            sourceLine() + refButton();
+        };
+
+        RESULTS['TB-B1-HIST'] = function () {
+            var other = tb.cxr === 'other';
+            return tbBanner('B', {
+                subEn: 'Class B1 TB, Pulmonary (history of treated TB disease)',
+                subEs: 'Clase B1 TB, Pulmonar (antecedente de enfermedad de tuberculosis tratada)'
+            }) +
+            resultBox('History of treated pulmonary TB disease', 'Antecedente de enfermedad de tuberculosis pulmonar tratada', badge('class-b-tb', 'B1'),
+                'The applicant has documented pulmonary TB disease treated and completed before this exam, a positive IGRA (expected), no signs or symptoms, and ' + (other ? 'a chest x-ray abnormality that is not suggestive of active TB' : 'a normal chest x-ray') + ' — no current evidence of active disease. The applicant is admissible, with health-department follow-up as needed.',
+                'El solicitante tiene enfermedad de tuberculosis pulmonar documentada, tratada y completada antes de este examen, un IGRA positivo (esperado), sin signos ni síntomas y ' + (other ? 'una anomalía en la radiografía de tórax que no es sugestiva de tuberculosis activa' : 'una radiografía de tórax normal') + ' — sin evidencia actual de enfermedad activa. El solicitante es admisible, con seguimiento del departamento de salud según sea necesario.',
+                other ? '<div class="warning"><strong>' + L('Chest x-ray abnormality:', 'Anomalía en la radiografía de tórax:') + '</strong> ' +
+                    L('Have the TB program / health department confirm that the film shows no evidence of active TB before signing Form I-693.',
+                      'Pida al programa de TB / departamento de salud que confirme que la radiografía no muestra evidencia de tuberculosis activa antes de firmar el Formulario I-693.') + '</div>' : '') +
+            contactNote() +
+            tbActionsBox([
+                ['Verify the written documentation of the prior TB treatment (regimen, start and completion dates). If undocumented, refer to the health department for evaluation before classifying.',
+                 'Verifique la documentación escrita del tratamiento previo de tuberculosis (régimen, fechas de inicio y finalización). Si no está documentado, refiera al departamento de salud para evaluación antes de clasificar.'],
+                ['Report to the health department of jurisdiction and enter "Class B1 TB, Pulmonary" in eMedical within 5 business days of signing Form I-693.',
+                 'Notifique al departamento de salud de la jurisdicción e ingrese "Class B1 TB, Pulmonary" en eMedical dentro de los 5 días hábiles de firmar el Formulario I-693.'],
+                ['Document the current chest x-ray and the positive IGRA; arrange health-department follow-up as needed.',
+                 'Documente la radiografía de tórax actual y el IGRA positivo; organice seguimiento con el departamento de salud según sea necesario.']
+            ]) +
+            formBox([
+                ['Mark "Class B1 TB, Pulmonary".', 'Marque "Class B1 TB, Pulmonary" (Clase B1 TB, pulmonar).'],
+                igraDocItem(),
+                cxrDocItem(),
+                ['Record the prior TB disease treatment: regimen, dates, completion and source of documentation.',
+                 'Registre el tratamiento previo de la enfermedad de tuberculosis: régimen, fechas, finalización y fuente de la documentación.']
+            ]) +
+            reportingBox('B') +
+            sourceLine() + refButton();
+        };
+
+        RESULTS['TB-B1X'] = function () {
+            return tbBanner('B', {
+                subEn: 'Class B1 TB, Extrapulmonary',
+                subEs: 'Clase B1 TB, Extrapulmonar'
+            }) +
+            resultBox('Extrapulmonary TB (active, non-infectious)', 'Tuberculosis extrapulmonar (activa, no infecciosa)', badge('class-b-tb', 'B1X'),
+                'The health department found extrapulmonary TB that is active but non-infectious, with no evidence of pulmonary TB. The applicant is admissible. Treatment is coordinated with the health department.',
+                'El departamento de salud encontró tuberculosis extrapulmonar activa pero no infecciosa, sin evidencia de tuberculosis pulmonar. El solicitante es admisible. El tratamiento se coordina con el departamento de salud.',
+                hdNote()) +
+            contactNote() +
+            tbActionsBox([
+                ['Report to the health department of jurisdiction and enter "Class B1 TB, Extrapulmonary" in eMedical within 5 business days of signing Form I-693.',
+                 'Notifique al departamento de salud de la jurisdicción e ingrese "Class B1 TB, Extrapulmonary" en eMedical dentro de los 5 días hábiles de firmar el Formulario I-693.'],
+                ['Confirm with the health department that treatment is arranged (CDC/ATS/IDSA regimen) and document the plan.',
+                 'Confirme con el departamento de salud que el tratamiento está organizado (régimen CDC/ATS/IDSA) y documente el plan.'],
+                ['Document the site of disease, the health department evaluation and the chest x-ray showing no pulmonary TB.',
+                 'Documente el sitio de la enfermedad, la evaluación del departamento de salud y la radiografía de tórax sin tuberculosis pulmonar.']
+            ]) +
+            formBox([
+                ['Mark "Class B1 TB, Extrapulmonary".', 'Marque "Class B1 TB, Extrapulmonary" (Clase B1 TB, extrapulmonar).'],
+                igraDocItem(),
+                cxrDocItem(),
+                ['Record the health department diagnosis (site, basis) and the treatment plan.',
+                 'Registre el diagnóstico del departamento de salud (sitio, fundamento) y el plan de tratamiento.']
+            ]) +
+            reportingBox('B') +
+            sourceLine() + refButton();
+        };
+
+        RESULTS['TB-B0'] = function () {
+            return tbBanner('B', {
+                subEn: 'Class B0 TB, Pulmonary — treatment completed',
+                subEs: 'Clase B0 TB, Pulmonar — tratamiento completado'
+            }) +
+            resultBox('TB disease treated and completed during this process', 'Enfermedad de tuberculosis tratada y completada durante este proceso', badge('class-b-tb', 'B0'),
+                'The applicant was diagnosed with TB disease during the adjustment-of-status process and has COMPLETED a CDC/ATS/IDSA-recommended regimen, documented by the health department. The applicant is now admissible and the Form I-693 classification changes from Class A to Class B0.',
+                'El solicitante fue diagnosticado con enfermedad de tuberculosis durante el proceso de ajuste de estatus y ha COMPLETADO un régimen recomendado por CDC/ATS/IDSA, documentado por el departamento de salud. El solicitante ahora es admisible y la clasificación del Formulario I-693 cambia de Clase A a Clase B0.',
+                hdNote()) +
+            contactNote() +
+            tbActionsBox([
+                ['Obtain the health department’s written documentation of treatment completion (regimen, start and completion dates, DOT).',
+                 'Obtenga la documentación escrita del departamento de salud sobre la finalización del tratamiento (régimen, fechas de inicio y finalización, DOT).'],
+                ['Update Form I-693 from "Class A TB" to "Class B0 TB, Pulmonary"; the health department completes the referral section.',
+                 'Actualice el Formulario I-693 de "Class A TB" a "Class B0 TB, Pulmonary"; el departamento de salud completa la sección de referencia.'],
+                ['Report to the health department of jurisdiction and enter "Class B0 TB, Pulmonary" in eMedical within 5 business days of signing Form I-693.',
+                 'Notifique al departamento de salud de la jurisdicción e ingrese "Class B0 TB, Pulmonary" en eMedical dentro de los 5 días hábiles de firmar el Formulario I-693.']
+            ]) +
+            formBox([
+                ['Mark "Class B0 TB, Pulmonary".', 'Marque "Class B0 TB, Pulmonary" (Clase B0 TB, pulmonar).'],
+                igraDocItem(),
+                cxrDocItem(),
+                ['Record the diagnosis, the regimen, start and completion dates, and the health department documentation.',
+                 'Registre el diagnóstico, el régimen, las fechas de inicio y finalización, y la documentación del departamento de salud.']
+            ]) +
+            reportingBox('B') +
+            sourceLine() + refButton();
+        };
+
+        RESULTS['TB-A'] = function () {
+            return tbBanner('A', {
+                subEn: 'TB disease — treatment not completed. The applicant cannot be medically cleared until a recommended treatment regimen is completed and documented.',
+                subEs: 'Enfermedad de tuberculosis — tratamiento no completado. El solicitante no puede ser autorizado médicamente hasta completar y documentar un régimen de tratamiento recomendado.'
+            }) +
+            resultBox('TB disease — treatment not completed', 'Enfermedad de tuberculosis — tratamiento no completado', badge('class-a', 'A'),
+                'The health department diagnosed TB disease (pulmonary or laryngeal; smear/culture-positive or clinically diagnosed) and treatment has not been completed. The applicant is INADMISSIBLE (Class A) and cannot be medically cleared until a CDC/ATS/IDSA-recommended regimen is completed, usually under health-department directly observed therapy (DOT). After documented completion the applicant is reclassified as Class B0.',
+                'El departamento de salud diagnosticó enfermedad de tuberculosis (pulmonar o laríngea; con baciloscopia/cultivo positivo o diagnosticada clínicamente) y el tratamiento no se ha completado. El solicitante es INADMISIBLE (Clase A) y no puede ser autorizado médicamente hasta completar un régimen recomendado por CDC/ATS/IDSA, generalmente bajo terapia directamente observada (DOT) del departamento de salud. Tras la finalización documentada, el solicitante se reclasifica como Clase B0.',
+                hdNote()) +
+            contactNote() +
+            tbDiseaseTable() +
+            tbActionsBox([
+                ['Do NOT medically clear the applicant or sign Form I-693 as cleared for TB.',
+                 'NO autorice médicamente al solicitante ni firme el Formulario I-693 como autorizado para TB.'],
+                ['Mark "Class A TB" on Form I-693; the health department completes the referral section.',
+                 'Marque "Class A TB" en el Formulario I-693; el departamento de salud completa la sección de referencia.'],
+                ['The applicant completes treatment under health-department supervision (DOT); follow isolation and infection-control instructions from the health department.',
+                 'El solicitante completa el tratamiento bajo supervisión del departamento de salud (DOT); siga las instrucciones de aislamiento y control de infecciones del departamento de salud.'],
+                ['When the health department documents completion, reclassify as "Class B0 TB, Pulmonary", update Form I-693 and enter it in eMedical within 5 business days.',
+                 'Cuando el departamento de salud documente la finalización, reclasifique como "Class B0 TB, Pulmonary", actualice el Formulario I-693 e ingréselo en eMedical dentro de 5 días hábiles.'],
+                ['Explain to the applicant that the immigration medical exam cannot be completed until treatment is finished.',
+                 'Explique al solicitante que el examen médico de inmigración no puede completarse hasta terminar el tratamiento.']
+            ]) +
+            formBox([
+                ['Mark "Class A TB" (inadmissible).', 'Marque "Class A TB" (inadmisible).'],
+                igraDocItem(),
+                cxrDocItem(),
+                ['Record the health department diagnosis (date, basis: smear/culture/NAAT or clinical) and the treatment start date.',
+                 'Registre el diagnóstico del departamento de salud (fecha, fundamento: baciloscopia/cultivo/NAAT o clínico) y la fecha de inicio del tratamiento.'],
+                ['Do not sign the civil surgeon certification until the applicant returns with documented treatment completion (then Class B0).',
+                 'No firme la certificación del cirujano civil hasta que el solicitante regrese con la finalización del tratamiento documentada (entonces Clase B0).']
+            ]) +
+            reportingBox('A') +
+            sourceLine() + refButton();
+        };
+
+        // =====================================================================
+        // Dynamic step content
+        // =====================================================================
+        function statusPillHtml(cls, en, es) {
+            return '<span class="status-pill ' + cls + '">' + L(en, es) + '</span>';
+        }
+
+        function renderStep3() {
+            document.getElementById('under2Note3').style.display = tb.under2 ? 'block' : 'none';
+            var pill = '';
+            if (tb.flags.symptoms) {
+                pill = statusPillHtml('hold', 'Signs/symptoms of TB — chest x-ray and health department referral will be required', 'Signos/síntomas de TB — se requerirá radiografía de tórax y referencia al departamento de salud');
+            }
+            document.getElementById('statusPill3').innerHTML = pill;
+        }
+
+        function cxrReasons() {
+            var f = tb.flags;
+            var r = [];
+            if (igraPositive()) {
+                r.push(f.priorPositive
+                    ? ['Documented prior positive IGRA/TST (IGRA not repeated; treated as positive)', 'IGRA/TST positivo previo documentado (IGRA no repetido; se considera positivo)']
+                    : ['Positive IGRA', 'IGRA positivo']);
+            }
+            if (f.symptoms) { r.push(['Signs or symptoms of TB disease', 'Signos o síntomas de enfermedad de tuberculosis']); }
+            if (f.hiv) { r.push(['Known HIV infection', 'Infección por VIH conocida']); }
+            if (f.priorTB) { r.push(['History of TB disease (treated before this exam)', 'Antecedente de enfermedad de tuberculosis (tratada antes de este examen)']); }
+            if (f.priorLTBI) { r.push(['History of LTBI treatment', 'Antecedente de tratamiento de ITBL']); }
+            if (tb.under2 && f.contact) { r.push(['Child under 2 years with known contact with infectious TB', 'Niño menor de 2 años con contacto conocido con tuberculosis infecciosa']); }
+            return r;
+        }
+
+        function renderStep4() {
+            var reasons = cxrReasons();
+            var html = '<div class="info"><strong>' + L('Chest x-ray is required because of:', 'La radiografía de tórax es requerida por:') + '</strong>' +
+                '<ul class="tb-reasons">' + reasons.map(function (r) { return '<li>' + L(r[0], r[1]) + '</li>'; }).join('') + '</ul>' +
+                '<p><strong>' + L('Views by age:', 'Proyecciones según la edad:') + '</strong> ' +
+                L('under 10 years — AP or PA view PLUS a lateral view; 10 years and older — PA view.',
+                  'menores de 10 años — proyección AP o PA MÁS una proyección lateral; 10 años o más — proyección PA.') + '</p>' +
+                '<p><strong>' + L('Who obtains it:', 'Quién la obtiene:') + '</strong> ' +
+                L('The civil surgeon must obtain the chest x-ray (and the IGRA). Do NOT refer the applicant to the health department just for the x-ray or the test.',
+                  'El cirujano civil debe obtener la radiografía de tórax (y el IGRA). NO refiera al solicitante al departamento de salud solo para la radiografía o la prueba.') + '</p>' +
+                '</div>';
+            if (tb.flags.pregnant) {
+                html += '<div class="pregnancy-note"><strong>' + L('Pregnant applicant:', 'Solicitante embarazada:') + '</strong> ' +
+                    L('The chest x-ray is still required. Use abdominal and pelvic lead shielding. The applicant may choose to defer the x-ray until after delivery, but Form I-693 cannot be completed or submitted until the x-ray has been performed, interpreted and any required follow-up completed.',
+                      'La radiografía de tórax sigue siendo requerida. Use protección con delantal de plomo abdominal y pélvica. La solicitante puede optar por diferir la radiografía hasta después del parto, pero el Formulario I-693 no puede completarse ni presentarse hasta que la radiografía se haya realizado, interpretado y se haya completado cualquier seguimiento requerido.') +
+                    '</div>';
+            }
+            document.getElementById('cxrInfo').innerHTML = html;
+
+            var pill = '';
+            if (tb.flags.symptoms) {
+                pill = statusPillHtml('hold', 'Signs/symptoms of TB — health department referral required after the x-ray', 'Signos/síntomas de TB — referencia al departamento de salud requerida después de la radiografía');
+            } else if (igraPositive()) {
+                pill = statusPillHtml('hold', 'Positive IGRA — classification pending chest x-ray', 'IGRA positivo — clasificación pendiente de la radiografía de tórax');
+            }
+            document.getElementById('statusPill4').innerHTML = pill;
+        }
+
+        function renderStep5() {
+            var f = tb.flags;
+            var reasons = [];
+            if (f.symptoms) { reasons.push(['Signs or symptoms of TB disease — referral is required regardless of the IGRA or chest x-ray result', 'Signos o síntomas de enfermedad de tuberculosis — la referencia es obligatoria independientemente del resultado del IGRA o de la radiografía de tórax']); }
+            if (tb.cxr === 'suggestive') { reasons.push(['Chest x-ray suggestive of TB disease', 'Radiografía de tórax sugestiva de enfermedad de tuberculosis']); }
+            if (igraPositive() && f.hiv && tb.cxr !== 'suggestive') { reasons.push(['Known HIV infection with a positive IGRA — health department evaluation before classifying', 'Infección por VIH conocida con IGRA positivo — evaluación del departamento de salud antes de clasificar']); }
+            var html = '';
+            if (reasons.length) {
+                html = '<div class="info"><strong>' + L('Reason for referral:', 'Motivo de la referencia:') + '</strong>' +
+                    '<ul class="tb-reasons">' + reasons.map(function (r) { return '<li>' + L(r[0], r[1]) + '</li>'; }).join('') + '</ul></div>';
+            }
+            document.getElementById('referReason').innerHTML = html;
+            document.getElementById('statusPill5').innerHTML = statusPillHtml('hold', 'Classification pending health department evaluation', 'Clasificación pendiente de la evaluación del departamento de salud');
+        }
+
+        // =====================================================================
+        // TB class reference (rendered as a table on desktop and as cards on phones)
+        // =====================================================================
+        var REF_ROWS = [
+            { kind: 'a', chip: 'no', label: FORM_LABELS.A,
+              criteria:   { en: 'TB disease (pulmonary or laryngeal), smear/culture-positive or clinically diagnosed by the health department, that has NOT completed treatment.',
+                            es: 'Enfermedad de tuberculosis (pulmonar o laríngea), con baciloscopia/cultivo positivo o diagnosticada clínicamente por el departamento de salud, que NO ha completado el tratamiento.' },
+              admissible: { en: 'NO — inadmissible until treatment is completed.', es: 'NO — inadmisible hasta completar el tratamiento.' },
+              chipText:   { en: 'NO — inadmissible', es: 'NO — inadmisible' },
+              action:     { en: 'Do not medically clear. Treatment follows CDC/ATS/IDSA guidance, usually health-department DOT. After documented completion, reclassify as Class B0 and update Form I-693.',
+                            es: 'No autorice médicamente. El tratamiento sigue las guías CDC/ATS/IDSA, generalmente con terapia directamente observada del departamento de salud. Tras la finalización documentada, reclasifique como Clase B0 y actualice el Formulario I-693.' },
+              reporting:  { en: 'Report to the health department of jurisdiction immediately (reportable disease).', es: 'Notifique de inmediato al departamento de salud de la jurisdicción (enfermedad de notificación obligatoria).' } },
+            { kind: 'b', chip: 'yes', label: FORM_LABELS.B0,
+              criteria:   { en: 'Diagnosed with TB disease during the adjustment-of-status process and COMPLETED treatment (documented by the health department).',
+                            es: 'Diagnosticado con enfermedad de tuberculosis durante el proceso de ajuste de estatus y COMPLETÓ el tratamiento (documentado por el departamento de salud).' },
+              admissible: { en: 'Yes.', es: 'Sí.' }, chipText: { en: 'Yes', es: 'Sí' },
+              action:     { en: 'Update Form I-693 from Class A to Class B0; record the health-department treatment documentation.',
+                            es: 'Actualice el Formulario I-693 de Clase A a Clase B0; registre la documentación del tratamiento del departamento de salud.' },
+              reporting:  { en: 'Report to the health department; enter in eMedical within 5 business days of completing Form I-693.', es: 'Notifique al departamento de salud; ingrese en eMedical dentro de los 5 días hábiles de completar el Formulario I-693.' } },
+            { kind: 'b', chip: 'yes', label: FORM_LABELS.B1,
+              criteria:   { en: 'Chest x-ray (or history/exam) suggestive of pulmonary TB but TB disease excluded (negative sputum smears and cultures, no treatment required); OR history of pulmonary TB disease treated and completed before this exam with no evidence of active disease now.',
+                            es: 'Radiografía de tórax (o antecedentes/examen) sugestiva de tuberculosis pulmonar pero con enfermedad descartada (baciloscopias y cultivos de esputo negativos, sin tratamiento necesario); O antecedente de tuberculosis pulmonar tratada y completada antes de este examen sin evidencia de enfermedad activa ahora.' },
+              admissible: { en: 'Yes — health-department follow-up.', es: 'Sí — con seguimiento del departamento de salud.' }, chipText: { en: 'Yes', es: 'Sí' },
+              action:     { en: 'Document the health-department evaluation or the prior treatment (regimen, dates) and the current chest x-ray.',
+                            es: 'Documente la evaluación del departamento de salud o el tratamiento previo (régimen, fechas) y la radiografía de tórax actual.' },
+              reporting:  { en: 'Report to the health department; eMedical within 5 business days.', es: 'Notifique al departamento de salud; eMedical dentro de 5 días hábiles.' } },
+            { kind: 'b', chip: 'yes', label: FORM_LABELS.B1X,
+              criteria:   { en: 'Radiographic or other evidence of extrapulmonary TB, active but non-infectious, with no evidence of pulmonary TB.',
+                            es: 'Evidencia radiográfica u otra de tuberculosis extrapulmonar, activa pero no infecciosa, sin evidencia de tuberculosis pulmonar.' },
+              admissible: { en: 'Yes.', es: 'Sí.' }, chipText: { en: 'Yes', es: 'Sí' },
+              action:     { en: 'Treatment is managed with the health department; document the evaluation.', es: 'El tratamiento se maneja con el departamento de salud; documente la evaluación.' },
+              reporting:  { en: 'Report to the health department; eMedical within 5 business days.', es: 'Notifique al departamento de salud; eMedical dentro de 5 días hábiles.' } },
+            { kind: 'b', chip: 'yes', label: FORM_LABELS.B2,
+              criteria:   { en: 'Positive IGRA (or documented prior positive), no signs or symptoms, normal chest x-ray (or abnormality cleared by the TB program as not suggestive of TB), no known HIV infection.',
+                            es: 'IGRA positivo (o positivo previo documentado), sin signos ni síntomas, radiografía de tórax normal (o anomalía confirmada por el programa de TB como no sugestiva de tuberculosis), sin infección por VIH conocida.' },
+              admissible: { en: 'Yes — medically cleared.', es: 'Sí — autorizado médicamente.' }, chipText: { en: 'Yes', es: 'Sí' },
+              action:     { en: 'Offer or refer for LTBI treatment (strongly recommended, NOT required to complete Form I-693). Document IGRA and chest x-ray.',
+                            es: 'Ofrezca o refiera para tratamiento de ITBL (muy recomendado, NO requerido para completar el Formulario I-693). Documente el IGRA y la radiografía de tórax.' },
+              reporting:  { en: 'Report to the health department; eMedical within 5 business days.', es: 'Notifique al departamento de salud; eMedical dentro de 5 días hábiles.' } },
+            { kind: 'b', chip: 'yes', label: FORM_LABELS.BOTHER,
+              criteria:   { en: 'Abnormal chest x-ray NOT suggestive of TB.', es: 'Radiografía de tórax anormal NO sugestiva de tuberculosis.' },
+              admissible: { en: 'Yes.', es: 'Sí.' }, chipText: { en: 'Yes', es: 'Sí' },
+              action:     { en: 'Document the finding; refer for routine medical follow-up. No TB treatment.', es: 'Documente el hallazgo; refiera para seguimiento médico de rutina. Sin tratamiento de tuberculosis.' },
+              reporting:  { en: 'Not a TB classification — no TB report required.', es: 'No es una clasificación de tuberculosis — no requiere notificación de TB.' } },
+            { kind: 'none', chip: 'yes', label: FORM_LABELS.NONE,
+              criteria:   { en: 'Negative or indeterminate IGRA without other indications; negative IGRA with normal chest x-ray; documented completed LTBI treatment + positive IGRA + normal x-ray + no symptoms + no HIV; under 2 years with no indication; health department finds no TB disease or infection.',
+                            es: 'IGRA negativo o indeterminado sin otras indicaciones; IGRA negativo con radiografía de tórax normal; tratamiento de ITBL completado documentado + IGRA positivo + radiografía normal + sin síntomas + sin VIH; menor de 2 años sin indicación; el departamento de salud no encuentra enfermedad ni infección tuberculosa.' },
+              admissible: { en: 'Yes.', es: 'Sí.' }, chipText: { en: 'Yes', es: 'Sí' },
+              action:     { en: 'Record the IGRA type, date and result (and the chest x-ray when performed) on Form I-693.', es: 'Registre el tipo de IGRA, la fecha y el resultado (y la radiografía de tórax cuando se realice) en el Formulario I-693.' },
+              reporting:  { en: 'None required.', es: 'No se requiere.' } },
+            { kind: 'hold', chip: 'wait',
+              label:      { en: 'Class B3 contact evaluation (CDC contact scheme — coordinate with the health department)', es: 'Clase B3 evaluación de contacto (esquema de contactos de los CDC — coordine con el departamento de salud)' },
+              criteria:   { en: 'Recent contact with a person with infectious TB. Used in the CDC panel-physician scheme; it is not a civil-surgeon Form I-693 class.',
+                            es: 'Contacto reciente con una persona con tuberculosis infecciosa. Se usa en el esquema de médicos panel de los CDC; no es una clase del Formulario I-693 para cirujanos civiles.' },
+              admissible: { en: 'Does not change the class computed from the IGRA and chest x-ray.', es: 'No cambia la clase calculada a partir del IGRA y la radiografía de tórax.' },
+              chipText:   { en: 'Class unchanged', es: 'Clase sin cambio' },
+              action:     { en: 'Classify by IGRA/chest x-ray as usual; coordinate with the health department’s contact investigation.',
+                            es: 'Clasifique según el IGRA/radiografía de tórax como de costumbre; coordine con la investigación de contactos del departamento de salud.' },
+              reporting:  { en: 'Notify the health department of the contact.', es: 'Notifique el contacto al departamento de salud.' } }
+        ];
+
+        function renderReference() {
+            var tbody = document.getElementById('refTableBody');
+            var cards = document.getElementById('refCards');
+            if (!tbody || !cards) { return; }
+            tbody.innerHTML = REF_ROWS.map(function (r) {
+                var rowCls = r.kind === 'hold' ? 'row-b' : 'row-' + r.kind;
+                return '<tr class="' + rowCls + '">' +
+                    '<td class="class-cell">' + L(r.label.en, r.label.es) + '</td>' +
+                    '<td>' + L(r.criteria.en, r.criteria.es) + '</td>' +
+                    '<td>' + L(r.admissible.en, r.admissible.es) + '</td>' +
+                    '<td>' + L(r.action.en, r.action.es) + '</td>' +
+                    '<td>' + L(r.reporting.en, r.reporting.es) + '</td>' +
+                    '</tr>';
+            }).join('');
+            cards.innerHTML = REF_ROWS.map(function (r) {
+                return '<div class="ref-card ' + r.kind + '">' +
+                    '<div class="ref-card-title">' + L(r.label.en, r.label.es) + '</div>' +
+                    '<div class="ref-card-row"><strong>' + L('Admissible?', '¿Admisible?') + '</strong> <span class="chip ' + r.chip + '">' + L(r.chipText.en, r.chipText.es) + '</span> ' + L(r.admissible.en, r.admissible.es) + '</div>' +
+                    '<div class="ref-card-row"><strong>' + L('Criteria:', 'Criterios:') + '</strong> ' + L(r.criteria.en, r.criteria.es) + '</div>' +
+                    '<div class="ref-card-row"><strong>' + L('Civil surgeon action:', 'Acción del cirujano civil:') + '</strong> ' + L(r.action.en, r.action.es) + '</div>' +
+                    '<div class="ref-card-row"><strong>' + L('Reporting:', 'Notificación:') + '</strong> ' + L(r.reporting.en, r.reporting.es) + '</div>' +
+                    '</div>';
+            }).join('');
+        }
+
+        function renderHoldBanner() {
+            document.getElementById('holdBanner').innerHTML = tbBanner('HOLD', {
+                subEn: 'Health department evaluation in progress. Do not classify, issue TB clearance or sign Form I-693 until the applicant returns with the results.',
+                subEs: 'Evaluación del departamento de salud en curso. No clasifique, no emita autorización de TB ni firme el Formulario I-693 hasta que el solicitante regrese con los resultados.'
+            });
+        }
+
+        // =====================================================================
+        // Wire the TB module to the shared engine (app.js)
+        // =====================================================================
+        App.configure({
+            totalSteps: 5,
+            firstStep: 1,
+            onStep: function (stepId) {
+                if (stepId === 2) {
+                    document.getElementById('under2Note2').style.display = tb.under2 ? 'block' : 'none';
+                    syncChoiceButtons();
+                } else if (stepId === 3) {
+                    renderStep3();
+                } else if (stepId === 4) {
+                    renderStep4();
+                } else if (stepId === 5) {
+                    renderStep5();
+                }
+            },
+            onReset: function () {
+                tb = newState();
+                tb.noneSelected = false;
+                syncChoiceButtons();
+                document.getElementById('under2Note2').style.display = 'none';
+                document.getElementById('under2Note3').style.display = 'none';
+                document.getElementById('statusPill3').innerHTML = '';
+                document.getElementById('statusPill4').innerHTML = '';
+                document.getElementById('statusPill5').innerHTML = '';
+                document.getElementById('cxrInfo').innerHTML = '';
+                document.getElementById('referReason').innerHTML = '';
+                document.getElementById('resultsContent').innerHTML = '';
+            }
+        });
+        renderHoldBanner();
+        renderReference();
+    </script>
+</body>
+</html>
