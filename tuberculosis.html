@@ -38,6 +38,10 @@
         .pregnancy-note { background: #fdf2f8; border-left: 4px solid #db2777; padding: 12px; border-radius: 8px; margin: 12px 0; color: #831843; line-height: 1.5; }
         .pregnancy-note strong { color: #9d174d; }
         #flagChoices button.choice { line-height: 1.35; }
+        /* Keep list bullets on the first line of wrapped bilingual items */
+        .step li .lang-en, .step li .lang-es { display: inline !important; }
+        body.spanish .step li .lang-en { display: none !important; }
+        body:not(.spanish) .step li .lang-es { display: none !important; }
         /* Defensive: screen-reader-only live region created by app.js (announceResult) */
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
     </style>
