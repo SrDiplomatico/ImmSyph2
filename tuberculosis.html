@@ -45,6 +45,13 @@
         .button-group.stacked button > span:first-child { flex: 1 1 190px; }
         .button-group.stacked .class-tag { margin-left: auto; }
         .ref-note { font-size: 13px; color: #64748b; margin: 6px 0 10px; }
+        /* Collapsed LTBI regimen table on results (SPEC-v2 fix K) */
+        .treatment-details { margin: 12px 0; padding: 8px 14px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+        .treatment-details summary { font-weight: 700; color: #1e293b; cursor: pointer; padding: 4px 0; list-style: none; }
+        .treatment-details summary::-webkit-details-marker { display: none; }
+        .treatment-details summary::before { content: "▸ "; color: #2563eb; }
+        .treatment-details[open] summary::before { content: "▾ "; }
+        .treatment-details .treatment-table { margin-top: 8px; }
         /* Keep list bullets on the first line of wrapped bilingual items */
         .step li .lang-en, .step li .lang-es { display: inline !important; }
         body.spanish .step li .lang-en { display: none !important; }
@@ -128,7 +135,7 @@
                     </h2>
                     <p>
                         <span class="lang-en">Children under 2 years have no routine TB test. Does any of the following apply?</span>
-                        <span class="lang-es">Los niños menores de 2 años no tienen prueba de TB de rutina. ¿Aplica alguno de los siguientes?</span>
+                        <span class="lang-es">Los niños menores de 2 años no requieren una prueba de TB de rutina. ¿Se cumple alguno de los siguientes?</span>
                     </p>
                     <div class="info">
                         <strong>
@@ -157,11 +164,11 @@
                     <div class="button-group">
                         <button onclick="under2Indication(true)">
                             <span class="lang-en">Yes – at least one applies</span>
-                            <span class="lang-es">Sí – al menos uno aplica</span>
+                            <span class="lang-es">Sí – al menos una se cumple</span>
                         </button>
                         <button onclick="under2Indication(false)">
                             <span class="lang-en">No – none apply</span>
-                            <span class="lang-es">No – ninguno aplica</span>
+                            <span class="lang-es">No – ninguna se cumple</span>
                         </button>
                     </div>
                     <div class="nav-buttons">
@@ -267,7 +274,7 @@
                     <div class="choice-continue">
                         <button class="primary-wide" data-continue-for="riskChoices" onclick="continueFromHistory()">
                             <span class="lang-en">Continue — none apply</span>
-                            <span class="lang-es">Continuar — ninguna aplica</span>
+                            <span class="lang-es">Continuar — ninguna corresponde</span>
                         </button>
                     </div>
                     <div class="nav-buttons">
@@ -477,23 +484,23 @@
                     </p>
                     <div class="button-group stacked">
                         <button onclick="hdOutcome('TB-A')">
-                            <span><span class="lang-en">Active TB disease – not started or treatment not completed</span><span class="lang-es">Enfermedad de TB activa – no iniciada o tratamiento no completado</span></span>
+                            <span><span class="lang-en">Active TB disease: not started or treatment not completed</span><span class="lang-es">TB activa: tratamiento no iniciado o no completado</span></span>
                             <span class="class-tag a"><span class="lang-en">Class A</span><span class="lang-es">Clase A</span></span>
                         </button>
                         <button onclick="hdOutcome('TB-B0')">
-                            <span><span class="lang-en">Active TB disease – treatment completed during this process (health-department letter)</span><span class="lang-es">Enfermedad de TB activa – tratamiento completado durante este proceso (carta del departamento de salud)</span></span>
+                            <span><span class="lang-en">Active TB disease: treatment completed during this process (health-department letter)</span><span class="lang-es">TB activa: tratamiento completado durante este proceso (carta del departamento de salud)</span></span>
                             <span class="class-tag b"><span class="lang-en">Class B0</span><span class="lang-es">Clase B0</span></span>
                         </button>
                         <button onclick="hdOutcome('TB-B1')">
-                            <span><span class="lang-en">Sputum smears and cultures negative – TB disease not diagnosed</span><span class="lang-es">Baciloscopias y cultivos de esputo negativos – enfermedad de TB no diagnosticada</span></span>
+                            <span><span class="lang-en">Sputum smears and cultures negative: TB disease not diagnosed</span><span class="lang-es">Baciloscopias y cultivos de esputo negativos: enfermedad de TB no diagnosticada</span></span>
                             <span class="class-tag b"><span class="lang-en">Class B1 Pulmonary</span><span class="lang-es">Clase B1 pulmonar</span></span>
                         </button>
                         <button onclick="hdOutcome('TB-B1X')">
-                            <span><span class="lang-en">Extrapulmonary TB only – pulmonary TB excluded</span><span class="lang-es">Solo TB extrapulmonar – TB pulmonar descartada</span></span>
+                            <span><span class="lang-en">Extrapulmonary TB only: pulmonary TB excluded</span><span class="lang-es">Solo TB extrapulmonar: TB pulmonar descartada</span></span>
                             <span class="class-tag b"><span class="lang-en">Class B1 Extrapulmonary</span><span class="lang-es">Clase B1 extrapulmonar</span></span>
                         </button>
                         <button onclick="hdReRead()" id="reReadOption">
-                            <span><span class="lang-en">Health department re-read the x-ray as NOT suggestive of TB – no sputum evaluation needed</span><span class="lang-es">El departamento de salud reinterpretó la radiografía como NO sugestiva de TB – no se necesita evaluación de esputo</span></span>
+                            <span><span class="lang-en">Health department re-read the x-ray as NOT suggestive of TB: no sputum evaluation needed</span><span class="lang-es">El departamento de salud reinterpretó la radiografía como NO sugestiva de TB: no se necesita evaluación de esputo</span></span>
                             <span class="class-tag b"><span class="lang-en">Class B2 or B</span><span class="lang-es">Clase B2 o B</span></span>
                         </button>
                     </div>
@@ -561,7 +568,7 @@
                                     <th><span class="lang-en">Class</span><span class="lang-es">Clase</span></th>
                                     <th><span class="lang-en">In plain words</span><span class="lang-es">En palabras sencillas</span></th>
                                     <th><span class="lang-en">Admissible?</span><span class="lang-es">¿Admisible?</span></th>
-                                    <th><span class="lang-en">You do</span><span class="lang-es">Usted hace</span></th>
+                                    <th><span class="lang-en">Your action</span><span class="lang-es">Qué hacer</span></th>
                                     <th><span class="lang-en">Report to</span><span class="lang-es">Notificar a</span></th>
                                 </tr>
                             </thead>
@@ -600,9 +607,10 @@
                 under2: false,         // under 2 with an indication for testing
                 returning: false,      // entered via "Applicant returning from the health department"
                 igra: '',              // '' | 'pos' | 'neg' | 'indet' | 'pending'
-                cxr: '',               // '' | 'normal' | 'suggestive' | 'other' | 'pending' | 'reread'
+                cxr: '',               // '' | 'normal' | 'suggestive' | 'other' | 'pending' (never overwritten by the health department)
                 referralReason: '',    // '' | 'symptoms' | 'hiv' | 'cxr' | 'priorTB' | 'unknown'
-                hdOutcome: '',         // result id chosen at step 5.5
+                hdOutcome: '',         // result id chosen at step 5.5, or 'reread'
+                hdReRead: false,       // health department re-read the x-ray as NOT suggestive (step 5.5)
                 ltbiRegimen: '',       // regimen chosen at step 2.6
                 flags: {
                     symptoms: false,
@@ -627,7 +635,7 @@
             B2:     { form: 'Class B2 TB, Latent TB Infection',        badgeEn: 'Class B2', badgeEs: 'Clase B2', cls: 'class-b' },
             BOTHER: { form: 'Class B, Other Chest Condition (non-TB)', badgeEn: 'Class B',  badgeEs: 'Clase B',  cls: 'class-b' },
             NONE:   { form: 'No Class A or Class B TB',                badgeEn: 'No Class', badgeEs: 'Sin clase', cls: 'no-class' },
-            HOLD:   { form: 'TB — classification pending',             badgeEn: 'Pending',  badgeEs: 'Pendiente', cls: '' }
+            HOLD:   { form: '',                                        badgeEn: 'Pending',  badgeEs: 'Pendiente', cls: 'pending' }
         };
 
         // ---------------------------------------------------------------------
@@ -687,8 +695,15 @@
             var f = tb.flags;
             if (f.priorTB === 'pending') { goToStep(2.5); }
             else if (f.priorLTBI === 'pending') { goToStep(2.6); }
-            else if (f.priorIGRA) { tb.igra = ''; goToStep(4); }
+            else if (f.priorIGRA) { tb.igra = ''; clearDownstream(); goToStep(4); }
             else { goToStep(3); }
+        }
+
+        // Forget everything decided after the x-ray question (refer() sets referralReason again)
+        function clearDownstream() {
+            tb.referralReason = '';
+            tb.hdOutcome = '';
+            tb.hdReRead = false;
         }
 
         function setPriorTB(value) {
@@ -708,8 +723,7 @@
         function setIgra(value) {
             tb.igra = value;
             tb.cxr = '';
-            tb.referralReason = '';
-            tb.hdOutcome = '';
+            clearDownstream();
             if (value === 'pos') {
                 goToStep(4);
             } else if (value === 'pending') {
@@ -724,9 +738,12 @@
         // ---------------------------------------------------------------------
         function setCxr(value) {
             tb.cxr = value;
-            tb.hdOutcome = '';
+            clearDownstream();
             if (value === 'suggestive') {
-                refer('cxr');
+                // History reasons take precedence over the film: with symptoms, known HIV or
+                // recent/undocumented prior TB the sputum evaluation is required regardless of
+                // the x-ray, so the "re-read as not suggestive" exit must not be offered.
+                refer(historyReferralReason() || 'cxr');
             } else if (value === 'pending') {
                 finish('TB-HOLD-CXR');
             } else {
@@ -744,12 +761,16 @@
 
         function hdOutcome(resultId) {
             tb.hdOutcome = resultId;
+            tb.hdReRead = false;
             finish(resultId);
         }
 
         function hdReRead() {
+            // Not available when the referral was required by the history (symptoms, known HIV,
+            // recent/undocumented prior TB): sputum evaluation is required regardless of the film.
+            if (referralRequiredByHistory()) { return; }
             tb.hdOutcome = 'reread';
-            tb.cxr = 'reread';
+            tb.hdReRead = true;          // tb.cxr keeps the civil surgeon's own reading
             if (tb.referralReason === 'unknown') {
                 goToStep(5.6);
             } else {
@@ -758,7 +779,10 @@
         }
 
         function setIgraOnFile(value) {
+            // Step 5.6 is reached only through the health-department re-read (returning applicants)
             tb.igra = value;            // 'pos' | 'neg'
+            tb.hdOutcome = 'reread';
+            tb.hdReRead = true;
             finish(value === 'pos' ? 'TB-B2-OTHER' : 'TB-BOTHER');
         }
 
@@ -767,9 +791,17 @@
         // =====================================================================
         function igraPositive() { return tb.igra === 'pos' || !!tb.flags.priorIGRA; }
 
-        function referralRequiredByHistory() {
+        // Primary history reason for a required referral (symptoms > hiv > priorTB), or ''
+        function historyReferralReason() {
             var f = tb.flags;
-            return !!(f.symptoms || f.hiv || f.priorTB === 'recent' || f.priorTB === 'undocumented');
+            if (f.symptoms) { return 'symptoms'; }
+            if (f.hiv) { return 'hiv'; }
+            if (f.priorTB === 'recent' || f.priorTB === 'undocumented') { return 'priorTB'; }
+            return '';
+        }
+
+        function referralRequiredByHistory() {
+            return historyReferralReason() !== '';
         }
 
         // IGRA negative or indeterminate
@@ -787,12 +819,9 @@
         function evalCxr(cxr) {
             var f = tb.flags;
             tb.cxr = cxr;
-            if (f.symptoms) {
-                refer('symptoms');
-            } else if (f.hiv) {
-                refer('hiv');
-            } else if (f.priorTB === 'recent' || f.priorTB === 'undocumented') {
-                refer('priorTB');
+            var historyReason = historyReferralReason();
+            if (historyReason) {
+                refer(historyReason);   // symptoms > hiv > priorTB (recent / undocumented)
             } else if (igraPositive()) {
                 if (cxr === 'normal') {
                     if (f.priorLTBI === 'documented') { finish('TB-NOCLASS-LTBI-TREATED'); }
@@ -814,6 +843,9 @@
                 console.error('Unknown TB result: ' + resultId);
                 return;
             }
+            // Only one role="alert" per result page: drop the (hidden) step-5 HOLD banner; it is
+            // rendered again on entry if the user goes back to step 5.
+            document.getElementById('referralContent').innerHTML = '';
             showResults(builder());
             updateProgress(App.totalSteps);
         }
@@ -879,7 +911,8 @@
             }
             if (!tb.returning && (!tb.ageUnder2 || tb.under2)) {
                 var chosen = [];
-                Object.keys(FLAG_LABELS).forEach(function (k) { if (f[k]) { chosen.push(FLAG_LABELS[k]); } });
+                // priorIGRA is reported once, on the IGRA line below (not repeated here)
+                Object.keys(FLAG_LABELS).forEach(function (k) { if (f[k] && k !== 'priorIGRA') { chosen.push(FLAG_LABELS[k]); } });
                 if (f.priorTB) { chosen.push(PRIOR_TB_LABELS[f.priorTB] || PRIOR_TB_LABELS.pending); }
                 if (f.priorLTBI === 'documented') {
                     chosen.push({ en: 'Prior LTBI treatment, documented (' + tb.ltbiRegimen + ')', es: 'Tratamiento previo de ITBL, documentado (' + tb.ltbiRegimen + ')' });
@@ -902,14 +935,15 @@
                 var lbl = tb.under2 ? 'TST or IGRA: ' : 'IGRA: ';
                 var lblEs = tb.under2 ? 'TST o IGRA: ' : 'IGRA: ';
                 items.push({ en: lbl + ig.en, es: lblEs + ig.es });
+            } else if (tb.returning) {
+                items.push({ en: 'IGRA: see civil-surgeon record', es: 'IGRA: ver el expediente del cirujano civil' });
             }
             if (tb.cxr) {
                 var cx = {
                     normal: { en: 'normal', es: 'normal' },
                     suggestive: { en: 'abnormal, suggestive of active or inactive (old) TB', es: 'anormal, sugestiva de TB activa o inactiva (antigua)' },
                     other: { en: 'abnormal, not suggestive of TB (other chest condition)', es: 'anormal, no sugestiva de TB (otra afección torácica)' },
-                    pending: { en: 'not done yet / deferred', es: 'aún no realizada / diferida' },
-                    reread: { en: 're-read by the health department as not suggestive of TB', es: 'reinterpretada por el departamento de salud como no sugestiva de TB' }
+                    pending: { en: 'not done yet / deferred', es: 'aún no realizada / diferida' }
                 }[tb.cxr];
                 items.push({ en: 'Chest x-ray: ' + cx.en, es: 'Radiografía de tórax: ' + cx.es });
             }
@@ -928,13 +962,17 @@
             return '<span class="badge ' + d.cls + '">' + L(d.badgeEn, d.badgeEs) + '</span>';
         }
 
-        // .result box: title, badge, Form I-693 label box, "What this means", optional extra HTML
+        // .result box: title, badge, Form I-693 label box, "What this means", optional extra HTML.
+        // HOLD results have nothing to write yet: pending form box (no checkbox text, no Copy button).
         function resultBox(key, titleEn, titleEs, meaningEn, meaningEs, formMeaning, extraHtml) {
             var d = FORM_LABELS[key];
+            var opts = {};
+            Object.keys(formMeaning || {}).forEach(function (k) { opts[k] = formMeaning[k]; });
+            if (key === 'HOLD') { opts.pending = true; }
             return '<div class="result">' +
                 '<h3>' + L(titleEn, titleEs) + '</h3>' +
                 badge(key) +
-                formLabel(d.form, formMeaning || {}) +
+                formLabel(d.form, opts) +
                 '<p><strong>' + L('What this means:', 'Qué significa:') + '</strong> ' + L(meaningEn, meaningEs) + '</p>' +
                 (extraHtml || '') +
                 '</div>';
@@ -980,7 +1018,7 @@
             if (!tb.flags.contact) { return ''; }
             return '<div class="info"><strong>' + L('Recent contact with infectious TB:', 'Contacto reciente con tuberculosis infecciosa:') + '</strong> ' +
                 L('coordinate with the health-department contact investigation. This does not change the classification above (the overseas panel-physician scheme uses "B3" for contacts; it is not a civil-surgeon class).',
-                  'coordine con el estudio de contactos del departamento de salud. Esto no cambia la clasificación anterior (el esquema de médicos panel en el extranjero usa "B3" para contactos; no es una clase para cirujanos civiles).') +
+                  'coordine con el estudio de contactos del departamento de salud. Esto no cambia la clasificación anterior (el esquema de médicos del panel en el extranjero usa "B3" para contactos; no es una clase para cirujanos civiles).') +
                 '</div>';
         }
 
@@ -997,25 +1035,35 @@
                 return ['Record the documented prior positive IGRA (date, IGRA type, result with units, provider) and keep the lab copy; the IGRA was not repeated.',
                         'Registre el IGRA positivo previo documentado (fecha, tipo de IGRA, resultado con unidades, proveedor) y conserve la copia del laboratorio; el IGRA no se repitió.'];
             }
+            // Returning applicants (tb.igra === ''): the result is in the civil surgeon's own record
             var res = { pos: ['positive', 'positivo'], indet: ['indeterminate', 'indeterminado'], neg: ['negative', 'negativo'], pending: ['pending', 'pendiente'] }[tb.igra] || ['', ''];
+            var resEn = res[0] ? ' (' + res[0] + ')' : '';
+            var resEs = res[1] ? ' (' + res[1] + ')' : '';
             var test = tb.under2 ? 'TST or IGRA' : 'IGRA';
-            return ['Record the ' + test + ' type (QuantiFERON-TB Gold Plus or T-SPOT.TB' + (tb.under2 ? ', or TST' : '') + '), date and result (' + res[0] + ').',
-                    'Registre el tipo de ' + (tb.under2 ? 'TST o IGRA' : 'IGRA') + ' (QuantiFERON-TB Gold Plus o T-SPOT.TB' + (tb.under2 ? ', o TST' : '') + '), la fecha y el resultado (' + res[1] + ').'];
+            return ['Record the ' + test + ' type (QuantiFERON-TB Gold Plus or T-SPOT.TB' + (tb.under2 ? ', or TST' : '') + '), date and result' + resEn + '.',
+                    'Registre el tipo de ' + (tb.under2 ? 'TST o IGRA' : 'IGRA') + ' (QuantiFERON-TB Gold Plus o T-SPOT.TB' + (tb.under2 ? ', o TST' : '') + '), la fecha y el resultado' + resEs + '.'];
         }
 
         function cxrDocItem() {
             var desc = {
                 normal: ['normal', 'normal'],
                 other: ['abnormal, not suggestive of TB', 'anormal, no sugestiva de TB'],
-                suggestive: ['abnormal, suggestive of TB', 'anormal, sugestiva de TB'],
-                reread: ['re-read by the health department as not suggestive of TB', 'reinterpretada por el departamento de salud como no sugestiva de TB']
+                suggestive: ['abnormal, suggestive of TB', 'anormal, sugestiva de TB']
             }[tb.cxr] || ['', ''];
-            return ['Record the chest x-ray date, views (PA; AP/PA + lateral under 10 years) and result' + (desc[0] ? ' (' + desc[0] + ')' : '') + '.',
-                    'Registre la fecha, las proyecciones (PA; AP/PA + lateral en menores de 10 años) y el resultado de la radiografía de tórax' + (desc[1] ? ' (' + desc[1] + ')' : '') + '.'];
+            var parts = desc[0] ? [desc] : [];
+            if (tb.hdReRead) {
+                parts.push(['re-read by the health department as not suggestive of TB', 'reinterpretada por el departamento de salud como no sugestiva de TB']);
+            }
+            var en = parts.map(function (p) { return p[0]; }).join('; ');
+            var es = parts.map(function (p) { return p[1]; }).join('; ');
+            return ['Record the chest x-ray date, views (PA; AP/PA + lateral under 10 years) and result' + (en ? ' (' + en + ')' : '') + '.',
+                    'Registre la fecha, las proyecciones (PA; AP/PA + lateral en menores de 10 años) y el resultado de la radiografía de tórax' + (es ? ' (' + es + ')' : '') + '.'];
         }
 
+        // Collapsed on results so the required actions stay near the top of the phone screen
         function ltbiTreatmentTable() {
-            return '<table class="treatment-table">' +
+            return '<details class="treatment-details"><summary>' + L('LTBI treatment options', 'Opciones de tratamiento de ITBL') + '</summary>' +
+                '<table class="treatment-table">' +
                 '<thead><tr><th>' + L('LTBI regimen', 'Régimen de ITBL') + '</th><th>' + L('Drugs and schedule', 'Fármacos y esquema') + '</th><th>' + L('Duration', 'Duración') + '</th></tr></thead>' +
                 '<tbody>' +
                 '<tr><td><strong>3HP</strong></td><td>' + L('Isoniazid + rifapentine, once weekly (12 doses)', 'Isoniazida + rifapentina, una vez por semana (12 dosis)') + '</td><td>' + L('3 months (12 weeks)', '3 meses (12 semanas)') + '</td></tr>' +
@@ -1026,7 +1074,12 @@
                 '<p class="caption">' + L(
                     'Rifamycin-based short regimens (3HP, 4R, 3HR) are preferred. Check drug interactions, liver disease and pregnancy before starting. The civil surgeon may treat or refer; treatment is recommended, NOT required to complete Form I-693.',
                     'Se prefieren los regímenes cortos con rifamicinas (3HP, 4R, 3HR). Revise interacciones medicamentosas, enfermedad hepática y embarazo antes de iniciar. El cirujano civil puede tratar o derivar; el tratamiento es recomendado, NO requerido para completar el Formulario I-693.'
-                ) + '</p>';
+                ) + '</p></details>';
+        }
+
+        // banner → "Next step" strip → collapsed answers summary (top of every final result)
+        function resultHead(kind, subEn, subEs, nextEn, nextEs) {
+            return classBanner(kind, { subEn: subEn, subEs: subEs }) + nextStep(nextEn, nextEs) + answersHtml();
         }
 
         // Standard reporting items for eMedical classes
@@ -1055,15 +1108,26 @@
 
         var NONE_FORM_MEANING = { meaningEn: 'Mark the "No Class A or Class B TB" box in Part 8 (Civil Surgeon Worksheet).', meaningEs: 'Marque la casilla "No Class A or Class B TB" en la Parte 8 (Hoja de trabajo del cirujano civil).' };
 
+        // No x-ray was performed: some Form I-693 editions select the TB class only after a chest x-ray
+        var NOXRAY_FORM_MEANING = {
+            meaningEn: 'Record the IGRA type, date and result. If your Form I-693 edition selects the TB class only when a chest x-ray was performed, leave the TB class box blank and record the IGRA result.',
+            meaningEs: 'Registre el tipo, la fecha y el resultado del IGRA. Si su edición del Formulario I-693 solo permite marcar la clase de TB cuando se hizo una radiografía de tórax, deje la casilla en blanco y registre el resultado del IGRA.'
+        };
+        var NOTEST_FORM_MEANING = {
+            meaningEn: 'Record that no TST/IGRA or chest x-ray was required (under 2 years, no indication). If your Form I-693 edition selects the TB class only when a chest x-ray was performed, leave the TB class box blank.',
+            meaningEs: 'Registre que no se requirió TST/IGRA ni radiografía de tórax (menor de 2 años, sin indicación). Si su edición del Formulario I-693 solo permite marcar la clase de TB cuando se hizo una radiografía de tórax, deje la casilla en blanco.'
+        };
+
         RESULTS['TB-NOTEST'] = function () {
-            return classBanner('NONE', {
-                subEn: 'Under 2 years with no indication — no TB testing required',
-                subEs: 'Menor de 2 años sin indicación — no se requieren pruebas de TB'
-            }) + answersHtml() +
+            return resultHead('NONE',
+                'Under 2 years, no indication — no TB test needed',
+                'Menor de 2 años sin indicación — sin prueba de TB',
+                'Document the history and exam — no test needed',
+                'Documente la historia y el examen — no se necesita prueba') +
             resultBox('NONE', 'No TB testing required', 'No se requieren pruebas de TB',
-                'The applicant is under 2 years of age with no signs or symptoms of TB disease and no known HIV infection. The Technical Instructions do not require a TST, IGRA or chest x-ray. The TB class checkbox is completed only when a chest x-ray was performed; here none was.',
-                'El solicitante es menor de 2 años, sin signos ni síntomas de enfermedad de tuberculosis y sin infección por VIH conocida. Las Instrucciones Técnicas no exigen TST, IGRA ni radiografía de tórax. La casilla de clase de TB se completa solo cuando se realizó una radiografía de tórax; aquí no se realizó.',
-                NONE_FORM_MEANING) +
+                'The applicant is under 2 years of age with no signs or symptoms of TB disease and no known HIV infection. The Technical Instructions do not require a TST, IGRA or chest x-ray.',
+                'El solicitante es menor de 2 años, sin signos ni síntomas de enfermedad de tuberculosis y sin infección por VIH conocida. Las Instrucciones Técnicas no exigen TST, IGRA ni radiografía de tórax.',
+                NOTEST_FORM_MEANING) +
             actionsBox('NONE', li([
                 ['Document the history and physical examination showing no indication for TB testing (age under 2; no signs/symptoms; no known HIV infection).',
                  'Documente los antecedentes y el examen físico que muestran que no hay indicación de pruebas de TB (edad menor de 2 años; sin signos/síntomas; sin infección por VIH conocida).'],
@@ -1084,15 +1148,16 @@
             var indet = tb.igra === 'indet';
             var test = tb.under2 ? 'TST or IGRA' : 'IGRA';
             var testEs = tb.under2 ? 'TST o IGRA' : 'IGRA';
-            return classBanner('NONE', {
-                subEn: test + (indet ? ' indeterminate' : ' negative') + ' — no further TB evaluation required for Form I-693',
-                subEs: testEs + (indet ? ' indeterminado' : ' negativo') + ' — no se requiere más evaluación de TB para el Formulario I-693'
-            }) + answersHtml() +
+            return resultHead('NONE',
+                test + (indet ? ' indeterminate' : ' negative') + (tb.under2 ? ' — nothing further needed' : ' — no further TB evaluation needed'),
+                testEs + (indet ? ' indeterminado' : ' negativo') + ' — sin más evaluación de TB',
+                'Record IGRA type, date and result — done',
+                'Registre tipo, fecha y resultado del IGRA — listo') +
             resultBox('NONE', test + (indet ? ' indeterminate' : ' negative') + ' — no TB classification',
                       testEs + (indet ? ' indeterminado' : ' negativo') + ' — sin clasificación de TB',
                 'The ' + test + ' is ' + (indet ? 'indeterminate (or borderline)' : 'negative') + ' and there is no other indication for a chest x-ray (no signs or symptoms of TB disease, no known HIV infection, no prior TB disease or LTBI treatment). No chest x-ray and no TB classification are required.',
                 'El ' + testEs + ' es ' + (indet ? 'indeterminado (o limítrofe)' : 'negativo') + ' y no hay otra indicación de radiografía de tórax (sin signos ni síntomas de enfermedad de tuberculosis, sin infección por VIH conocida, sin enfermedad de tuberculosis previa ni tratamiento de ITBL). No se requiere radiografía de tórax ni clasificación de TB.',
-                NONE_FORM_MEANING) +
+                NOXRAY_FORM_MEANING) +
             indeterminateNote() + contactNote() +
             actionsBox('NONE', li([
                 ['Record the ' + test + ' type, date and result on Form I-693 (required even for negative and indeterminate results).',
@@ -1117,18 +1182,19 @@
             var f = tb.flags;
             var indet = tb.igra === 'indet';
             var why = [];
-            if (f.priorLTBI) { why.push(['prior LTBI treatment', 'tratamiento previo de ITBL']); }
-            if (f.priorTB) { why.push(['prior TB disease history (records reviewed)', 'antecedente de enfermedad de tuberculosis (registros revisados)']); }
+            if (f.priorLTBI) { why.push(['prior LTBI treatment', 'al tratamiento previo de ITBL']); }
+            if (f.priorTB) { why.push(['prior TB disease history (records reviewed)', 'al antecedente de enfermedad de tuberculosis (registros revisados)']); }
             var whyEn = why.map(function (w) { return w[0]; }).join(' and ') || 'the history';
-            var whyEs = why.map(function (w) { return w[1]; }).join(' y ') || 'los antecedentes';
-            return classBanner('NONE', {
-                subEn: 'IGRA ' + (indet ? 'indeterminate' : 'negative') + ' and normal chest x-ray',
-                subEs: 'IGRA ' + (indet ? 'indeterminado' : 'negativo') + ' y radiografía de tórax normal'
-            }) + answersHtml() +
+            var whyEs = why.map(function (w) { return w[1]; }).join(' y ') || 'a los antecedentes';
+            return resultHead('NONE',
+                'IGRA ' + (indet ? 'indeterminate' : 'negative') + ' and normal chest x-ray',
+                'IGRA ' + (indet ? 'indeterminado' : 'negativo') + ' y radiografía de tórax normal',
+                'Record IGRA and x-ray results — done',
+                'Registre los resultados del IGRA y de la radiografía — listo') +
             resultBox('NONE', 'IGRA ' + (indet ? 'indeterminate' : 'negative') + ', chest x-ray normal — no TB classification',
                       'IGRA ' + (indet ? 'indeterminado' : 'negativo') + ', radiografía de tórax normal — sin clasificación de TB',
                 'The IGRA is ' + (indet ? 'indeterminate' : 'negative') + ' and the chest x-ray, done because of ' + whyEn + ', is normal. There are no signs or symptoms and no known HIV infection. No TB classification applies.',
-                'El IGRA es ' + (indet ? 'indeterminado' : 'negativo') + ' y la radiografía de tórax, realizada por ' + whyEs + ', es normal. No hay signos ni síntomas ni infección por VIH conocida. No aplica ninguna clasificación de TB.',
+                'El IGRA es ' + (indet ? 'indeterminado' : 'negativo') + ' y la radiografía de tórax, realizada debido ' + whyEs + ', es normal. No hay signos ni síntomas ni infección por VIH conocida. No corresponde ninguna clasificación de TB.',
                 NONE_FORM_MEANING) +
             indeterminateNote() + contactNote() +
             actionsBox('NONE', li([
@@ -1151,13 +1217,14 @@
         };
 
         RESULTS['TB-NOCLASS-LTBI-TREATED'] = function () {
-            return classBanner('NONE', {
-                subEn: 'Positive IGRA, normal chest x-ray, documented completed LTBI treatment (' + tb.ltbiRegimen + ')',
-                subEs: 'IGRA positivo, radiografía de tórax normal, tratamiento de ITBL completado y documentado (' + tb.ltbiRegimen + ')'
-            }) + answersHtml() +
+            return resultHead('NONE',
+                'LTBI treated (' + tb.ltbiRegimen + ') — IGRA positive, x-ray normal',
+                'ITBL tratada (' + tb.ltbiRegimen + ') — IGRA+, radiografía normal',
+                'Record the prior LTBI regimen and dates; no report needed',
+                'Registre el régimen previo de ITBL y las fechas; no se notifica') +
             resultBox('NONE', 'Previously treated latent TB infection — no TB classification', 'Infección tuberculosa latente previamente tratada — sin clasificación de TB',
                 'The IGRA is positive (expected after prior infection), the chest x-ray is normal, there are no signs or symptoms of TB disease, no known HIV infection, and the applicant has documented completed LTBI treatment (' + tb.ltbiRegimen + '). No Class A or Class B TB applies, regardless of when the treatment occurred. This applicant is not reported to the health department and is not entered in eMedical.',
-                'El IGRA es positivo (esperado tras una infección previa), la radiografía de tórax es normal, no hay signos ni síntomas de enfermedad de tuberculosis, no hay infección por VIH conocida y el solicitante tiene tratamiento de ITBL completado y documentado (' + tb.ltbiRegimen + '). No aplica Clase A ni Clase B de TB, sin importar cuándo se realizó el tratamiento. Este solicitante NO se notifica al departamento de salud ni se ingresa en eMedical.',
+                'El IGRA es positivo (esperado tras una infección previa), la radiografía de tórax es normal, no hay signos ni síntomas de enfermedad de tuberculosis, no hay infección por VIH conocida y el solicitante tiene tratamiento de ITBL completado y documentado (' + tb.ltbiRegimen + '). No corresponde Clase A ni Clase B de TB, sin importar cuándo se realizó el tratamiento. Este solicitante NO se notifica al departamento de salud ni se ingresa en eMedical.',
                 NONE_FORM_MEANING) +
             contactNote() +
             actionsBox('NONE', li([
@@ -1184,13 +1251,14 @@
         };
 
         RESULTS['TB-NOCLASS-TB-TREATED'] = function () {
-            return classBanner('NONE', {
-                subEn: 'Documented completed TB-disease treatment ≥ 1 year ago, normal chest x-ray',
-                subEs: 'Tratamiento de enfermedad de tuberculosis completado y documentado hace ≥ 1 año, radiografía de tórax normal'
-            }) + answersHtml() +
+            return resultHead('NONE',
+                'TB treated ≥ 1 year ago — normal chest x-ray',
+                'TB tratada hace ≥ 1 año — radiografía normal',
+                'Record the reviewed treatment records; confirm locally',
+                'Registre los expedientes de tratamiento revisados; confirme localmente') +
             resultBox('NONE', 'Previously treated TB disease — no TB classification', 'Enfermedad de tuberculosis previamente tratada — sin clasificación de TB',
                 'The records reviewed document TB-disease treatment completed 1 year ago or more, the chest x-ray is normal, there are no signs or symptoms and no known HIV infection. The IGRA is positive, as expected after prior disease. No Class A or Class B TB applies.',
-                'Los registros revisados documentan un tratamiento de enfermedad de tuberculosis completado hace 1 año o más, la radiografía de tórax es normal, no hay signos ni síntomas ni infección por VIH conocida. El IGRA es positivo, como se espera tras una enfermedad previa. No aplica Clase A ni Clase B de TB.',
+                'Los registros revisados documentan un tratamiento de enfermedad de tuberculosis completado hace 1 año o más, la radiografía de tórax es normal, no hay signos ni síntomas ni infección por VIH conocida. El IGRA es positivo, como se espera tras una enfermedad previa. No corresponde Clase A ni Clase B de TB.',
                 NONE_FORM_MEANING,
                 '<div class="warning"><strong>' + L('Confirm locally:', 'Confirme localmente:') + '</strong> ' +
                 L('check this rule against the current Technical Instructions; some health departments ask to be told of a prior TB history — follow local guidance. If the records are incomplete or the treatment finished less than 1 year ago, go back and choose that option (health-department referral).',
@@ -1221,14 +1289,16 @@
         RESULTS['TB-HOLD-IGRA'] = function () {
             var test = tb.under2 ? 'TST or IGRA' : 'IGRA';
             var testEs = tb.under2 ? 'TST o IGRA' : 'IGRA';
-            return classBanner('HOLD', {
-                subEn: test + ' result not available yet',
-                subEs: 'Resultado del ' + testEs + ' aún no disponible'
-            }) + answersHtml() +
+            return resultHead('HOLD',
+                test + ' result not available yet',
+                'Resultado del ' + testEs + ' aún no disponible',
+                'Wait for the IGRA result — do not sign',
+                'Espere el resultado del IGRA — no firme') +
             resultBox('HOLD', 'Waiting for the ' + test + ' result', 'En espera del resultado del ' + testEs,
                 'The TB classification depends on the ' + test + ' result. Do not mark any TB class box and do not sign Form I-693 until the result is in.',
                 'La clasificación de TB depende del resultado del ' + testEs + '. No marque ninguna casilla de clase de TB ni firme el Formulario I-693 hasta tener el resultado.',
-                { meaningEn: 'Nothing to mark yet — leave the TB class boxes blank until the result is in.', meaningEs: 'Nada que marcar todavía — deje en blanco las casillas de clase de TB hasta tener el resultado.' }) +
+                { meaningEn: 'Meanwhile record the ' + test + ' type and the date drawn; leave the TB class boxes blank until the result is in.',
+                  meaningEs: 'Mientras tanto registre el tipo de ' + testEs + ' y la fecha de extracción; deje en blanco las casillas de clase de TB hasta tener el resultado.' }) +
             actionsBox('HOLD', li([
                 ['Obtain the ' + test + ' result from the laboratory.', 'Obtenga el resultado del ' + testEs + ' del laboratorio.'],
                 ['Do not sign Form I-693.', 'No firme el Formulario I-693.'],
@@ -1243,14 +1313,16 @@
 
         RESULTS['TB-HOLD-CXR'] = function () {
             var reasons = cxrReasons();
-            return classBanner('HOLD', {
-                subEn: 'Chest x-ray not done yet / deferred',
-                subEs: 'Radiografía de tórax aún no realizada / diferida'
-            }) + answersHtml() +
+            return resultHead('HOLD',
+                'Chest x-ray not done yet / deferred',
+                'Radiografía de tórax aún no realizada / diferida',
+                'Obtain and read the chest x-ray — do not sign',
+                'Obtenga e interprete la radiografía — no firme') +
             resultBox('HOLD', 'Waiting for the chest x-ray', 'En espera de la radiografía de tórax',
                 'A chest x-ray is required and the TB classification depends on its result. Form I-693 cannot be completed or signed until the x-ray is performed, read and any follow-up is completed.',
                 'Se requiere una radiografía de tórax y la clasificación de TB depende de su resultado. El Formulario I-693 no puede completarse ni firmarse hasta que la radiografía se realice, se interprete y se complete cualquier seguimiento.',
-                { meaningEn: 'Nothing to mark yet — leave the TB class boxes blank until the x-ray is read.', meaningEs: 'Nada que marcar todavía — deje en blanco las casillas de clase de TB hasta que se interprete la radiografía.' },
+                { meaningEn: 'Meanwhile record the IGRA (type, date, result); leave the TB class boxes blank until the x-ray is read.',
+                  meaningEs: 'Mientras tanto registre el IGRA (tipo, fecha, resultado); deje en blanco las casillas de clase de TB hasta que se interprete la radiografía.' },
                 '<div class="info"><strong>' + L('X-ray required because of:', 'Radiografía requerida por:') + '</strong><ul class="tb-reasons">' +
                 reasons.map(function (r) { return '<li>' + L(r[0], r[1]) + '</li>'; }).join('') + '</ul></div>' +
                 (tb.flags.pregnant ? pregnancyNoteHtml() : '')) +
@@ -1271,7 +1343,7 @@
         };
 
         function b2Content(otherFinding) {
-            var viaHD = tb.cxr === 'reread';
+            var viaHD = !!tb.hdReRead;
             var meaningEn = 'The IGRA is positive' + (tb.flags.priorIGRA ? ' (documented prior positive)' : '') + ', there are no signs or symptoms of TB disease, no known HIV infection, and the chest x-ray ' +
                 (viaHD ? 'was re-read by the health department as not suggestive of TB' : (otherFinding ? 'shows a finding that is not suggestive of TB' : 'is normal')) +
                 '. This is latent TB infection: the applicant is medically cleared for USCIS purposes. LTBI treatment is recommended but NOT required to complete Form I-693.';
@@ -1322,10 +1394,11 @@
                     L('Unsure whether the finding could be TB → refer to the health department', 'No está seguro de si el hallazgo podría ser TB → derive al departamento de salud') + '</button>';
             }
 
-            return classBanner('B', {
-                subEn: 'Class B2 TB, Latent TB Infection',
-                subEs: 'Clase B2 TB, infección tuberculosa latente'
-            }) + answersHtml() +
+            return resultHead('B',
+                'Class B2 TB, Latent TB Infection',
+                'Clase B2 TB, infección tuberculosa latente',
+                'Report to the health department today; eMedical within 5 business days of signing' + (otherFinding ? '; document the other chest condition' : ''),
+                'Notifique al departamento de salud hoy; eMedical en ≤ 5 días hábiles tras firmar' + (otherFinding ? '; documente la otra afección torácica' : '')) +
             resultBox('B2', 'Latent TB infection (LTBI)', 'Infección tuberculosa latente (ITBL)', meaningEn, meaningEs,
                 { meaningEn: 'Latent infection — may be cleared; report to the health department and enter in eMedical; offer treatment.', meaningEs: 'Infección latente — puede autorizarse; notifique al departamento de salud e ingrese en eMedical; ofrezca tratamiento.' },
                 extra) +
@@ -1346,13 +1419,14 @@
 
         RESULTS['TB-BOTHER'] = function () {
             var f = tb.flags;
-            var viaHD = tb.cxr === 'reread';
+            var viaHD = !!tb.hdReRead;
             var treated = f.priorLTBI === 'documented' || f.priorTB === 'documented';
             var igraTxt = igraPositive() ? ['positive', 'positivo'] : (tb.igra === 'indet' ? ['indeterminate', 'indeterminado'] : ['negative', 'negativo']);
-            return classBanner('B', {
-                subEn: 'Class B, Other Chest Condition (non-TB)',
-                subEs: 'Clase B, otra afección torácica (no tuberculosa)'
-            }) + answersHtml() +
+            return resultHead('B',
+                'Class B, Other Chest Condition (non-TB)',
+                'Clase B, otra afección torácica (no tuberculosa)',
+                'Document the finding; routine follow-up; no TB report',
+                'Documente el hallazgo; seguimiento de rutina; sin notificación de TB') +
             resultBox('BOTHER', 'Abnormal chest x-ray not suggestive of TB', 'Radiografía de tórax anormal no sugestiva de TB',
                 (viaHD ? 'The health department re-read the chest x-ray as not suggestive of TB. ' : 'The chest x-ray is abnormal but the finding is not suggestive of TB. ') +
                 'The IGRA is ' + igraTxt[0] + (treated && igraPositive() ? ' (expected after documented completed treatment)' : '') + '. This is not a TB classification: document the finding and arrange routine medical follow-up. No TB referral, no eMedical entry.',
@@ -1387,7 +1461,10 @@
 
         function hdResultCommon(key, subEn, subEs, titleEn, titleEs, meaningEn, meaningEs, formMeaning, actionsHtml, extraFormItems, extraHtml) {
             var d = FORM_LABELS[key];
-            return classBanner(key === 'A' ? 'A' : 'B', { subEn: subEn, subEs: subEs }) + answersHtml() +
+            var next = key === 'A'
+                ? ['Do not sign Part 7 — treatment through the health department; report today', 'No firme la Parte 7 — tratamiento con el departamento de salud; notifique hoy']
+                : ['Part 9 returned → sign Part 7; eMedical within 5 business days', 'Parte 9 devuelta → firme la Parte 7; eMedical en ≤ 5 días hábiles'];
+            return resultHead(key === 'A' ? 'A' : 'B', subEn, subEs, next[0], next[1]) +
                 resultBox(key, titleEn, titleEs, meaningEn, meaningEs, formMeaning, extraHtml) +
                 contactNote() +
                 actionsBox(key === 'A' ? 'A' : 'B', actionsHtml) +
@@ -1447,7 +1524,7 @@
                 li([
                     ['Report the classification to the health department of jurisdiction.', 'Notifique la clasificación al departamento de salud de la jurisdicción.'],
                     ['Obtain the health-department letter documenting completion (regimen, start and completion dates, DOT) and Part 9.',
-                     'Obtenga la carta del departamento de salud que documenta la finalización (régimen, fechas de inicio y finalización, DOT) y la Parte 9.'],
+                     'Obtenga la carta del departamento de salud que documenta la finalización (régimen, fechas de inicio y finalización, terapia directamente observada (TDO)) y la Parte 9.'],
                     ['Update the form from "Class A Pulmonary TB Disease" to "Class B0 Pulmonary TB", then complete and sign Part 7.',
                      'Actualice el formulario de "Class A Pulmonary TB Disease" a "Class B0 Pulmonary TB"; luego complete y firme la Parte 7.']
                 ]),
@@ -1456,10 +1533,10 @@
 
         RESULTS['TB-A'] = function () {
             return hdResultCommon('A',
-                'Active TB disease — treatment not completed', 'Enfermedad de tuberculosis activa — tratamiento no completado',
+                'Active TB disease — treatment not completed', 'TB activa — tratamiento no completado',
                 'Active TB disease — treatment not completed', 'Enfermedad de tuberculosis activa — tratamiento no completado',
                 'The health department diagnosed TB disease (smear/culture-positive or clinically diagnosed) and treatment has not started or is not completed. The applicant is INADMISSIBLE (Class A) until a CDC/ATS/IDSA regimen (at least 6 months, usually health-department directly observed therapy) is completed and the health department signs off in Part 9. After documented completion the applicant is reclassified Class B0.',
-                'El departamento de salud diagnosticó enfermedad de tuberculosis (baciloscopia/cultivo positivo o diagnóstico clínico) y el tratamiento no se ha iniciado o no se ha completado. El solicitante es INADMISIBLE (Clase A) hasta completar un régimen CDC/ATS/IDSA (al menos 6 meses, normalmente bajo observación directa del departamento de salud) y que el departamento de salud lo certifique en la Parte 9. Tras la finalización documentada, el solicitante se reclasifica como Clase B0.',
+                'El departamento de salud diagnosticó enfermedad de tuberculosis (baciloscopia/cultivo positivo o diagnóstico clínico) y el tratamiento no se ha iniciado o no se ha completado. El solicitante es INADMISIBLE (Clase A) hasta completar un régimen CDC/ATS/IDSA (al menos 6 meses, normalmente con terapia directamente observada (TDO) del departamento de salud) y que el departamento de salud lo certifique en la Parte 9. Tras la finalización documentada, el solicitante se reclasifica como Clase B0.',
                 { meaningEn: 'Active TB, treatment not completed — inadmissible; do not clear or sign Part 7.', meaningEs: 'TB activa, tratamiento no completado — inadmisible; no autorice ni firme la Parte 7.' },
                 liDeadline('Report and refer to the health department of jurisdiction (if not already done)', 'today',
                            'Notifique y derive al departamento de salud de la jurisdicción (si aún no lo ha hecho)', 'hoy') +
@@ -1467,7 +1544,7 @@
                     ['Do NOT clear the applicant and do NOT sign or date Part 7.', 'NO autorice al solicitante y NO firme ni feche la Parte 7.'],
                     ['Mark "Class A Pulmonary TB Disease"; the referral stays in Part 8, Item 5.', 'Marque "Class A Pulmonary TB Disease"; la derivación permanece en la Parte 8, Punto 5.'],
                     ['Follow the health department\'s infection-control instructions; treatment is completed under health-department supervision (directly observed therapy).',
-                     'Siga las instrucciones de control de infecciones del departamento de salud; el tratamiento se completa bajo supervisión del departamento de salud (terapia bajo observación directa).'],
+                     'Siga las instrucciones de control de infecciones del departamento de salud; el tratamiento se completa bajo supervisión del departamento de salud (terapia directamente observada (TDO)).'],
                     ['After documented completion (health-department letter / Part 9): reclassify as "Class B0 Pulmonary TB", update the form, sign Part 7 and enter eMedical within 5 business days.',
                      'Tras la finalización documentada (carta del departamento de salud / Parte 9): reclasifique como "Class B0 Pulmonary TB", actualice el formulario, firme la Parte 7 e ingrese en eMedical en un plazo de 5 días hábiles.'],
                     ['Explain to the applicant that the immigration medical exam cannot be completed until treatment is finished.',
@@ -1533,10 +1610,10 @@
 
             var pills = '';
             if (referralRequiredByHistory()) {
-                pills += statusPillHtml('hold', 'Health-department referral will be required regardless of the x-ray result', 'Se requerirá derivación al departamento de salud independientemente del resultado de la radiografía');
+                pills += statusPillHtml('hold', 'Health-department referral required — regardless of the x-ray', 'Derivación al departamento de salud — sea cual sea la radiografía');
             }
             if (igraPositive()) {
-                pills += statusPillHtml('b', 'IGRA positive — at least Class B2 (latent infection) unless the x-ray or health department shows disease', 'IGRA positivo — al menos Clase B2 (infección latente) salvo que la radiografía o el departamento de salud muestren enfermedad');
+                pills += statusPillHtml('b', 'IGRA positive — at least Class B2 unless disease is found', 'IGRA positivo — al menos Clase B2 salvo que haya enfermedad');
             }
             document.getElementById('statusPill4').innerHTML = pills;
         }
@@ -1544,8 +1621,8 @@
         function renderStep5() {
             var reasons = referralReasonList();
             var html = classBanner('HOLD', {
-                subEn: 'Health-department sputum evaluation — expect 6–8 weeks for final cultures',
-                subEs: 'Evaluación de esputo en el departamento de salud — espere 6–8 semanas para los cultivos finales'
+                subEn: 'Referred for sputum testing — cultures take 6–8 weeks',
+                subEs: 'Derivado por esputo — cultivos finales en 6–8 semanas'
             }) +
             '<h2>' + L('Step 5: Health-department referral', 'Paso 5: Derivación al departamento de salud') + '</h2>' +
             '<p>' + L('Referral to the health department of jurisdiction for sputum testing is REQUIRED. The civil surgeon must not classify, clear or sign until the applicant returns.',
@@ -1578,7 +1655,9 @@
         }
 
         function renderStep55() {
-            var showReRead = tb.referralReason === 'cxr' || tb.referralReason === 'unknown';
+            // The re-read exit exists only when the film was the sole trigger (or the trigger is
+            // unknown — returning applicant); never when the history itself required the referral.
+            var showReRead = !referralRequiredByHistory() && (tb.referralReason === 'cxr' || tb.referralReason === 'unknown');
             document.getElementById('reReadOption').style.display = showReRead ? '' : 'none';
             document.getElementById('statusPill55').innerHTML = statusPillHtml('hold',
                 'Classification pending the health-department report', 'Clasificación pendiente del informe del departamento de salud');
@@ -1587,49 +1666,61 @@
         // =====================================================================
         // TB class reference (table on desktop, cards on phones)
         // =====================================================================
+        // The seven real Form I-693 labels are English-only (lang="en"); the hold card is not a
+        // form label, so it carries a bilingual title (formEs). The admissibility chip already says
+        // Yes / No / Wait, so `adm` holds only the qualifier (may be empty).
         var REF_ROWS = [
             { kind: 'a', chip: 'no', form: FORM_LABELS.A.form,
               plain: { en: 'Active TB disease, treatment not completed.', es: 'Enfermedad de tuberculosis activa, tratamiento no completado.' },
-              adm: { en: 'No — until a CDC/ATS/IDSA regimen is completed with health-department sign-off.', es: 'No — hasta completar un régimen CDC/ATS/IDSA con la certificación del departamento de salud.' },
+              adm: { en: 'Until a CDC/ATS/IDSA regimen is completed with health-department sign-off.', es: 'Hasta completar un régimen CDC/ATS/IDSA con la certificación del departamento de salud.' },
               chipText: { en: 'No', es: 'No' },
               youDo: { en: 'Refer; do not clear or sign Part 7; after completion reclassify B0.', es: 'Derive; no autorice ni firme la Parte 7; tras la finalización reclasifique como B0.' },
               report: { en: 'Health department — today (reportable).', es: 'Departamento de salud — hoy (de notificación obligatoria).' } },
             { kind: 'b', chip: 'yes', form: FORM_LABELS.B0.form,
               plain: { en: 'Had active TB during this process and FINISHED treatment (health-department letter).', es: 'Tuvo TB activa durante este proceso y TERMINÓ el tratamiento (carta del departamento de salud).' },
-              adm: { en: 'Yes.', es: 'Sí.' }, chipText: { en: 'Yes', es: 'Sí' },
+              adm: { en: '', es: '' }, chipText: { en: 'Yes', es: 'Sí' },
               youDo: { en: 'Update the form from Class A to B0; sign Part 7 once Part 9 is returned.', es: 'Actualice el formulario de Clase A a B0; firme la Parte 7 una vez devuelta la Parte 9.' },
               report: { en: 'Health department; eMedical within 5 business days of signing.', es: 'Departamento de salud; eMedical en un plazo de 5 días hábiles desde la firma.' } },
             { kind: 'b', chip: 'yes', form: FORM_LABELS.B1.form,
               plain: { en: 'X-ray, symptoms, HIV or history looked like TB but sputum smears and cultures were NEGATIVE — regardless of IGRA.', es: 'La radiografía, los síntomas, el VIH o los antecedentes parecían TB pero las baciloscopias y los cultivos fueron NEGATIVOS — independientemente del IGRA.' },
-              adm: { en: 'Yes — after the health-department evaluation.', es: 'Sí — después de la evaluación del departamento de salud.' }, chipText: { en: 'Yes', es: 'Sí' },
+              adm: { en: 'After the health-department evaluation.', es: 'Después de la evaluación del departamento de salud.' }, chipText: { en: 'Yes', es: 'Sí' },
               youDo: { en: 'Assign only after Part 9 is returned; document the evaluation; sign Part 7.', es: 'Asigne solo después de que se devuelva la Parte 9; documente la evaluación; firme la Parte 7.' },
               report: { en: 'Health department; eMedical within 5 business days.', es: 'Departamento de salud; eMedical en un plazo de 5 días hábiles.' } },
             { kind: 'b', chip: 'yes', form: FORM_LABELS.B1X.form,
               plain: { en: 'TB outside the lungs, confirmed in writing by the health department; pulmonary TB excluded.', es: 'TB fuera de los pulmones, confirmada por escrito por el departamento de salud; TB pulmonar descartada.' },
-              adm: { en: 'Yes — signable while treatment continues through the health department.', es: 'Sí — puede firmarse mientras el tratamiento continúa a través del departamento de salud.' }, chipText: { en: 'Yes', es: 'Sí' },
+              adm: { en: 'Signable while treatment continues through the health department.', es: 'Puede firmarse mientras el tratamiento continúa a través del departamento de salud.' }, chipText: { en: 'Yes', es: 'Sí' },
               youDo: { en: 'Document the site and treatment plan; sign Part 7 once Part 9 is returned.', es: 'Documente el sitio y el plan de tratamiento; firme la Parte 7 una vez devuelta la Parte 9.' },
               report: { en: 'Health department; eMedical within 5 business days.', es: 'Departamento de salud; eMedical en un plazo de 5 días hábiles.' } },
             { kind: 'b', chip: 'yes', form: FORM_LABELS.B2.form,
               plain: { en: 'Infection only — positive IGRA, normal x-ray (or not suggestive), no symptoms, no HIV.', es: 'Solo infección — IGRA positivo, radiografía normal (o no sugestiva), sin síntomas, sin VIH.' },
-              adm: { en: 'Yes — medically cleared.', es: 'Sí — autorizado médicamente.' }, chipText: { en: 'Yes', es: 'Sí' },
+              adm: { en: 'Medically cleared.', es: 'Autorizado médicamente.' }, chipText: { en: 'Yes', es: 'Sí' },
               youDo: { en: 'Offer or refer for LTBI treatment (recommended, not required); leave Part 8 Item 5 blank.', es: 'Ofrezca o derive para tratamiento de ITBL (recomendado, no requerido); deje en blanco la Parte 8, Punto 5.' },
               report: { en: 'Health department at the time of the exam; eMedical within 5 business days.', es: 'Departamento de salud en el momento del examen; eMedical en un plazo de 5 días hábiles.' } },
             { kind: 'b', chip: 'yes', form: FORM_LABELS.BOTHER.form,
               plain: { en: 'Abnormal x-ray that is not TB.', es: 'Radiografía anormal que no es TB.' },
-              adm: { en: 'Yes.', es: 'Sí.' }, chipText: { en: 'Yes', es: 'Sí' },
+              adm: { en: '', es: '' }, chipText: { en: 'Yes', es: 'Sí' },
               youDo: { en: 'Document the finding; routine medical follow-up; no TB referral.', es: 'Documente el hallazgo; seguimiento médico de rutina; sin derivación por TB.' },
-              report: { en: 'None (not in eMedical).', es: 'Ninguna (no se ingresa en eMedical).' } },
+              report: { en: 'No report (not in eMedical).', es: 'No se notifica (no se ingresa en eMedical).' } },
             { kind: 'none', chip: 'yes', form: FORM_LABELS.NONE.form,
               plain: { en: 'Negative or indeterminate IGRA with no other indication; negative IGRA + normal x-ray; positive IGRA + normal x-ray with documented completed LTBI (or TB-disease) treatment; under 2 with no indication.', es: 'IGRA negativo o indeterminado sin otra indicación; IGRA negativo + radiografía normal; IGRA positivo + radiografía normal con tratamiento de ITBL (o de enfermedad de TB) completado y documentado; menor de 2 años sin indicación.' },
-              adm: { en: 'Yes.', es: 'Sí.' }, chipText: { en: 'Yes', es: 'Sí' },
+              adm: { en: '', es: '' }, chipText: { en: 'Yes', es: 'Sí' },
               youDo: { en: 'Record the IGRA type and result (and the x-ray when done).', es: 'Registre el tipo y el resultado del IGRA (y la radiografía cuando se realice).' },
-              report: { en: 'None.', es: 'Ninguna.' } },
-            { kind: 'hold', chip: 'wait', form: 'Pending — health-department referral',
+              report: { en: 'No report.', es: 'No se notifica.' } },
+            { kind: 'hold', chip: 'wait', form: 'Pending — health-department referral', formEs: 'Pendiente — derivación al departamento de salud',
               plain: { en: 'Suggestive x-ray, signs or symptoms, known HIV, or prior TB with recent / undocumented treatment: sputum testing at the health department first.', es: 'Radiografía sugestiva, signos o síntomas, VIH conocido, o TB previa con tratamiento reciente / no documentado: primero pruebas de esputo en el departamento de salud.' },
-              adm: { en: 'Not yet — do not classify or sign until Part 9 is returned.', es: 'Todavía no — no clasifique ni firme hasta que se devuelva la Parte 9.' }, chipText: { en: 'Wait', es: 'Espere' },
+              adm: { en: 'Do not classify or sign until Part 9 is returned.', es: 'No clasifique ni firme hasta que se devuelva la Parte 9.' }, chipText: { en: 'Wait', es: 'Espere' },
               youDo: { en: 'Enter the referral in Part 8 Item 5; fill Part 7 but do not sign.', es: 'Registre la derivación en la Parte 8, Punto 5; complete la Parte 7 pero no la firme.' },
               report: { en: 'Health department — today (suspected TB disease).', es: 'Departamento de salud — hoy (sospecha de enfermedad de tuberculosis).' } }
         ];
+
+        function refTitle(r) {
+            return r.formEs ? L(r.form, r.formEs) : '<span lang="en">' + r.form + '</span>';
+        }
+
+        function refAdm(r) {
+            return '<span class="chip ' + r.chip + '">' + L(r.chipText.en, r.chipText.es) + '</span>' +
+                ((r.adm.en || r.adm.es) ? ' ' + L(r.adm.en, r.adm.es) : '');
+        }
 
         function renderReference() {
             var tbody = document.getElementById('refTableBody');
@@ -1638,19 +1729,19 @@
             tbody.innerHTML = REF_ROWS.map(function (r) {
                 var rowCls = r.kind === 'hold' ? 'row-b' : 'row-' + r.kind;
                 return '<tr class="' + rowCls + '">' +
-                    '<td class="class-cell"><span lang="en">' + r.form + '</span></td>' +
+                    '<td class="class-cell">' + refTitle(r) + '</td>' +
                     '<td>' + L(r.plain.en, r.plain.es) + '</td>' +
-                    '<td><span class="chip ' + r.chip + '">' + L(r.chipText.en, r.chipText.es) + '</span> ' + L(r.adm.en, r.adm.es) + '</td>' +
+                    '<td>' + refAdm(r) + '</td>' +
                     '<td>' + L(r.youDo.en, r.youDo.es) + '</td>' +
                     '<td>' + L(r.report.en, r.report.es) + '</td>' +
                     '</tr>';
             }).join('');
             cards.innerHTML = REF_ROWS.map(function (r) {
                 return '<div class="ref-card ' + r.kind + '">' +
-                    '<div class="ref-card-title"><span lang="en">' + r.form + '</span></div>' +
+                    '<div class="ref-card-title">' + refTitle(r) + '</div>' +
                     '<div class="ref-card-row"><strong>' + L('In plain words:', 'En palabras sencillas:') + '</strong> ' + L(r.plain.en, r.plain.es) + '</div>' +
-                    '<div class="ref-card-row"><strong>' + L('Admissible?', '¿Admisible?') + '</strong> <span class="chip ' + r.chip + '">' + L(r.chipText.en, r.chipText.es) + '</span> ' + L(r.adm.en, r.adm.es) + '</div>' +
-                    '<div class="ref-card-row"><strong>' + L('You do:', 'Usted hace:') + '</strong> ' + L(r.youDo.en, r.youDo.es) + '</div>' +
+                    '<div class="ref-card-row"><strong>' + L('Admissible?', '¿Admisible?') + '</strong> ' + refAdm(r) + '</div>' +
+                    '<div class="ref-card-row"><strong>' + L('Your action:', 'Qué hacer:') + '</strong> ' + L(r.youDo.en, r.youDo.es) + '</div>' +
                     '<div class="ref-card-row"><strong>' + L('Report to:', 'Notificar a:') + '</strong> ' + L(r.report.en, r.report.es) + '</div>' +
                     '</div>';
             }).join('');

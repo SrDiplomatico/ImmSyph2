@@ -403,9 +403,12 @@ body.spanish .lang-es { display: inline-block !important; }
 .class-banner-icon { font-size: 34px; line-height: 1; flex: none; }
 .class-banner-text { flex: 1; min-width: 0; }
 .class-banner-title { font-size: 22px; line-height: 1.25; letter-spacing: 0.3px; }
-.class-banner-title .seg { display: inline-block; white-space: nowrap; margin-right: 8px; }
-.class-banner-title .seg:not(:last-child)::after { content: " —"; }
-.class-banner-title .seg:first-child { display: block; margin-right: 0; }
+.class-banner-title .lang-en, .class-banner-title .lang-es { display: block !important; }
+body.spanish .class-banner-title .lang-en { display: none !important; }
+body:not(.spanish) .class-banner-title .lang-es { display: none !important; }
+.class-banner-title .seg { display: inline; white-space: normal; }
+.class-banner-title .seg:not(:last-child)::after { content: "\00a0— "; }
+.class-banner-title .seg:first-child { display: block; }
 .class-banner-title .seg:first-child::after { content: ""; }
 .class-banner-sub { font-size: 15px; font-weight: 600; margin-top: 6px; line-height: 1.4; }
 .class-banner.a { background: #dc2626; border: 3px solid #7f1d1d; animation: classAPulse 1.2s ease-out 2; }

@@ -179,7 +179,7 @@ function classBanner(kind, opts) {
         A:    { cls: 'a',    icon: '🛑', role: 'alert',  en: 'CLASS A — INADMISSIBLE — DO NOT CLEAR', es: 'CLASE A — INADMISIBLE — NO AUTORICE' },
         B:    { cls: 'b',    icon: '📋', role: 'status', en: 'CLASS B — MAY BE CLEARED — FOLLOW-UP REQUIRED', es: 'CLASE B — PUEDE AUTORIZARSE — REQUIERE SEGUIMIENTO' },
         NONE: { cls: 'none', icon: '✅', role: 'status', en: 'NO CLASS A OR CLASS B', es: 'SIN CLASE A NI CLASE B' },
-        HOLD: { cls: 'hold', icon: '⏳', role: 'alert',  en: 'PENDING — DO NOT CLASSIFY — OR SIGN YET', es: 'PENDIENTE — NO CLASIFIQUE — NI FIRME AÚN' }
+        HOLD: { cls: 'hold', icon: '⏳', role: 'alert',  en: 'PENDING — DO NOT CLASSIFY OR SIGN YET', es: 'PENDIENTE — NO CLASIFIQUE NI FIRME AÚN' }
     };
     var d = defs[key] || defs.NONE;
     function segs(t) {
@@ -250,7 +250,9 @@ function answersSummary(items) {
  * time-bound action for this result.
  */
 function nextStep(en, es) {
-    return '<div class="next-step"><span class="next-step-label">' + getLangSpan('Next step', 'Siguiente paso') + '</span><span>' + getLangSpan(en, es) + '</span></div>';
+    // Keep each dash attached to the preceding word so a wrapped line never starts with "—".
+    function glue(t) { return String(t).replace(/ — /g, '\u00a0— '); }
+    return '<div class="next-step"><span class="next-step-label">' + getLangSpan('Next step', 'Siguiente paso') + '</span><span>' + getLangSpan(glue(en), glue(es)) + '</span></div>';
 }
 
 /**
