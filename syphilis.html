@@ -861,6 +861,9 @@
                             'Review treatment history to determine if previously adequately treated.',
                             'Revisar el historial de tratamiento para determinar si fue tratado adecuadamente previamente.'
                         )}</p>
+                        <div class="button-group" style="margin-top: 12px;">
+                            <button onclick="showPreviousTreatmentFromPastTreated()">${getLangSpan('Evaluate previous treatment', 'Evaluar tratamiento previo')}</button>
+                        </div>
                     </div>
                     <ul>
                         <li><strong>${getLangSpan('If adequately treated previously:', 'Si fue tratado adecuadamente previamente:')}</strong> <span class="badge no-class">${getLangSpan('No Class', 'Sin Clase')}</span> - ${getLangSpan('Document prior treatment (if no concern for re-exposure)', 'Documentar tratamiento previo (si no hay preocupación por re-exposición)')}</li>
@@ -912,6 +915,12 @@
                 </div>
             `;
             showResults(content);
+        }
+        
+        function showPreviousTreatmentFromPastTreated() {
+            // Enter the previous-treatment adequacy sub-flow (steps 5.5-5.7); Back returns to this page
+            stepHistory.push('pastTreatedPage');
+            goToStep(5.5);
         }
         
         function showTreatmentFromPastTreated(stage) {
