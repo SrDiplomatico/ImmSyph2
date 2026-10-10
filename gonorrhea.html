@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gonorrhea Evaluation Guide - CDC Technical Instructions / Guía de Evaluación de Gonorrea</title>
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1e40af">
+    <meta name="msapplication-TileColor" content="#1e40af">
+    <meta name="msapplication-navbutton-color" content="#1e40af">
+    <meta name="application-name" content="Gonorrhea Guide">
+
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Gonorrhea Guide">
+    <link rel="apple-touch-icon" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon-precomposed" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./imm_syph_icon_192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="./imm_syph_icon_192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./imm_syph_icon_512.png">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="home-link" href="./index.html">← <span class="lang-en">Home</span><span class="lang-es">Inicio</span></a>
+            <button class="language-toggle" onclick="toggleLanguage()">
+                <span class="lang-en">Español</span>
+                <span class="lang-es">English</span>
+            </button>
+            <h1>
+                <span class="lang-en">Gonorrhea Evaluation Guide</span>
+                <span class="lang-es">Guía de Evaluación de Gonorrea</span>
+            </h1>
+            <p>
+                <span class="lang-en">CDC Technical Instructions for Civil Surgeons (Gonorrhea) · CDC STI Treatment Guidelines 2021</span>
+                <span class="lang-es">Instrucciones Técnicas de los CDC para Cirujanos Civiles (Gonorrea) · Guías de Tratamiento de ITS de los CDC 2021</span>
+            </p>
+        </div>
+
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+
+            <!-- Step 1: Age -->
+            <div class="step active" id="step1">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Step 1: Applicant Age</span>
+                        <span class="lang-es">Paso 1: Edad del Solicitante</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">How old is the applicant on the date of the examination?</span>
+                        <span class="lang-es">¿Qué edad tiene el solicitante en la fecha del examen?</span>
+                    </p>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Required testing:</span>
+                            <span class="lang-es">Prueba obligatoria:</span>
+                        </strong>
+                        <p>
+                            <span class="lang-en">All applicants 18 through 24 years of age must be tested for gonorrhea with a nucleic acid amplification test (NAAT), regardless of symptoms or sexual history.</span>
+                            <span class="lang-es">Todos los solicitantes de 18 a 24 años deben someterse a una prueba de gonorrea mediante una prueba de amplificación de ácidos nucleicos (NAAT), independientemente de los síntomas o del historial sexual.</span>
+                        </p>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="goToStep(2)">
+                            <span class="lang-en">18 through 24 years</span>
+                            <span class="lang-es">18 a 24 años</span>
+                        </button>
+                        <button onclick="goToStep(1.5)">
+                            <span class="lang-en">Under 18 or 25 years and older</span>
+                            <span class="lang-es">Menor de 18 o 25 años o más</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button" style="display: none;">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.5: Indication for testing outside the mandatory age range -->
+            <div class="step" id="step1.5">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Clinical Indication for Testing</span>
+                        <span class="lang-es">Indicación Clínica para la Prueba</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Outside the 18–24 age range, testing is required only if there is a clinical indication. Does the applicant have any of the following?</span>
+                        <span class="lang-es">Fuera del rango de 18 a 24 años, la prueba solo se requiere si hay una indicación clínica. ¿El solicitante presenta alguno de los siguientes?</span>
+                    </p>
+                    <div class="info">
+                        <ul>
+                            <li>
+                                <span class="lang-en">Signs or symptoms of gonorrhea: urethral, vaginal or cervical discharge, dysuria, pelvic pain, testicular pain or epididymitis, rectal pain or discharge, pharyngitis after oral exposure</span>
+                                <span class="lang-es">Signos o síntomas de gonorrea: secreción uretral, vaginal o cervical, disuria, dolor pélvico, dolor testicular o epididimitis, dolor o secreción rectal, faringitis tras exposición oral</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Known sexual contact with a person diagnosed with gonorrhea in the past 60 days</span>
+                                <span class="lang-es">Contacto sexual conocido con una persona diagnosticada con gonorrea en los últimos 60 días</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">History of gonorrhea that was diagnosed but not treated, or treatment that cannot be documented</span>
+                                <span class="lang-es">Antecedente de gonorrea diagnosticada pero no tratada, o tratamiento que no puede documentarse</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="goToStep(2)">
+                            <span class="lang-en">Yes — Proceed with Testing</span>
+                            <span class="lang-es">Sí — Proceder con la Prueba</span>
+                        </button>
+                        <button onclick="showNoTestingRequired()">
+                            <span class="lang-en">No — No Testing Required</span>
+                            <span class="lang-es">No — No se Requiere Prueba</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Specimens -->
+            <div class="step" id="step2">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Step 2: Specimen Collection (NAAT)</span>
+                        <span class="lang-es">Paso 2: Toma de Muestras (NAAT)</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">A NAAT is the required test. Collect a urogenital specimen for every applicant, and add extragenital sites based on exposure history.</span>
+                        <span class="lang-es">La NAAT es la prueba requerida. Tome una muestra urogenital a todo solicitante y añada sitios extragenitales según el historial de exposición.</span>
+                    </p>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Urogenital specimen (always):</span>
+                            <span class="lang-es">Muestra urogenital (siempre):</span>
+                        </strong>
+                        <ul>
+                            <li>
+                                <span class="lang-en">Men: first-catch urine</span>
+                                <span class="lang-es">Hombres: primera porción de orina</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Women: vaginal swab (preferred) or first-catch urine</span>
+                                <span class="lang-es">Mujeres: hisopado vaginal (preferido) o primera porción de orina</span>
+                            </li>
+                        </ul>
+                        <strong>
+                            <span class="lang-en">Extragenital sites (select any that apply):</span>
+                            <span class="lang-es">Sitios extragenitales (seleccione los que apliquen):</span>
+                        </strong>
+                        <p>
+                            <span class="lang-en">Ask about receptive oral and anal exposure. A urogenital specimen alone will miss pharyngeal and rectal infection.</span>
+                            <span class="lang-es">Pregunte sobre exposición oral y anal receptiva. Una muestra urogenital por sí sola no detecta la infección faríngea ni rectal.</span>
+                        </p>
+                    </div>
+                    <div class="choice-group">
+                        <button class="choice" id="sitePharynx" onclick="toggleChoice('sitePharynx')">
+                            <span class="lang-en">Oral exposure — pharyngeal swab NAAT collected</span>
+                            <span class="lang-es">Exposición oral — hisopado faríngeo NAAT tomado</span>
+                        </button>
+                        <button class="choice" id="siteRectal" onclick="toggleChoice('siteRectal')">
+                            <span class="lang-en">Anal exposure — rectal swab NAAT collected</span>
+                            <span class="lang-es">Exposición anal — hisopado rectal NAAT tomado</span>
+                        </button>
+                    </div>
+                    <div class="warning">
+                        <strong>
+                            <span class="lang-en">Note:</span>
+                            <span class="lang-es">Nota:</span>
+                        </strong>
+                        <span class="lang-en">The specimen must be collected as part of this examination. Gram stain, rapid tests and serology are not acceptable substitutes. Culture with susceptibility testing is recommended in addition to NAAT when treatment failure is suspected.</span>
+                        <span class="lang-es">La muestra debe tomarse como parte de este examen. La tinción de Gram, las pruebas rápidas y la serología no son sustitutos aceptables. Se recomienda cultivo con antibiograma además de la NAAT cuando se sospecha fracaso del tratamiento.</span>
+                    </div>
+                    <div class="button-group">
+                        <button class="primary-wide" onclick="goToStep(3)">
+                            <span class="lang-en">Continue to NAAT Results</span>
+                            <span class="lang-es">Continuar a los Resultados de la NAAT</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: NAAT results -->
+            <div class="step" id="step3">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Step 3: NAAT Results</span>
+                        <span class="lang-es">Paso 3: Resultados de la NAAT</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Select every site with a positive result, then continue. If all sites are negative, choose "All sites negative".</span>
+                        <span class="lang-es">Seleccione cada sitio con resultado positivo y luego continúe. Si todos los sitios son negativos, elija "Todos los sitios negativos".</span>
+                    </p>
+                    <div class="choice-group">
+                        <button class="choice" id="posUrogenital" onclick="toggleChoice('posUrogenital')">
+                            <span class="lang-en">Urogenital NAAT positive</span>
+                            <span class="lang-es">NAAT urogenital positiva</span>
+                        </button>
+                        <button class="choice" id="posPharynx" onclick="toggleChoice('posPharynx')">
+                            <span class="lang-en">Pharyngeal NAAT positive</span>
+                            <span class="lang-es">NAAT faríngea positiva</span>
+                        </button>
+                        <button class="choice" id="posRectal" onclick="toggleChoice('posRectal')">
+                            <span class="lang-en">Rectal NAAT positive</span>
+                            <span class="lang-es">NAAT rectal positiva</span>
+                        </button>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="continuePositive()">
+                            <span class="lang-en">Positive — Continue</span>
+                            <span class="lang-es">Positiva — Continuar</span>
+                        </button>
+                        <button class="secondary" onclick="showNegativeResult()">
+                            <span class="lang-en">All sites negative</span>
+                            <span class="lang-es">Todos los sitios negativos</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Treatment status -->
+            <div class="step" id="step4">
+                <div class="question">
+                    <span class="status-pill a">
+                        <span class="lang-en">⚠️ Class A until treatment is completed and documented</span>
+                        <span class="lang-es">⚠️ Clase A hasta completar y documentar el tratamiento</span>
+                    </span>
+                    <h2>
+                        <span class="lang-en">Step 4: Treatment Status</span>
+                        <span class="lang-es">Paso 4: Estado del Tratamiento</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">A positive NAAT is a Class A condition. The applicant becomes Class B only after treatment is completed and documented. Treatment should be given at the time of the examination and directly observed whenever possible.</span>
+                        <span class="lang-es">Una NAAT positiva es una condición de Clase A. El solicitante pasa a Clase B solo después de completar y documentar el tratamiento. El tratamiento debe administrarse en el momento del examen y ser observado directamente siempre que sea posible.</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="goToStep(5)">
+                            <span class="lang-en">Not yet treated — select treatment now</span>
+                            <span class="lang-es">Aún sin tratar — seleccionar tratamiento ahora</span>
+                        </button>
+                        <button onclick="goToStep(4.5)">
+                            <span class="lang-en">Already treated for this infection by another provider (documentation available)</span>
+                            <span class="lang-es">Ya tratado por este episodio por otro proveedor (documentación disponible)</span>
+                        </button>
+                        <button class="secondary" onclick="showRefused()">
+                            <span class="lang-en">Applicant refuses treatment</span>
+                            <span class="lang-es">El solicitante rechaza el tratamiento</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4.5: Verify prior treatment -->
+            <div class="step" id="step4.5">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Verify Documented Treatment</span>
+                        <span class="lang-es">Verificar el Tratamiento Documentado</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Treatment counts only if the documentation shows all of the following:</span>
+                        <span class="lang-es">El tratamiento cuenta solo si la documentación muestra todo lo siguiente:</span>
+                    </p>
+                    <div class="info">
+                        <ul class="checklist">
+                            <li>
+                                <span class="lang-en">Drug, dose, route and date of administration</span>
+                                <span class="lang-es">Fármaco, dosis, vía y fecha de administración</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">A CDC-recommended regimen: ceftriaxone 500 mg IM (1 g if ≥ 150 kg), or an acceptable alternative (gentamicin 240 mg IM + azithromycin 2 g PO, or cefixime 800 mg PO for non-pharyngeal infection)</span>
+                                <span class="lang-es">Un régimen recomendado por los CDC: ceftriaxona 500 mg IM (1 g si ≥ 150 kg), o una alternativa aceptable (gentamicina 240 mg IM + azitromicina 2 g VO, o cefixima 800 mg VO para infección no faríngea)</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Treatment given after the positive specimen was collected, during this examination period</span>
+                                <span class="lang-es">Tratamiento administrado después de tomar la muestra positiva, durante este periodo de examen</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">For pharyngeal infection: a negative test of cure 7–14 days after treatment, or the test of cure is arranged before signing</span>
+                                <span class="lang-es">Para infección faríngea: una prueba de curación negativa 7–14 días después del tratamiento, o la prueba de curación queda programada antes de firmar</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="showTreated(true)">
+                            <span class="lang-en">Yes — all criteria met</span>
+                            <span class="lang-es">Sí — se cumplen todos los criterios</span>
+                        </button>
+                        <button class="secondary" onclick="goToStep(5)">
+                            <span class="lang-en">No / unknown — re-treat now</span>
+                            <span class="lang-es">No / desconocido — volver a tratar ahora</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Patient factors for regimen selection -->
+            <div class="step" id="step5">
+                <div class="question">
+                    <span class="status-pill a">
+                        <span class="lang-en">⚠️ Class A — treat now</span>
+                        <span class="lang-es">⚠️ Clase A — tratar ahora</span>
+                    </span>
+                    <h2>
+                        <span class="lang-en">Step 5: Patient Factors</span>
+                        <span class="lang-es">Paso 5: Factores del Paciente</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Select all that apply. The recommended regimen will adjust for weight, allergy, pregnancy, chlamydia co-treatment and infection site.</span>
+                        <span class="lang-es">Seleccione todos los que apliquen. El régimen recomendado se ajustará según peso, alergia, embarazo, cotratamiento de clamidia y sitio de infección.</span>
+                    </p>
+                    <div class="choice-group">
+                        <button class="choice" id="fxWeight" onclick="toggleChoice('fxWeight')">
+                            <span class="lang-en">Body weight 150 kg (330 lb) or more</span>
+                            <span class="lang-es">Peso corporal de 150 kg (330 lb) o más</span>
+                        </button>
+                        <button class="choice" id="fxAllergy" onclick="toggleChoice('fxAllergy')">
+                            <span class="lang-en">Severe cephalosporin allergy (anaphylaxis, Stevens-Johnson, TEN)</span>
+                            <span class="lang-es">Alergia grave a cefalosporinas (anafilaxia, Stevens-Johnson, NET)</span>
+                        </button>
+                        <button class="choice" id="fxPregnant" onclick="toggleChoice('fxPregnant')">
+                            <span class="lang-en">Pregnant or breastfeeding</span>
+                            <span class="lang-es">Embarazada o en lactancia</span>
+                        </button>
+                        <button class="choice" id="fxChlamydiaExcluded" onclick="toggleChoice('fxChlamydiaExcluded')">
+                            <span class="lang-en">Chlamydia excluded by a negative chlamydia NAAT</span>
+                            <span class="lang-es">Clamidia descartada por una NAAT de clamidia negativa</span>
+                        </button>
+                    </div>
+                    <div class="button-group">
+                        <button class="primary-wide" onclick="showTreatmentPlan()">
+                            <span class="lang-en">Show Recommended Treatment</span>
+                            <span class="lang-es">Mostrar el Tratamiento Recomendado</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Treatment plan (generated) -->
+            <div class="step" id="plan">
+                <div id="planContent"></div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="step" id="results">
+                <div id="resultsContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+    <script>
+        // Gonorrhea module (shared engine lives in app.js)
+
+        function toggleChoice(id) {
+            var el = document.getElementById(id);
+            if (el) { el.classList.toggle('selected'); }
+        }
+
+        function isSelected(id) {
+            var el = document.getElementById(id);
+            return !!(el && el.classList.contains('selected'));
+        }
+
+        function clearChoices() {
+            document.querySelectorAll('button.choice.selected').forEach(function (b) {
+                b.classList.remove('selected');
+            });
+        }
+
+        function positiveSites() {
+            var sites = [];
+            if (isSelected('posUrogenital')) { sites.push(getLangSpan('urogenital', 'urogenital')); }
+            if (isSelected('posPharynx')) { sites.push(getLangSpan('pharyngeal', 'faríngeo')); }
+            if (isSelected('posRectal')) { sites.push(getLangSpan('rectal', 'rectal')); }
+            return sites;
+        }
+
+        function continuePositive() {
+            if (positiveSites().length === 0) {
+                alert(getText('Select at least one positive site, or choose "All sites negative".',
+                              'Seleccione al menos un sitio positivo o elija "Todos los sitios negativos".'));
+                return;
+            }
+            goToStep(4);
+        }
+
+        function documentationBlock(extraEn, extraEs) {
+            return `
+                <div class="info">
+                    <strong>${getLangSpan('Form I-693 documentation:', 'Documentación en el Formulario I-693:')}</strong>
+                    <ul class="checklist">
+                        <li>${getLangSpan('Record the test type (NAAT), specimen site(s), collection date and result in the gonorrhea section.',
+                                          'Registre el tipo de prueba (NAAT), el/los sitio(s) de la muestra, la fecha de toma y el resultado en la sección de gonorrea.')}</li>
+                        ${extraEn ? '<li>' + getLangSpan(extraEn, extraEs) + '</li>' : ''}
+                    </ul>
+                </div>`;
+        }
+
+        function sourceBlock() {
+            return `<p class="source">${getLangSpan(
+                'Sources: CDC Technical Instructions for Civil Surgeons — Gonorrhea (testing required for ages 18–24); CDC Sexually Transmitted Infections Treatment Guidelines, 2021. Verify against the current instructions before signing.',
+                'Fuentes: Instrucciones Técnicas de los CDC para Cirujanos Civiles — Gonorrea (prueba obligatoria de 18 a 24 años); Guías de Tratamiento de Infecciones de Transmisión Sexual de los CDC, 2021. Verifique con las instrucciones vigentes antes de firmar.'
+            )}</p>`;
+        }
+
+        function showNoTestingRequired() {
+            const content = `
+                ${classBanner('NONE', { subEn: 'Gonorrhea testing not required', subEs: 'No se requiere prueba de gonorrea' })}
+                <div class="result">
+                    <h3>${getLangSpan('No Testing Required', 'No se Requiere Prueba')}</h3>
+                    <span class="badge no-class">${getLangSpan('No Class', 'Sin Clase')}</span>
+                    <p>${getLangSpan(
+                        'The applicant is outside the 18–24 mandatory testing age range and has no signs, symptoms, exposure or history that would indicate testing.',
+                        'El solicitante está fuera del rango obligatorio de 18 a 24 años y no tiene signos, síntomas, exposición ni antecedentes que indiquen la prueba.'
+                    )}</p>
+                    <div class="info">
+                        <strong>${getLangSpan('Documentation:', 'Documentación:')}</strong>
+                        <p>${getLangSpan(
+                            'Indicate on Form I-693 that gonorrhea testing was not required based on age and the absence of clinical indication.',
+                            'Indique en el Formulario I-693 que la prueba de gonorrea no fue requerida según la edad y la ausencia de indicación clínica.'
+                        )}</p>
+                    </div>
+                    ${sourceBlock()}
+                </div>`;
+            showResults(content);
+        }
+
+        function showNegativeResult() {
+            const content = `
+                ${classBanner('NONE', { subEn: 'Gonorrhea NAAT negative at all sites tested', subEs: 'NAAT de gonorrea negativa en todos los sitios examinados' })}
+                <div class="result">
+                    <h3>${getLangSpan('Gonorrhea Not Detected', 'Gonorrea No Detectada')}</h3>
+                    <span class="badge no-class">${getLangSpan('No Class', 'Sin Clase')}</span>
+                    <p>${getLangSpan(
+                        'All NAAT results are negative. No treatment is required and the applicant has no Class A or Class B condition for gonorrhea.',
+                        'Todos los resultados de la NAAT son negativos. No se requiere tratamiento y el solicitante no tiene condición de Clase A ni Clase B por gonorrea.'
+                    )}</p>
+                    ${documentationBlock(
+                        'If the applicant was tested because of a known exposure in the past 60 days, consider presumptive treatment per CDC STI guidelines; this is clinical care and does not change the I-693 classification.',
+                        'Si el solicitante fue examinado por una exposición conocida en los últimos 60 días, considere tratamiento presuntivo según las guías de ITS de los CDC; esto es atención clínica y no cambia la clasificación del I-693.'
+                    )}
+                    ${sourceBlock()}
+                </div>`;
+            showResults(content);
+        }
+
+        function showRefused() {
+            const content = `
+                ${classBanner('A', { subEn: 'Gonorrhea — untreated (treatment refused)', subEs: 'Gonorrea — sin tratar (tratamiento rechazado)' })}
+                <div class="result">
+                    <h3>${getLangSpan('Treatment Refused — Class A', 'Tratamiento Rechazado — Clase A')}</h3>
+                    <span class="badge class-a">${getLangSpan('Class A', 'Clase A')}</span>
+                    <p>${getLangSpan(
+                        'An applicant with untreated gonorrhea has a Class A condition and is inadmissible. The civil surgeon cannot clear the applicant until treatment is completed and documented.',
+                        'Un solicitante con gonorrea sin tratar tiene una condición de Clase A y es inadmisible. El cirujano civil no puede autorizar al solicitante hasta que el tratamiento se complete y documente.'
+                    )}</p>
+                    <div class="warning">
+                        <strong>${getLangSpan('Required actions:', 'Acciones requeridas:')}</strong>
+                        <ul class="checklist">
+                            <li>${getLangSpan('Counsel the applicant on the diagnosis, the single-dose treatment and the consequences of refusal for the immigration examination.',
+                                              'Oriente al solicitante sobre el diagnóstico, el tratamiento de dosis única y las consecuencias del rechazo para el examen de inmigración.')}</li>
+                            <li>${getLangSpan('Document the refusal and the counseling in the medical record and on Form I-693. Classify as Class A.',
+                                              'Documente el rechazo y la orientación en el expediente médico y en el Formulario I-693. Clasifique como Clase A.')}</li>
+                            <li>${getLangSpan('Report the case to the local or state health department as required.',
+                                              'Notifique el caso al departamento de salud local o estatal según se requiera.')}</li>
+                            <li>${getLangSpan('If the applicant later accepts treatment, re-evaluate: once treatment is documented the condition becomes Class B.',
+                                              'Si el solicitante luego acepta el tratamiento, reevalúe: una vez documentado el tratamiento, la condición pasa a Clase B.')}</li>
+                        </ul>
+                    </div>
+                    ${sourceBlock()}
+                </div>`;
+            showResults(content);
+        }
+
+        function showTreatmentPlan() {
+            var heavy = isSelected('fxWeight');
+            var allergy = isSelected('fxAllergy');
+            var pregnant = isSelected('fxPregnant');
+            var chlamydiaExcluded = isSelected('fxChlamydiaExcluded');
+            var pharynx = isSelected('posPharynx');
+
+            var primary, alternative;
+            if (!allergy) {
+                primary = heavy
+                    ? getLangSpan('<strong>Ceftriaxone 1 g IM × 1 dose</strong> (weight ≥ 150 kg)', '<strong>Ceftriaxona 1 g IM × 1 dosis</strong> (peso ≥ 150 kg)')
+                    : getLangSpan('<strong>Ceftriaxone 500 mg IM × 1 dose</strong>', '<strong>Ceftriaxona 500 mg IM × 1 dosis</strong>');
+                alternative = pharynx
+                    ? getLangSpan('If ceftriaxone is unavailable: gentamicin 240 mg IM × 1 + azithromycin 2 g PO × 1. Cefixime is <u>not</u> acceptable for pharyngeal infection. Test of cure is required.',
+                                  'Si no hay ceftriaxona disponible: gentamicina 240 mg IM × 1 + azitromicina 2 g VO × 1. La cefixima <u>no</u> es aceptable para infección faríngea. Se requiere prueba de curación.')
+                    : getLangSpan('If ceftriaxone is unavailable: gentamicin 240 mg IM × 1 + azithromycin 2 g PO × 1, <em>or</em> cefixime 800 mg PO × 1 (urogenital / rectal only).',
+                                  'Si no hay ceftriaxona disponible: gentamicina 240 mg IM × 1 + azitromicina 2 g VO × 1, <em>o</em> cefixima 800 mg VO × 1 (solo urogenital / rectal).');
+            } else {
+                primary = getLangSpan('<strong>Gentamicin 240 mg IM × 1 dose + azithromycin 2 g PO × 1 dose</strong> (severe cephalosporin allergy)',
+                                      '<strong>Gentamicina 240 mg IM × 1 dosis + azitromicina 2 g VO × 1 dosis</strong> (alergia grave a cefalosporinas)');
+                alternative = pharynx
+                    ? getLangSpan('This regimen is less reliable for pharyngeal infection. Consult an infectious disease specialist and obtain a test of cure 7–14 days after treatment.',
+                                  'Este régimen es menos confiable para la infección faríngea. Consulte a un especialista en enfermedades infecciosas y obtenga una prueba de curación 7–14 días después del tratamiento.')
+                    : getLangSpan('Consider allergy evaluation; ceftriaxone can often be given safely when the penicillin allergy history is not severe. A test of cure is recommended after any alternative regimen.',
+                                  'Considere evaluación alergológica; la ceftriaxona a menudo puede administrarse con seguridad cuando la alergia a penicilina no es grave. Se recomienda prueba de curación tras cualquier régimen alternativo.');
+            }
+
+            var chlamydia;
+            if (chlamydiaExcluded) {
+                chlamydia = getLangSpan('Not needed — chlamydia excluded by negative NAAT.', 'No es necesario — clamidia descartada por NAAT negativa.');
+            } else if (pregnant) {
+                chlamydia = getLangSpan('<strong>Azithromycin 1 g PO × 1 dose</strong> (doxycycline is contraindicated in pregnancy). Not needed if the allergy regimen above already includes azithromycin 2 g.',
+                                        '<strong>Azitromicina 1 g VO × 1 dosis</strong> (la doxiciclina está contraindicada en el embarazo). No es necesario si el régimen por alergia ya incluye azitromicina 2 g.');
+            } else if (allergy) {
+                chlamydia = getLangSpan('Covered by azithromycin 2 g in the allergy regimen above.', 'Cubierta por la azitromicina 2 g del régimen por alergia indicado arriba.');
+            } else {
+                chlamydia = getLangSpan('<strong>Doxycycline 100 mg PO twice daily × 7 days</strong> when chlamydia has not been excluded.',
+                                        '<strong>Doxiciclina 100 mg VO dos veces al día × 7 días</strong> cuando no se ha descartado la clamidia.');
+            }
+
+            var toc = pharynx
+                ? getLangSpan('<strong>Required for pharyngeal infection:</strong> NAAT or culture 7–14 days after treatment. A positive test of cure means treatment failure or reinfection: obtain culture with susceptibility testing and consult the health department.',
+                              '<strong>Requerida para infección faríngea:</strong> NAAT o cultivo 7–14 días después del tratamiento. Una prueba de curación positiva indica fracaso del tratamiento o reinfección: obtenga cultivo con antibiograma y consulte al departamento de salud.')
+                : getLangSpan('Not routinely required for uncomplicated urogenital or rectal infection treated with the recommended regimen. Obtain a test of cure if an alternative regimen was used or symptoms persist.',
+                              'No se requiere de rutina para infección urogenital o rectal no complicada tratada con el régimen recomendado. Obtenga prueba de curación si se usó un régimen alternativo o persisten los síntomas.');
+
+            var content = `
+                <div class="question">
+                    <span class="status-pill a">
+                        <span class="lang-en">⚠️ Class A — administer treatment, then classify</span>
+                        <span class="lang-es">⚠️ Clase A — administre el tratamiento y luego clasifique</span>
+                    </span>
+                    <h2>${getLangSpan('Recommended Treatment', 'Tratamiento Recomendado')}</h2>
+                    <p>${getLangSpan('Positive site(s):', 'Sitio(s) positivo(s):')}&nbsp;${positiveSites().join(', ')}</p>
+                    <table class="treatment-table">
+                        <tr><th>${getLangSpan('Recommended regimen', 'Régimen recomendado')}</th><td>${primary}</td></tr>
+                        <tr><th>${getLangSpan('Alternative', 'Alternativa')}</th><td>${alternative}</td></tr>
+                        <tr><th>${getLangSpan('Chlamydia co-treatment', 'Cotratamiento de clamidia')}</th><td>${chlamydia}</td></tr>
+                        <tr><th>${getLangSpan('Test of cure', 'Prueba de curación')}</th><td>${toc}</td></tr>
+                        <tr><th>${getLangSpan('Administration', 'Administración')}</th><td>${getLangSpan(
+                            'Give the injection at the examination and observe it directly. Record drug, dose, route, lot and date in the chart.',
+                            'Administre la inyección en el examen y obsérvela directamente. Registre fármaco, dosis, vía, lote y fecha en el expediente.')}</td></tr>
+                        <tr><th>${getLangSpan('Partners &amp; reporting', 'Parejas y notificación')}</th><td>${getLangSpan(
+                            'Report the case to the health department as required by state law. Sex partners from the past 60 days should be evaluated and treated (expedited partner therapy where permitted). Advise abstinence for 7 days after treatment and until partners are treated. Retest in 3 months for reinfection.',
+                            'Notifique el caso al departamento de salud según la ley estatal. Las parejas sexuales de los últimos 60 días deben evaluarse y tratarse (terapia expedita para parejas donde esté permitida). Recomiende abstinencia durante 7 días después del tratamiento y hasta que las parejas sean tratadas. Repita la prueba a los 3 meses por reinfección.')}</td></tr>
+                    </table>
+                    ${pregnant ? '<div class="warning"><strong>' + getLangSpan('Pregnancy:', 'Embarazo:') + '</strong> ' + getLangSpan(
+                        'Ceftriaxone is safe in pregnancy. Do not use doxycycline. Pregnant applicants should be retested 3 months after treatment.',
+                        'La ceftriaxona es segura en el embarazo. No use doxiciclina. Las solicitantes embarazadas deben volver a examinarse 3 meses después del tratamiento.') + '</div>' : ''}
+                    <div class="button-group">
+                        <button class="primary-wide" onclick="showTreated(false)">
+                            <span class="lang-en">Treatment administered and documented — classify</span>
+                            <span class="lang-es">Tratamiento administrado y documentado — clasificar</span>
+                        </button>
+                        <button class="secondary" onclick="showUntreated()">
+                            <span class="lang-en">Treatment not given today</span>
+                            <span class="lang-es">Tratamiento no administrado hoy</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>`;
+            document.getElementById('planContent').innerHTML = content;
+            goToStep('plan');
+        }
+
+        function showUntreated() {
+            const content = `
+                ${classBanner('A', { subEn: 'Gonorrhea — treatment not yet completed', subEs: 'Gonorrea — tratamiento aún no completado' })}
+                <div class="result">
+                    <h3>${getLangSpan('Gonorrhea, Untreated — Class A', 'Gonorrea sin Tratar — Clase A')}</h3>
+                    <span class="badge class-a">${getLangSpan('Class A', 'Clase A')}</span>
+                    <p>${getLangSpan(
+                        'Do not sign Form I-693 as cleared. The applicant remains Class A until the treatment shown on the previous page is administered and documented. Schedule treatment as soon as possible, preferably at this visit.',
+                        'No firme el Formulario I-693 como autorizado. El solicitante permanece en Clase A hasta que el tratamiento mostrado en la página anterior se administre y documente. Programe el tratamiento lo antes posible, preferiblemente en esta visita.'
+                    )}</p>
+                    ${documentationBlock(
+                        'If the applicant does not return for treatment, classify as Class A and report to the health department.',
+                        'Si el solicitante no regresa para el tratamiento, clasifique como Clase A y notifique al departamento de salud.'
+                    )}
+                    ${sourceBlock()}
+                </div>`;
+            showResults(content);
+        }
+
+        function showTreated(prior) {
+            var pharynx = isSelected('posPharynx');
+            const content = `
+                ${classBanner('B', { labelEn: 'CLASS B — GONORRHEA, TREATED', labelEs: 'CLASE B — GONORREA, TRATADA',
+                                     subEn: 'Admissible. Document treatment on Form I-693 and report to the health department.',
+                                     subEs: 'Admisible. Documente el tratamiento en el Formulario I-693 y notifique al departamento de salud.' })}
+                <div class="result">
+                    <h3>${getLangSpan('Gonorrhea, Treated — Class B', 'Gonorrea Tratada — Clase B')}</h3>
+                    <span class="badge class-b">${getLangSpan('Class B', 'Clase B')}</span>
+                    <p>${getLangSpan('Positive site(s):', 'Sitio(s) positivo(s):')}&nbsp;${positiveSites().join(', ')}</p>
+                    <p>${getLangSpan(
+                        'Treatment with a CDC-recommended regimen has been completed and documented. The applicant is admissible and the civil surgeon may sign Form I-693.',
+                        'Se completó y documentó el tratamiento con un régimen recomendado por los CDC. El solicitante es admisible y el cirujano civil puede firmar el Formulario I-693.'
+                    )}</p>
+                    <div class="info">
+                        <strong>${getLangSpan('Form I-693 documentation:', 'Documentación en el Formulario I-693:')}</strong>
+                        <ul class="checklist">
+                            <li>${getLangSpan('Record the NAAT type, site(s), collection date and positive result.',
+                                              'Registre el tipo de NAAT, sitio(s), fecha de toma y resultado positivo.')}</li>
+                            <li>${getLangSpan('Record the drug, dose, route and date of treatment' + (prior ? ' and attach the treating provider\'s documentation.' : '.'),
+                                              'Registre el fármaco, la dosis, la vía y la fecha del tratamiento' + (prior ? ' y adjunte la documentación del proveedor tratante.' : '.'))}</li>
+                            <li>${getLangSpan('Classify as Class B (gonorrhea, treated) and indicate that the case was reported to the health department.',
+                                              'Clasifique como Clase B (gonorrea tratada) e indique que el caso fue notificado al departamento de salud.')}</li>
+                            ${pharynx ? '<li>' + getLangSpan('Pharyngeal infection: document the test of cure result (7–14 days after treatment). If the test of cure is positive, re-treat with ceftriaxone, obtain culture with susceptibility testing and re-evaluate before signing.',
+                                                              'Infección faríngea: documente el resultado de la prueba de curación (7–14 días después del tratamiento). Si la prueba de curación es positiva, vuelva a tratar con ceftriaxona, obtenga cultivo con antibiograma y reevalúe antes de firmar.') + '</li>' : ''}
+                        </ul>
+                    </div>
+                    <div class="warning">
+                        <strong>${getLangSpan('Follow-up (clinical care, not required for I-693):', 'Seguimiento (atención clínica, no requerido para el I-693):')}</strong>
+                        <span>${getLangSpan(
+                            'Partner notification and treatment, abstinence for 7 days after treatment, retesting in 3 months, and HIV and syphilis screening if not already done.',
+                            'Notificación y tratamiento de parejas, abstinencia durante 7 días después del tratamiento, repetir la prueba a los 3 meses, y tamizaje de VIH y sífilis si no se ha realizado.'
+                        )}</span>
+                    </div>
+                    ${sourceBlock()}
+                </div>`;
+            showResults(content);
+        }
+
+        // Wire the gonorrhea module to the shared engine (app.js)
+        App.configure({
+            totalSteps: 5,
+            firstStep: 1,
+            onReset: function () {
+                clearChoices();
+            }
+        });
+    </script>
+</body>
+</html>
