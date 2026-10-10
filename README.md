@@ -34,6 +34,11 @@ Each module page declares its own steps in HTML (`<div class="step" id="step…"
 decision logic in an inline script; the shared engine in `app.js` provides `goToStep`, `goBack`,
 `showResults`, `resetEvaluation`, `getLangSpan`, `getText` and `classBanner`.
 
+## Decision logic
+
+Every rule the gonorrhea and tuberculosis wizards apply, with its source and the items still to be
+verified against the live CDC pages, is written out in [docs/CLINICAL-LOGIC.md](docs/CLINICAL-LOGIC.md).
+
 ## Running locally
 
 Any static server works, for example:
