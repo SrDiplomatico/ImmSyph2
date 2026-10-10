@@ -19,8 +19,11 @@ body {
     background: white;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    overflow: hidden;
+    overflow: clip;
     animation: slideIn 0.5s ease-out;
+}
+@supports not (overflow: clip) {
+    .container { overflow: hidden; }
 }
 
 @keyframes slideIn {
@@ -85,10 +88,11 @@ body {
     }
     
     .language-toggle {
-        top: 15px;
-        right: 15px;
-        font-size: 12px;
-        padding: 6px 12px;
+        top: 15px !important;
+        right: 15px !important;
+        font-size: 13px !important;
+        padding: 6px 12px !important;
+        min-height: 36px;
     }
     
     .content {
@@ -107,10 +111,11 @@ body {
     }
     
     .language-toggle {
-        top: 12px;
-        right: 12px;
-        font-size: 11px;
-        padding: 5px 10px;
+        top: 12px !important;
+        right: 12px !important;
+        font-size: 13px !important;
+        padding: 6px 10px !important;
+        min-height: 36px;
     }
 }
 
@@ -342,8 +347,8 @@ body.spanish .lang-es { display: inline-block !important; }
     align-items: center;
 }
 .home-link:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
-@media (max-width: 768px) { .home-link { top: 15px; left: 15px; font-size: 12px; padding: 6px 12px; } }
-@media (max-width: 480px) { .home-link { top: 12px; left: 12px; font-size: 11px; padding: 5px 10px; } }
+@media (max-width: 768px) { .home-link { top: 15px; left: 15px; font-size: 13px; padding: 6px 12px; } }
+@media (max-width: 480px) { .home-link { top: 12px; left: 12px; font-size: 13px; padding: 6px 10px; } }
 
 /* Hub */
 .hub-intro { color: #4a5568; line-height: 1.6; margin-bottom: 20px; }
@@ -381,7 +386,7 @@ body.spanish .lang-es { display: inline-block !important; }
 .legend-swatch.b { background: #b45309; }
 .legend-swatch.hold { background: #334155; border: 2px dashed #94a3b8; box-sizing: border-box; }
 .legend-swatch.none { background: #047857; }
-.footer-note { color: #64748b; font-size: 12px; line-height: 1.5; text-align: center; margin-top: 10px; }
+.footer-note { color: #64748b; font-size: 13px; line-height: 1.5; text-align: center; margin-top: 10px; }
 
 /* Classification banners (first element of every final result) */
 .class-banner {
@@ -397,7 +402,11 @@ body.spanish .lang-es { display: inline-block !important; }
 }
 .class-banner-icon { font-size: 34px; line-height: 1; flex: none; }
 .class-banner-text { flex: 1; min-width: 0; }
-.class-banner-title { font-size: 22px; line-height: 1.2; letter-spacing: 0.3px; }
+.class-banner-title { font-size: 22px; line-height: 1.25; letter-spacing: 0.3px; }
+.class-banner-title .seg { display: inline-block; white-space: nowrap; margin-right: 8px; }
+.class-banner-title .seg:not(:last-child)::after { content: " —"; }
+.class-banner-title .seg:first-child { display: block; margin-right: 0; }
+.class-banner-title .seg:first-child::after { content: ""; }
 .class-banner-sub { font-size: 15px; font-weight: 600; margin-top: 6px; line-height: 1.4; }
 .class-banner.a { background: #dc2626; border: 3px solid #7f1d1d; animation: classAPulse 1.2s ease-out 2; }
 .class-banner.b { background: #b45309; border: 3px solid #78350f; }
@@ -460,10 +469,15 @@ button.primary-wide { width: 100%; background: #2563eb; }
 button.primary-wide:hover { background: #1e40af; }
 .button-group.stacked { flex-direction: column; }
 .button-group.stacked button { width: 100%; text-align: left; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.class-tag { flex: none; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.6); white-space: nowrap; }
+.class-tag { flex: none; font-size: 13px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.6); white-space: nowrap; }
 .class-tag.a { background: #7f1d1d; }
 .class-tag.b { background: #78350f; }
 .class-tag.none { background: #064e3b; }
+.class-tag.hold { background: #0f172a; }
+@media (max-width: 480px) {
+    .button-group.stacked button { flex-wrap: wrap; }
+    .class-tag { flex-basis: 100%; text-align: right; margin-left: 0; }
+}
 
 /* Status pill on intermediate steps */
 .status-pill { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 15px; }
@@ -495,7 +509,7 @@ button.primary-wide:hover { background: #1e40af; }
 .ref-card-title { font-weight: 700; font-size: 16px; color: #1f2937; margin-bottom: 6px; }
 .ref-card-row { font-size: 14px; color: #374151; line-height: 1.5; margin: 4px 0; }
 .ref-card-row strong { color: #1e40af; }
-.chip { display: inline-block; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 10px; }
+.chip { display: inline-block; font-weight: 700; font-size: 13px; padding: 2px 8px; border-radius: 10px; }
 .chip.yes { background: #d1fae5; color: #065f46; }
 .chip.no { background: #fee2e2; color: #7f1d1d; }
 .chip.wait { background: #e2e8f0; color: #1e293b; }
@@ -507,7 +521,7 @@ button.primary-wide:hover { background: #1e40af; }
 }
 
 /* Misc */
-.source { color: #64748b; font-size: 12px; margin-top: 15px; line-height: 1.5; }
+.source { color: #64748b; font-size: 13px; margin-top: 15px; line-height: 1.5; }
 .badge.class-b-tb { background: #fef3c7; color: #92400e; border: 2px solid #d97706; }
 
 /* Form I-693 label box (always English) */
@@ -519,11 +533,30 @@ button.primary-wide:hover { background: #1e40af; }
 .copy-btn:hover { background: #334155; transform: none; box-shadow: none; }
 .form-label-meaning { font-size: 14px; color: #374151; margin-top: 8px; line-height: 1.5; }
 
-/* "Based on your answers" */
-.answers { background: #f1f5f9; border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 14px; color: #334155; }
-.answers-title { font-weight: 700; color: #1e293b; margin-bottom: 4px; }
-.answers ul { margin: 0 0 0 18px; }
+/* "Based on your answers" (collapsed by default) */
+.answers { background: #f1f5f9; border-radius: 10px; padding: 8px 14px; margin-bottom: 14px; font-size: 14px; color: #334155; }
+.answers summary { font-weight: 700; color: #1e293b; cursor: pointer; padding: 4px 0; list-style: none; }
+.answers summary::-webkit-details-marker { display: none; }
+.answers summary::before { content: "▸ "; color: #2563eb; }
+.answers[open] summary::before { content: "▾ "; }
+.answers ul { margin: 6px 0 4px 18px; }
 .answers li { margin: 2px 0; }
+
+/* "Next step" strip directly under the banner */
+.next-step { display: flex; gap: 10px; align-items: flex-start; background: #ffffff; border: 2px solid #1e293b; border-radius: 10px; padding: 10px 14px; margin: -8px 0 16px; font-size: 15px; font-weight: 600; color: #111827; line-height: 1.4; }
+.next-step .next-step-label { flex: none; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #ffffff; background: #1e293b; border-radius: 6px; padding: 3px 7px; margin-top: 1px; }
+
+.badge.pending { background: #e2e8f0; color: #1e293b; border: 2px dashed #64748b; }
+.form-label.pending { border-color: #64748b; border-style: dashed; background: #f8fafc; }
+.form-label.pending .form-label-caption { color: #1e293b; }
+.form-label.pending .form-label-text { color: #475569; border-style: dotted; font-weight: 600; }
+
+/* Compact header while a result is shown (phones) */
+@media (max-width: 600px) {
+    body.on-results .header { padding: 56px 20px 16px; }
+    body.on-results .header h1 { font-size: 18px; margin-top: 0; }
+    body.on-results .header p { display: none; }
+}
 
 /* Required-actions boxes coloured by class */
 .actions { padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #94a3b8; background: #f8fafc; }
@@ -544,4 +577,4 @@ button.primary-wide:hover { background: #1e40af; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .caption { font-size: 13px; color: #64748b; line-height: 1.5; margin-top: 8px; }
-.edition { font-size: 12px; color: #94a3b8; text-align: center; margin-top: 6px; }
+.edition { font-size: 13px; color: #94a3b8; text-align: center; margin-top: 6px; }

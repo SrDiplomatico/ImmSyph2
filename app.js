@@ -79,6 +79,7 @@ function goToStep(stepId, extra) {
     }
 
     currentStep = stepId;
+    document.body.classList.toggle('on-results', stepId === 'results');
 
     // Only update progress bar for numeric steps
     if (typeof stepId === 'number') {
@@ -123,7 +124,7 @@ function showResults(content) {
     container.innerHTML = content;
 
     var backButtonHtml = '<button onclick="goBack()" class="secondary">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>';
-    var startOverButtonHtml = '<button onclick="resetEvaluation()"><span class="lang-en">Start Over</span><span class="lang-es">Comenzar de Nuevo</span></button>';
+    var startOverButtonHtml = '<button onclick="resetEvaluation()"><span class="lang-en">Start Over</span><span class="lang-es">Comenzar de nuevo</span></button>';
 
     if (stepHistory.length > 1) {
         container.innerHTML += '<div class="nav-buttons" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;">' +
@@ -178,10 +179,13 @@ function classBanner(kind, opts) {
         A:    { cls: 'a',    icon: '🛑', role: 'alert',  en: 'CLASS A — INADMISSIBLE — DO NOT CLEAR', es: 'CLASE A — INADMISIBLE — NO AUTORICE' },
         B:    { cls: 'b',    icon: '📋', role: 'status', en: 'CLASS B — MAY BE CLEARED — FOLLOW-UP REQUIRED', es: 'CLASE B — PUEDE AUTORIZARSE — REQUIERE SEGUIMIENTO' },
         NONE: { cls: 'none', icon: '✅', role: 'status', en: 'NO CLASS A OR CLASS B', es: 'SIN CLASE A NI CLASE B' },
-        HOLD: { cls: 'hold', icon: '⏳', role: 'alert',  en: 'PENDING — DO NOT CLASSIFY OR SIGN YET', es: 'PENDIENTE — NO CLASIFIQUE NI FIRME TODAVÍA' }
+        HOLD: { cls: 'hold', icon: '⏳', role: 'alert',  en: 'PENDING — DO NOT CLASSIFY — OR SIGN YET', es: 'PENDIENTE — NO CLASIFIQUE — NI FIRME AÚN' }
     };
     var d = defs[key] || defs.NONE;
-    var title = getLangSpan(opts.labelEn || d.en, opts.labelEs || d.es);
+    function segs(t) {
+        return String(t).split(' — ').map(function (x) { return '<span class="seg">' + x + '</span>'; }).join(' ');
+    }
+    var title = getLangSpan(segs(opts.labelEn || d.en), segs(opts.labelEs || d.es));
     var sub = (opts.subEn || opts.subEs)
         ? '<div class="class-banner-sub">' + getLangSpan(opts.subEn || '', opts.subEs || '') + '</div>'
         : '';
@@ -201,6 +205,13 @@ function formLabel(label, opts) {
     var meaning = (opts.meaningEn || opts.meaningEs)
         ? '<div class="form-label-meaning">' + getLangSpan(opts.meaningEn || '', opts.meaningEs || '') + '</div>'
         : '';
+    if (opts.pending) {
+        // Nothing can be written on the form yet: no checkbox text, no copy button.
+        return '<div class="form-label pending">' +
+            '<div class="form-label-caption">' + getLangSpan('Nothing to write yet — leave the checkbox blank:', 'No escriba nada todavía — deje la casilla en blanco:') + '</div>' +
+            '<div class="form-label-row"><code class="form-label-text">' + getLangSpan('(pending — no checkbox yet)', '(pendiente — sin casilla todavía)') + '</code></div>' +
+            meaning + '</div>';
+    }
     return '<div class="form-label">' +
         '<div class="form-label-caption">' + getLangSpan('Write exactly this on Form I-693:', 'Escriba exactamente este texto en el Formulario I-693:') + '</div>' +
         '<div class="form-label-row"><code class="form-label-text" lang="en">' + label + '</code>' +
@@ -231,7 +242,15 @@ function copyFormLabel(btn) {
 function answersSummary(items) {
     if (!items || !items.length) { return ''; }
     var lis = items.map(function (it) { return '<li>' + getLangSpan(it.en, it.es) + '</li>'; }).join('');
-    return '<div class="answers"><div class="answers-title">' + getLangSpan('Based on your answers', 'Según sus respuestas') + '</div><ul>' + lis + '</ul></div>';
+    return '<details class="answers"><summary>' + getLangSpan('Based on your answers (' + items.length + ')', 'Según sus respuestas (' + items.length + ')') + '</summary><ul>' + lis + '</ul></details>';
+}
+
+/**
+ * One-line "Next step" strip placed directly under the banner: the single most
+ * time-bound action for this result.
+ */
+function nextStep(en, es) {
+    return '<div class="next-step"><span class="next-step-label">' + getLangSpan('Next step', 'Siguiente paso') + '</span><span>' + getLangSpan(en, es) + '</span></div>';
 }
 
 /**
@@ -296,8 +315,8 @@ function updateChoiceContinue(group) {
     var noneChosen = group.querySelector('.choice.selected[data-none]') !== null;
     if (n === 0) {
         btn.innerHTML = noneChosen
-            ? getLangSpan('Continue — none apply', 'Continuar — ninguna aplica')
-            : getLangSpan('Continue — none apply', 'Continuar — ninguna aplica');
+            ? getLangSpan('Continue — none apply', 'Continuar — ninguna corresponde')
+            : getLangSpan('Continue — none apply', 'Continuar — ninguna corresponde');
     } else {
         btn.innerHTML = getLangSpan('Continue (' + n + ' selected)', 'Continuar (' + n + ' seleccionadas)');
     }
