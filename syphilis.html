@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syphilis Evaluation Guide - CDC Guidelines / Guía de Evaluación de Sífilis</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1e40af">
+    <meta name="msapplication-TileColor" content="#1e40af">
+    <meta name="msapplication-navbutton-color" content="#1e40af">
+    <meta name="application-name" content="Syphilis Guide">
+    
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Syphilis Guide">
+    <link rel="apple-touch-icon" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon-precomposed" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./imm_syph_icon_192.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./imm_syph_icon_192.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="./imm_syph_icon_192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./imm_syph_icon_512.png">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="home-link" href="./index.html">← <span class="lang-en">Home</span><span class="lang-es">Inicio</span></a>
+            <button class="language-toggle" onclick="toggleLanguage()">
+                <span class="lang-en">Español</span>
+                <span class="lang-es">English</span>
+            </button>
+            <h1>
+                <span class="lang-en">Syphilis Evaluation Guide</span>
+                <span class="lang-es">Guía de Evaluación de Sífilis</span>
+            </h1>
+            <p>
+                <span class="lang-en">Based on CDC Guidelines for Civil Surgeons</span>
+                <span class="lang-es">Basado en las Directrices de los CDC para Cirujanos Civiles</span>
+            </p>
+        </div>
+        
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            
+            <!-- Step 1: Age Assessment -->
+            <div class="step active" id="step1">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Step 1: Applicant Age Assessment</span>
+                        <span class="lang-es">Paso 1: Evaluación de Edad del Solicitante</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">What is the age of the applicant?</span>
+                        <span class="lang-es">¿Cuál es la edad del solicitante?</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="goToStep(2)">
+                            <span class="lang-en">18 to 44 years</span>
+                            <span class="lang-es">18 a 44 años</span>
+                        </button>
+                        <button onclick="goToStep(1.5)">
+                            <span class="lang-en">Under 18 or 45+ years</span>
+                            <span class="lang-es">Menor de 18 o 45+ años</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button" style="display: none;">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 1.5: Suspicion Check for Under 18 or 45+ -->
+            <div class="step" id="step1.5">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Clinical Suspicion Assessment</span>
+                        <span class="lang-es">Evaluación de Sospecha Clínica</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Is there reason to suspect syphilis infection?</span>
+                        <span class="lang-es">¿Hay razón para sospechar infección por sífilis?</span>
+                    </p>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Consider if patient has:</span>
+                            <span class="lang-es">Considere si el paciente tiene:</span>
+                        </strong>
+                        <ul>
+                            <li>
+                                <span class="lang-en">History of painless genital, anal, or oral sores</span>
+                                <span class="lang-es">Historial de llagas indoloras genitales, anales u orales</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Rash on body, especially palms/soles</span>
+                                <span class="lang-es">Erupción en el cuerpo, especialmente en palmas/plantas</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Partner with syphilis</span>
+                                <span class="lang-es">Pareja con sífilis</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Signs of congenital syphilis (for children)</span>
+                                <span class="lang-es">Signos de sífilis congénita (para niños)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="goToStep(2)">
+                            <span class="lang-en">Yes - Proceed with Testing</span>
+                            <span class="lang-es">Sí - Proceder con Pruebas</span>
+                        </button>
+                        <button onclick="showNoTestingRequired()">
+                            <span class="lang-en">No - No Testing Required</span>
+                            <span class="lang-es">No - No se Requieren Pruebas</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2: Testing Algorithm Selection -->
+            <div class="step" id="step2">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Step 2: Select Testing Algorithm</span>
+                        <span class="lang-es">Paso 2: Seleccionar Algoritmo de Prueba</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Which testing algorithm will you use?</span>
+                        <span class="lang-es">¿Qué algoritmo de prueba utilizará?</span>
+                    </p>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Note:</span>
+                            <span class="lang-es">Nota:</span>
+                        </strong> 
+                        <span class="lang-en">
+                            &bull; Traditional algorithm will run Non-Treponemal Test first (RPR / VDRL).<br>
+                            &bull; Reverse algorithm will run Treponemal Test first (T. Pallidum Total AB with Reflex).<br>
+                            &bull; Both algorithms are CDC-approved. All tests must be performed on the same blood sample.
+                        </span>
+                        <span class="lang-es">Ambos algoritmos están aprobados por los CDC. Todas las pruebas deben realizarse en la misma muestra de sangre.</span>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="goToStep(3)">
+                            <span class="lang-en">RPR / VDRL</span>
+                            <span class="lang-es">RPR / VDRL</span>
+                        </button>
+                        <button onclick="goToStep(4)">
+                            <span class="lang-en">T. Pallidum Total AB with Reflex</span>
+                            <span class="lang-es">T. Pallidum Total AB con Reflexión</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3: Traditional Algorithm -->
+            <div class="step" id="step3">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Traditional Algorithm Testing</span>
+                        <span class="lang-es">Prueba de Algoritmo Tradicional</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Start with nontreponemal test (RPR or VDRL)</span>
+                        <span class="lang-es">Comience con prueba no treponémica (RPR o VDRL)</span>
+                    </p>
+                    <div class="warning">
+                        <strong>
+                            <span class="lang-en">Remember:</span>
+                            <span class="lang-es">Recuerde:</span>
+                        </strong> 
+                        <span class="lang-en">Testing must be ordered by the civil surgeon at the time of immigration medical examination.</span>
+                        <span class="lang-es">Las pruebas deben ser ordenadas por el cirujano civil en el momento del examen médico de inmigración.</span>
+                    </div>
+                    <p>
+                        <span class="lang-en">What is the nontreponemal test result?</span>
+                        <span class="lang-es">¿Cuál es el resultado de la prueba no treponémica?</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="goToStep(3.1)">
+                            <span class="lang-en">Reactive (Positive)</span>
+                            <span class="lang-es">Reactiva (Positiva)</span>
+                        </button>
+                        <button onclick="showNegativeResult()">
+                            <span class="lang-en">Non-Reactive (Negative)</span>
+                            <span class="lang-es">No Reactiva (Negativa)</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3.1: Treponemal Confirmation -->
+            <div class="step" id="step3.1">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Treponemal Confirmation Test</span>
+                        <span class="lang-es">Prueba de Confirmación Treponémica</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Perform treponemal test (TP-PA, TPHA, EIA, CIA, FTA-ABS, etc.)</span>
+                        <span class="lang-es">Realizar prueba treponémica (TP-PA, TPHA, EIA, CIA, FTA-ABS, etc.)</span>
+                    </p>
+                    <p>
+                        <span class="lang-en">What is the treponemal test result?</span>
+                        <span class="lang-es">¿Cuál es el resultado de la prueba treponémica?</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="goToStep(5)">
+                            <span class="lang-en">Reactive - Enter Titer</span>
+                            <span class="lang-es">Reactiva - Ingresar Título</span>
+                        </button>
+                        <button onclick="showFalsePositive()">
+                            <span class="lang-en">Non-Reactive</span>
+                            <span class="lang-es">No Reactiva</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4: Reverse Algorithm -->
+            <div class="step" id="step4">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Reverse Algorithm Testing</span>
+                        <span class="lang-es">Prueba de Algoritmo Inverso</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Start with treponemal test (EIA, CIA, etc.)</span>
+                        <span class="lang-es">Comience con prueba treponémica (EIA, CIA, etc.)</span>
+                    </p>
+                    <div class="warning">
+                        <strong>
+                            <span class="lang-en">Note:</span>
+                            <span class="lang-es">Nota:</span>
+                        </strong> 
+                        <span class="lang-en">Reverse algorithm not recommended in high prevalence settings.</span>
+                        <span class="lang-es">Algoritmo inverso no recomendado en entornos de alta prevalencia.</span>
+                    </div>
+                    <p>
+                        <span class="lang-en">What is the treponemal test result?</span>
+                        <span class="lang-es">¿Cuál es el resultado de la prueba treponémica?</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="goToStep(4.1)">
+                            <span class="lang-en">Reactive (Positive)</span>
+                            <span class="lang-es">Reactiva (Positiva)</span>
+                        </button>
+                        <button onclick="showNegativeResult()">
+                            <span class="lang-en">Non-Reactive (Negative)</span>
+                            <span class="lang-es">No Reactiva (Negativa)</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4.1: Nontreponemal Test in Reverse -->
+            <div class="step" id="step4.1">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Nontreponemal Test (RPR/VDRL)</span>
+                        <span class="lang-es">Prueba No Treponémica (RPR/VDRL)</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">What is the nontreponemal test result and titer?</span>
+                        <span class="lang-es">¿Cuál es el resultado y título de la prueba no treponémica?</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="goToStep(5)">
+                            <span class="lang-en">Reactive - Enter Titer</span>
+                            <span class="lang-es">Reactiva - Ingresar Título</span>
+                        </button>
+                        <button onclick="goToStep(4.2)">
+                            <span class="lang-en">Non-Reactive</span>
+                            <span class="lang-es">No Reactiva</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4.2: Second Treponemal Test -->
+            <div class="step" id="step4.2">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Second Treponemal Test Required</span>
+                        <span class="lang-es">Se Requiere Segunda Prueba Treponémica</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Perform a different treponemal test (preferably with different antigens)</span>
+                        <span class="lang-es">Realizar una prueba treponémica diferente (preferiblemente con diferentes antígenos)</span>
+                    </p>
+                    <p>
+                        <span class="lang-en">What is the second treponemal test result?</span>
+                        <span class="lang-es">¿Cuál es el resultado de la segunda prueba treponémica?</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="showPastTreatedOrLatent()">
+                            <span class="lang-en">Reactive</span>
+                            <span class="lang-es">Reactiva</span>
+                        </button>
+                        <button onclick="showFalsePositive()">
+                            <span class="lang-en">Non-Reactive</span>
+                            <span class="lang-es">No Reactiva</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 5: Titer Assessment -->
+            <div class="step" id="step5">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Nontreponemal Titer Result</span>
+                        <span class="lang-es">Resultado del Título No Treponémico</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">What is the quantitative titer?</span>
+                        <span class="lang-es">¿Cuál es el título cuantitativo?</span>
+                    </p>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Important:</span>
+                            <span class="lang-es">Importante:</span>
+                        </strong> 
+                        <span class="lang-en">Document exact titer on Form I-693</span>
+                        <span class="lang-es">Documentar el título exacto en el Formulario I-693</span>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="goToStep(6, 'high')">≥ 1:8</button>
+                        <button onclick="goToStep(6, 'low')">< 1:8</button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 5.5: Treatment Status Check -->
+            <div class="step" id="step5.5">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Previous Treatment Assessment</span>
+                        <span class="lang-es">Evaluación de Tratamiento Previo</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">Has the patient already been treated for syphilis?</span>
+                        <span class="lang-es">¿Ha sido tratado el paciente por sífilis?</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="goToStep(5.6)">
+                            <span class="lang-en">Yes - Already Treated</span>
+                            <span class="lang-es">Sí - Ya Tratado</span>
+                        </button>
+                        <button onclick="goToStep(6)">
+                            <span class="lang-en">No - Needs Treatment</span>
+                            <span class="lang-es">No - Necesita Tratamiento</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 5.6: Previous Stage Diagnosis -->
+            <div class="step" id="step5.6">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Previous Syphilis Stage Diagnosis</span>
+                        <span class="lang-es">Diagnóstico Previo de Etapa de Sífilis</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">What stage of syphilis was previously diagnosed?</span>
+                        <span class="lang-es">¿Qué etapa de sífilis fue diagnosticada previamente?</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="setPreviousStage('primary')">
+                            <span class="lang-en">Primary</span>
+                            <span class="lang-es">Primaria</span>
+                        </button>
+                        <button onclick="setPreviousStage('secondary')">
+                            <span class="lang-en">Secondary</span>
+                            <span class="lang-es">Secundaria</span>
+                        </button>
+                        <button onclick="setPreviousStage('earlyLatent')">
+                            <span class="lang-en">Early Latent</span>
+                            <span class="lang-es">Latente Temprana</span>
+                        </button>
+                        <button onclick="setPreviousStage('lateLatent')">
+                            <span class="lang-en">Late Latent / Unknown</span>
+                            <span class="lang-es">Latente Tardía / Desconocida</span>
+                        </button>
+                        <button onclick="setPreviousStage('tertiary')">
+                            <span class="lang-en">Tertiary</span>
+                            <span class="lang-es">Terciaria</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 5.7: Treatment Details -->
+            <div class="step" id="step5.7">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Previous Treatment Details</span>
+                        <span class="lang-es">Detalles del Tratamiento Previo</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">What treatment was administered?</span>
+                        <span class="lang-es">¿Qué tratamiento fue administrado?</span>
+                    </p>
+                    <div class="info">
+                        <strong>
+                            <span class="lang-en">Select medication and number of doses:</span>
+                            <span class="lang-es">Seleccione medicamento y número de dosis:</span>
+                        </strong>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <p style="margin-bottom: 10px;">
+                            <span class="lang-en">Medication:</span>
+                            <span class="lang-es">Medicamento:</span>
+                        </p>
+                        <div class="button-group">
+                            <button onclick="setMedication('benzathine')" id="benzathineBtn" style="background: #718096;">
+                                <span class="lang-en">Benzathine penicillin G / Bicillin LA<br>2.4 million units IM</span>
+                                <span class="lang-es">Penicilina G benzatínica / Bicillin LA<br>2.4 millones de unidades IM</span>
+                            </button>
+                            <button onclick="setMedication('other')" id="otherMedBtn" style="background: #718096;">
+                                <span class="lang-en">Other medication</span>
+                                <span class="lang-es">Otro medicamento</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <p style="margin-bottom: 10px;">
+                            <span class="lang-en">Number of doses:</span>
+                            <span class="lang-es">Número de dosis:</span>
+                        </p>
+                        <div class="button-group">
+                            <button onclick="setDoses(1)" id="dose1Btn" style="background: #718096;">1</button>
+                            <button onclick="setDoses(2)" id="dose2Btn" style="background: #718096;">2</button>
+                            <button onclick="setDoses(3)" id="dose3Btn" style="background: #718096;">3</button>
+                            <button onclick="setDoses(4)" id="dose4Btn" style="background: #718096;">4+</button>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <button onclick="evaluateTreatment()" style="width: 100%; background: #48bb78;">
+                            <span class="lang-en">Evaluate Treatment Adequacy</span>
+                            <span class="lang-es">Evaluar Adecuación del Tratamiento</span>
+                        </button>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 6: Clinical Staging -->
+            <div class="step" id="step6">
+                <div class="question">
+                    <h2>
+                        <span class="lang-en">Clinical Staging Assessment</span>
+                        <span class="lang-es">Evaluación de Estadificación Clínica</span>
+                    </h2>
+                    <div id="classAStatus" style="display: none;">
+                        <div class="warning">
+                            <span class="badge class-a">Class A / Clase A</span>
+                            <strong>
+                                <span class="lang-en">Syphilis Infection Confirmed:</span>
+                                <span class="lang-es">Infección por Sífilis Confirmada:</span>
+                            </strong>
+                            <span class="lang-en">This indicates syphilis infection requiring treatment.</span>
+                            <span class="lang-es">Esto indica infección por sífilis que requiere tratamiento.</span>
+                        </div>
+                    </div>
+                    <div class="warning">
+                        <strong>
+                            <span class="lang-en">Important:</span>
+                            <span class="lang-es">Importante:</span>
+                        </strong> 
+                        <span class="lang-en">External genital and rectal exams ONLY after laboratory confirmation. Chaperone MUST be present.</span>
+                        <span class="lang-es">Exámenes genitales externos y rectales SOLO después de confirmación de laboratorio. DEBE estar presente un acompañante.</span>
+                    </div>
+                    <p>
+                        <span class="lang-en">Based on history, physical exam, and test results, determine the stage:</span>
+                        <span class="lang-es">Basándose en el historial, examen físico y resultados de pruebas, determine la etapa:</span>
+                    </p>
+                    <div class="button-group">
+                        <button onclick="showTreatment('primary')">
+                            <span class="lang-en">Primary</span>
+                            <span class="lang-es">Primaria</span>
+                        </button>
+                        <button onclick="showTreatment('secondary')">
+                            <span class="lang-en">Secondary</span>
+                            <span class="lang-es">Secundaria</span>
+                        </button>
+                        <button onclick="showTreatment('earlyLatent')">
+                            <span class="lang-en">Early Latent</span>
+                            <span class="lang-es">Latente Temprana</span>
+                        </button>
+                        <button onclick="showTreatment('lateLatent')">
+                            <span class="lang-en">Late Latent / Unknown Duration</span>
+                            <span class="lang-es">Latente Tardía / Duración Desconocida</span>
+                        </button>
+                        <button onclick="showTreatment('tertiary')">
+                            <span class="lang-en">Tertiary</span>
+                            <span class="lang-es">Terciaria</span>
+                        </button>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="goBack()" class="secondary back-button">← <span class="lang-en">Back</span><span class="lang-es">Atrás</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="step" id="results">
+                <div id="resultsContent"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./app.js"></script>
+    <script>
+        // Syphilis module state (shared engine lives in app.js)
+        let titerLevel = '';
+        let previousStage = '';
+        let selectedMedication = '';
+        let selectedDoses = 0;
+        
+        function setPreviousStage(stage) {
+            previousStage = stage;
+            goToStep(5.7);
+        }
+        
+        function setMedication(med) {
+            selectedMedication = med;
+            // Update button styles
+            document.getElementById('benzathineBtn').style.background = med === 'benzathine' ? '#667eea' : '#718096';
+            document.getElementById('otherMedBtn').style.background = med === 'other' ? '#667eea' : '#718096';
+        }
+        
+        function setDoses(num) {
+            selectedDoses = num;
+            // Update button styles
+            document.getElementById('dose1Btn').style.background = num === 1 ? '#667eea' : '#718096';
+            document.getElementById('dose2Btn').style.background = num === 2 ? '#667eea' : '#718096';
+            document.getElementById('dose3Btn').style.background = num === 3 ? '#667eea' : '#718096';
+            document.getElementById('dose4Btn').style.background = num === 4 ? '#667eea' : '#718096';
+        }
+        
+        function evaluateTreatment() {
+            if (!selectedMedication || !selectedDoses) {
+                alert(getText('Please select both medication and number of doses', 'Por favor seleccione tanto el medicamento como el número de dosis'));
+                return;
+            }
+            
+            // Special case for "other" medication - requires civil surgeon consultation
+            if (selectedMedication === 'other') {
+                showPreviousTreatmentResult('unknown', previousStage, selectedMedication, selectedDoses, 0);
+                return;
+            }
+            
+            // Define correct treatment for each stage
+            const correctTreatment = {
+                primary: { doses: 1 },
+                secondary: { doses: 1 },
+                earlyLatent: { doses: 1 },
+                lateLatent: { doses: 3 },
+                tertiary: { doses: 3 }
+            };
+            
+            const stageData = correctTreatment[previousStage];
+            const isCorrectMed = selectedMedication === 'benzathine';
+            const isCorrectDoses = selectedDoses >= stageData.doses; // Changed to >= for "adequate or more"
+            const isAdequate = isCorrectMed && isCorrectDoses;
+            
+            showPreviousTreatmentResult(isAdequate, previousStage, selectedMedication, selectedDoses, stageData.doses);
+        }
+        
+        function showPreviousTreatmentResult(isAdequate, stage, medication, doses, correctDoses) {
+            const stageNames = {
+                primary: getText('Primary', 'Primaria'),
+                secondary: getText('Secondary', 'Secundaria'),
+                earlyLatent: getText('Early Latent', 'Latente Temprana'),
+                lateLatent: getText('Late Latent / Unknown Duration', 'Latente Tardía / Duración Desconocida'),
+                tertiary: getText('Tertiary', 'Terciaria')
+            };
+            
+            let content = '';
+            
+            if (isAdequate === 'unknown') {
+                content = `
+                    <div class="result">
+                        <h3>${getText('Unknown if Adequately Treated', 'Se Desconoce si Está Tratado Adecuadamente')}</h3>
+                        <span class="badge" style="background: #f6ad55; color: #744210;">Requires Review / Requiere Revisión</span>
+                        
+                        <table class="treatment-table">
+                            <tr>
+                                <th>${getText('Previous Stage', 'Etapa Previa')}</th>
+                                <td>${stageNames[stage]}</td>
+                            </tr>
+                            <tr>
+                                <th>${getText('Treatment Received', 'Tratamiento Recibido')}</th>
+                                <td>${getText('Other medication', 'Otro medicamento')} × ${doses} ${getText('dose(s)', 'dosis')}</td>
+                            </tr>
+                            <tr>
+                                <th>${getText('Treatment Assessment', 'Evaluación del Tratamiento')}</th>
+                                <td style="color: #744210; font-weight: bold;">${getText('UNKNOWN ADEQUACY', 'ADECUACIÓN DESCONOCIDA')}</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="warning" style="background-color: #fef5e7; border-color: #f6ad55;">
+                            <strong>${getText('Civil Surgeon Consultation Required:', 'Consulta con Cirujano Civil Requerida:')}</strong>
+                            <p>${getText(
+                                'The adequacy of treatment with medications other than benzathine penicillin G / Bicillin LA cannot be determined using these guidelines. Please consult with the civil surgeon to determine if the previous treatment was adequate.',
+                                'No se puede determinar la adecuación del tratamiento con medicamentos distintos a la penicilina G benzatínica usando estas pautas. Por favor consulte con el cirujano civil para determinar si el tratamiento previo fue adecuado.'
+                            )}</p>
+                        </div>
+                        
+                        <div class="info">
+                            <strong>${getText('Required Actions:', 'Acciones Requeridas:')}</strong>
+                            <ul>
+                                <li>${getText('Document all previous treatment details on Form I-693', 'Documentar todos los detalles del tratamiento previo en el Formulario I-693')}</li>
+                                <li>${getText('Include medication name, dosage, route, and duration', 'Incluir nombre del medicamento, dosis, vía y duración')}</li>
+                                <li>${getText('Consult civil surgeon for adequacy determination', 'Consultar al cirujano civil para determinación de adecuación')}</li>
+                                <li>${getText('Follow civil surgeon recommendations for any additional treatment', 'Seguir recomendaciones del cirujano civil para cualquier tratamiento adicional')}</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            } else if (isAdequate) {
+                content = `
+                    <div class="result">
+                        <h3>${getText('Adequately Treated Syphilis', 'Sífilis Tratada Adecuadamente')}</h3>
+                        <span class="badge class-b">Class B / Clase B</span>
+                        
+                        <table class="treatment-table">
+                            <tr>
+                                <th>${getText('Previous Stage', 'Etapa Previa')}</th>
+                                <td>${stageNames[stage]}</td>
+                            </tr>
+                            <tr>
+                                <th>${getText('Treatment Received', 'Tratamiento Recibido')}</th>
+                                <td>${getText(
+                                    `Benzathine penicillin G / Bicillin LA<br>2.4 million units IM × ${doses} dose(s)`,
+                                    `Penicilina G benzatínica / Bicillin LA<br>2.4 millones de unidades IM × ${doses} dosis`
+                                )}</td>
+                            </tr>
+                            <tr>
+                                <th>${getText('Treatment Assessment', 'Evaluación del Tratamiento')}</th>
+                                <td style="color: #22543d; font-weight: bold;">${getText('ADEQUATE', 'ADECUADO')}</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="info">
+                            <strong>${getText('Documentation Required:', 'Documentación Requerida:')}</strong>
+                            <ul>
+                                <li>${getText('Record previous treatment details on Form I-693', 'Registrar detalles del tratamiento previo en el Formulario I-693')}</li>
+                                <li>${getText('Include treatment dates and doses administered', 'Incluir fechas de tratamiento y dosis administradas')}</li>
+                                <li>${getText('Document current test results showing response to treatment', 'Documentar resultados actuales que muestren respuesta al tratamiento')}</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info">
+                            <strong>${getText('Follow-up:', 'Seguimiento:')}</strong>
+                            <p>${getText(
+                                'Continue monitoring per CDC guidelines. Titer should show appropriate decline.',
+                                'Continuar monitoreo según las pautas de los CDC. El título debe mostrar disminución apropiada.'
+                            )}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const inadequateReason = medication !== 'benzathine' 
+                    ? getText('incorrect medication', 'medicamento incorrecto')
+                    : getText(`incorrect number of doses (${doses} given, ${correctDoses} required)`, `número incorrecto de dosis (${doses} administradas, ${correctDoses} requeridas)`);
+                
+                content = `
+                    <div class="result">
+                        <h3>${getText('Inadequately Treated Syphilis', 'Sífilis Tratada Inadecuadamente')}</h3>
+                        <span class="badge class-a">Class A / Clase A</span>
+                        
+                        <table class="treatment-table">
+                            <tr>
+                                <th>${getText('Previous Stage', 'Etapa Previa')}</th>
+                                <td>${stageNames[stage]}</td>
+                            </tr>
+                            <tr>
+                                <th>${getText('Treatment Received', 'Tratamiento Recibido')}</th>
+                                <td>${medication === 'benzathine' 
+                                    ? getText(
+                                        `Benzathine penicillin G / Bicillin LA 2.4 million units IM × ${doses} dose(s)`,
+                                        `Penicilina G benzatínica 2.4 millones de unidades IM × ${doses} dosis`
+                                    )
+                                    : getText('Other medication', 'Otro medicamento')
+                                }</td>
+                            </tr>
+                            <tr>
+                                <th>${getText('Required Treatment', 'Tratamiento Requerido')}</th>
+                                <td>${getText(
+                                    `Benzathine penicillin G / Bicillin LA 2.4 million units IM × ${correctDoses} dose(s)`,
+                                    `Penicilina G benzatínica 2.4 millones de unidades IM × ${correctDoses} dosis`
+                                )}</td>
+                            </tr>
+                            <tr>
+                                <th>${getText('Treatment Assessment', 'Evaluación del Tratamiento')}</th>
+                                <td style="color: #742a2a; font-weight: bold;">${getText('INADEQUATE', 'INADECUADO')} - ${inadequateReason}</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="warning">
+                            <strong>${getText('Action Required:', 'Acción Requerida:')}</strong>
+                            <p>${getText(
+                                'Patient requires retreatment with appropriate regimen for the diagnosed stage.',
+                                'El paciente requiere retratamiento con el régimen apropiado para la etapa diagnosticada.'
+                            )}</p>
+                        </div>
+                        
+                        <div class="info">
+                            <strong>${getText('Retreatment Required:', 'Retratamiento Requerido:')}</strong>
+                            <p>${getText(
+                                `Benzathine penicillin G / Bicillin LA 2.4 million units IM × ${correctDoses} dose(s)`,
+                                `Penicilina G benzatínica 2.4 millones de unidades IM × ${correctDoses} dosis`
+                            )}</p>
+                            ${correctDoses === 3 ? `<p>${getText('(Weekly doses for 3 weeks)', '(Dosis semanales por 3 semanas)')}</p>` : ''}
+                        </div>
+                        
+                        <div class="info">
+                            <strong>${getText('Documentation:', 'Documentación:')}</strong>
+                            <ul>
+                                <li>${getText('Document inadequate previous treatment on Form I-693', 'Documentar tratamiento previo inadecuado en el Formulario I-693')}</li>
+                                <li>${getText('Record new treatment plan and schedule', 'Registrar nuevo plan de tratamiento y calendario')}</li>
+                                <li>${getText('Schedule follow-up appointments', 'Programar citas de seguimiento')}</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            showResults(content);
+        }
+
+        function showNoTestingRequired() {
+            const content = `
+                <div class="result">
+                    <h3>${getLangSpan('No Testing Required', 'No se Requieren Pruebas')}</h3>
+                    <span class="badge no-class">${getLangSpan('No Class', 'Sin Clase')}</span>
+                    <p>${getLangSpan(
+                        'Based on age and lack of clinical suspicion, syphilis testing is not required for this applicant.',
+                        'Basándose en la edad y la falta de sospecha clínica, no se requieren pruebas de sífilis para este solicitante.'
+                    )}</p>
+                    <div class="info">
+                        <strong>${getLangSpan('Documentation:', 'Documentación:')}</strong>
+                        <p>${getLangSpan(
+                            'Document on Form I-693 that applicant does not meet age criteria for mandatory testing and has no clinical indication for testing.',
+                            'Documente en el Formulario I-693 que el solicitante no cumple con los criterios de edad para pruebas obligatorias y no tiene indicación clínica para pruebas.'
+                        )}</p>
+                    </div>
+                </div>
+            `;
+            showResults(content);
+        }
+        
+        function showNegativeResult() {
+            const content = `
+                <div class="result">
+                    <h3>${getLangSpan('Syphilis Not Detected', 'Sífilis No Detectada')}</h3>
+                    <span class="badge no-class">${getLangSpan('No Class', 'Sin Clase')}</span>
+                    <p>${getLangSpan(
+                        'All syphilis tests are negative. No evidence of current or past syphilis infection.',
+                        'Todas las pruebas de sífilis son negativas. No hay evidencia de infección actual o pasada por sífilis.'
+                    )}</p>
+                    <div class="info">
+                        <strong>${getLangSpan('Documentation:', 'Documentación:')}</strong>
+                        <p>${getLangSpan(
+                            'Record negative test results on Form I-693, Part 8, Section 1B.',
+                            'Registre los resultados negativos en el Formulario I-693, Parte 8, Sección 1B.'
+                        )}</p>
+                    </div>
+                </div>
+            `;
+            showResults(content);
+        }
+        
+        function showFalsePositive() {
+            const content = `
+                <div class="result">
+                    <h3>${getLangSpan('False Positive Nontreponemal Test', 'Prueba No Treponémica Falsa Positiva')}</h3>
+                    <span class="badge no-class">${getLangSpan('No Class', 'Sin Clase')}</span>
+                    <p>${getLangSpan(
+                        'Nontreponemal test reactive but treponemal test non-reactive indicates a biological false positive.',
+                        'Prueba no treponémica reactiva pero prueba treponémica no reactiva indica un falso positivo biológico.'
+                    )}</p>
+                    <div class="info">
+                        <strong>${getLangSpan('Possible Causes:', 'Causas Posibles:')}</strong>
+                        <ul>
+                            <li>${getLangSpan('Other infections (HIV, TB, hepatitis, malaria)', 'Otras infecciones (VIH, TB, hepatitis, malaria)')}</li>
+                            <li>${getLangSpan('Autoimmune conditions', 'Condiciones autoinmunes')}</li>
+                            <li>${getLangSpan('Recent vaccinations', 'Vacunaciones recientes')}</li>
+                            <li>${getLangSpan('Pregnancy', 'Embarazo')}</li>
+                            <li>${getLangSpan('Injection drug use', 'Uso de drogas inyectables')}</li>
+                            <li>${getLangSpan('Older age', 'Edad avanzada')}</li>
+                        </ul>
+                    </div>
+                    <p>${getLangSpan(
+                        'No syphilis treatment required. Document results on Form I-693.',
+                        'No se requiere tratamiento para sífilis. Documente los resultados en el Formulario I-693.'
+                    )}</p>
+                </div>
+            `;
+            showResults(content);
+        }
+        
+        function showPastTreatedOrLatent() {
+            const content = `
+                <div class="result">
+                    <h3>${getLangSpan('Unknown Stage of Syphilis or Past Treated Syphilis', 'Etapa Desconocida de Sífilis o Sífilis Tratada Previamente')}</h3>
+                    <p>${getLangSpan(
+                        'Treponemal tests reactive with non-reactive nontreponemal test.',
+                        'Pruebas treponémicas reactivas con prueba no treponémica no reactiva.'
+                    )}</p>
+                    <div class="warning">
+                        <strong>${getLangSpan('Action Required:', 'Acción Requerida:')}</strong>
+                        <p>${getLangSpan(
+                            'Review treatment history to determine if previously adequately treated.',
+                            'Revisar el historial de tratamiento para determinar si fue tratado adecuadamente previamente.'
+                        )}</p>
+                    </div>
+                    <ul>
+                        <li><strong>${getLangSpan('If adequately treated previously:', 'Si fue tratado adecuadamente previamente:')}</strong> <span class="badge no-class">${getLangSpan('No Class', 'Sin Clase')}</span> - ${getLangSpan('Document prior treatment (if no concern for re-exposure)', 'Documentar tratamiento previo (si no hay preocupación por re-exposición)')}</li>
+                        <li><strong>${getLangSpan('If never treated or inadequately treated:', 'Si nunca fue tratado o tratado inadecuadamente:')}</strong> <span class="badge class-a">Class A / Clase A</span> - ${getLangSpan('Determine stage of syphilis and treat', 'Determinar etapa de sífilis y tratar')}</li>
+                        <li><strong>${getLangSpan('If treatment history unknown:', 'Si el historial de tratamiento es desconocido:')}</strong> <span class="badge class-a">Class A / Clase A</span> - ${getLangSpan('Determine stage of syphilis and treat', 'Determinar etapa de sífilis y tratar')}</li>
+                    </ul>
+                    
+                    <div class="warning" style="margin-top: 20px;">
+                        <strong>
+                            <span class="lang-en">Important:</span>
+                            <span class="lang-es">Importante:</span>
+                        </strong> 
+                        <span class="lang-en">External genital and rectal exams ONLY after laboratory confirmation. Chaperone MUST be present.</span>
+                        <span class="lang-es">Exámenes genitales externos y rectales SOLO después de confirmación de laboratorio. DEBE estar presente un acompañante.</span>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <h4 style="margin-bottom: 15px;">
+                            <span class="lang-en">If Treatment is Required - Determine Stage:</span>
+                            <span class="lang-es">Si se Requiere Tratamiento - Determinar Etapa:</span>
+                        </h4>
+                        <p style="margin-bottom: 15px;">
+                            <span class="lang-en">Based on history, physical exam, and test results, determine the stage:</span>
+                            <span class="lang-es">Basándose en el historial, examen físico y resultados de pruebas, determine la etapa:</span>
+                        </p>
+                        <div class="button-group">
+                            <button onclick="showTreatmentFromPastTreated('primary')" style="margin: 5px;">
+                                <span class="lang-en">Primary</span>
+                                <span class="lang-es">Primaria</span>
+                            </button>
+                            <button onclick="showTreatmentFromPastTreated('secondary')" style="margin: 5px;">
+                                <span class="lang-en">Secondary</span>
+                                <span class="lang-es">Secundaria</span>
+                            </button>
+                            <button onclick="showTreatmentFromPastTreated('earlyLatent')" style="margin: 5px;">
+                                <span class="lang-en">Early Latent</span>
+                                <span class="lang-es">Latente Temprana</span>
+                            </button>
+                            <button onclick="showTreatmentFromPastTreated('lateLatent')" style="margin: 5px;">
+                                <span class="lang-en">Late Latent / Unknown Duration</span>
+                                <span class="lang-es">Latente Tardía / Duración Desconocida</span>
+                            </button>
+                            <button onclick="showTreatmentFromPastTreated('tertiary')" style="margin: 5px;">
+                                <span class="lang-en">Tertiary</span>
+                                <span class="lang-es">Terciaria</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            showResults(content);
+        }
+        
+        function showTreatmentFromPastTreated(stage) {
+            // Add the "past treated" page to history so back button works correctly
+            stepHistory.push('pastTreatedPage');
+            showTreatment(stage);
+        }
+        
+        function showTreatment(stage) {
+            const treatments = {
+                primary: {
+                    classification: 'Class A / Clase A',
+                    treatment: getLangSpan(
+                        'Benzathine penicillin G / Bicillin LA<br>2.4 million units IM × 1 dose',
+                        'Penicilina G benzatínica<br>2.4 millones de unidades IM × 1 dosis'
+                    ),
+                    alternativeTreatment: getLangSpan(
+                        'Doxycycline 100 mg PO BID × 14 days<br>OR<br>Tetracycline 500 mg PO QID × 14 days<br>*can cause GI upset<br>OR<br>Ceftriaxone 1g IM/IV daily × 10 days',
+                        'Doxiciclina 100 mg VO BID × 14 días<br>O<br>Tetraciclina 500 mg VO QID × 14 días<br>*puede causar malestar gastrointestinal<br>O<br>Ceftriaxona 1 g IM o IV diariamente × 10 días'
+                    ),
+                    followUp: getLangSpan('6 months (3 months if HIV positive)', '6 meses (3 meses si VIH positivo)'),
+                    staging: getLangSpan('Painless chancre at inoculation site', 'Chancro indoloro en el sitio de inoculación'),
+                    stageName: getLangSpan('Primary', 'Primaria')
+                },
+                secondary: {
+                    classification: 'Class A / Clase A',
+                    treatment: getLangSpan(
+                        'Benzathine penicillin G / Bicillin LA<br>2.4 million units IM × 1 dose',
+                        'Penicilina G benzatínica<br>2.4 millones de unidades IM × 1 dosis'
+                    ),
+                    alternativeTreatment: getLangSpan(
+                        'Doxycycline 100 mg PO BID × 14 days<br>OR<br>Tetracycline 500 mg PO QID × 14 days<br>*can cause GI upset<br>OR<br>Ceftriaxone 1g IM/IV daily × 10 days',
+                        'Doxiciclina 100 mg VO BID × 14 días<br>O<br>Tetraciclina 500 mg VO QID × 14 días<br>*puede causar malestar gastrointestinal<br>O<br>Ceftriaxona 1 g IM o IV diariamente × 10 días'
+                    ),
+                    followUp: getLangSpan('6 months (3 months if HIV positive)', '6 meses (3 meses si VIH positivo)'),
+                    staging: getLangSpan(
+                        'Rash (especially palms/soles), mucous patches, condyloma lata',
+                        'Erupción (especialmente palmas/plantas), parches mucosos, condiloma lata'
+                    ),
+                    stageName: getLangSpan('Secondary', 'Secundaria')
+                },
+                earlyLatent: {
+                    classification: 'Class A / Clase A',
+                    treatment: getLangSpan(
+                        'Benzathine penicillin G / Bicillin LA<br>2.4 million units IM × 1 dose',
+                        'Penicilina G benzatínica<br>2.4 millones de unidades IM × 1 dosis'
+                    ),
+                    alternativeTreatment: getLangSpan(
+                        'Doxycycline 100 mg PO BID × 14 days<br>OR<br>Tetracycline 500 mg PO QID × 14 days<br>*can cause GI upset<br>OR<br>Ceftriaxone 1g IM/IV daily × 10 days',
+                        'Doxiciclina 100 mg VO BID × 14 días<br>O<br>Tetraciclina 500 mg VO QID × 14 días<br>*puede causar malestar gastrointestinal<br>O<br>Ceftriaxona 1 g IM o IV diariamente × 10 días'
+                    ),
+                    followUp: getLangSpan('6 months', '6 meses'),
+                    staging: getLangSpan('Asymptomatic, infection < 1 year', 'Asintomática, infección < 1 año'),
+                    stageName: getLangSpan('Early Latent', 'Latente Temprana')
+                },
+                lateLatent: {
+                    classification: 'Class A / Clase A',
+                    treatment: getLangSpan(
+                        'Benzathine penicillin G / Bicillin LA<br>2.4 million units IM weekly × 3 doses',
+                        'Penicilina G benzatínica<br>2.4 millones de unidades IM semanalmente × 3 dosis'
+                    ),
+                    alternativeTreatment: getLangSpan(
+                        'Doxycycline 100 mg PO BID × 28 days<br>OR<br>Tetracycline 500 mg PO QID × 28 days<br>*can cause GI upset<br>OR<br>Ceftriaxone 1-2 g IM or IV daily × 10-14 days',
+                        'Doxiciclina 100 mg VO BID × 28 días<br>O<br>Tetraciclina 500 mg VO QID × 28 días<br>*puede causar malestar gastrointestinal<br>O<br>Ceftriaxona 1-2 g IM o IV diariamente × 10-14 días'
+                    ),
+                    followUp: getLangSpan('12 months', '12 meses'),
+                    staging: getLangSpan(
+                        'Asymptomatic, infection > 1 year or unknown duration',
+                        'Asintomática, infección > 1 año o duración desconocida'
+                    ),
+                    stageName: getLangSpan('Late Latent / Unknown Duration', 'Latente Tardía / Duración Desconocida')
+                },
+                tertiary: {
+                    classification: 'Class A / Clase A',
+                    treatment: getLangSpan(
+                        'Benzathine penicillin G / Bicillin LA<br>2.4 million units IM weekly × 3 doses<br><em>If CSF negative and other examination provisions met</em>',
+                        'Penicilina G benzatínica<br>2.4 millones de unidades IM semanalmente × 3 dosis<br><em>Si el LCR es negativo y se cumplen otras disposiciones de examen</em>'
+                    ),
+                    alternativeTreatment: getLangSpan(
+                        'Doxycycline 100 mg PO BID × 28 days<br>OR<br>Tetracycline 500 mg PO QID × 28 days<br><em>If CSF negative and other examination provisions met</em><br><strong>Note:</strong> If neurosyphilis suspected, desensitization required for penicillin treatment',
+                        'Doxiciclina 100 mg VO BID × 28 días<br>O<br>Tetraciclina 500 mg VO QID × 28 días<br><em>Si el LCR es negativo y se cumplen otras disposiciones de examen</em><br><strong>Nota:</strong> Si se sospecha neurosífilis, se requiere desensibilización para tratamiento con penicilina'
+                    ),
+                    followUp: getLangSpan('Variable', 'Variable'),
+                    staging: getLangSpan(
+                        'Gummatous, cardiovascular, or neurologic involvement',
+                        'Compromiso gomatoso, cardiovascular o neurológico'
+                    ),
+                    stageName: getLangSpan('Tertiary', 'Terciaria')
+                }
+            };
+            
+            const stageInfo = treatments[stage];
+            const content = `
+                <div class="result">
+                    <h3>${getLangSpan('Syphilis Confirmed', 'Sífilis Confirmada')} - ${stageInfo.stageName}</h3>
+                    <span class="badge class-a">${stageInfo.classification}</span>
+                    
+                    ${stage === 'tertiary' ? `
+                    <div class="warning" style="background-color: #fef3c7; border: 2px solid #dc2626; color: #92400e;">
+                        <strong>${getLangSpan('⚠️ Complex Disease Alert:', '⚠️ Alerta de Enfermedad Compleja:')}</strong>
+                        <p>${getLangSpan(
+                            'Tertiary syphilis can be complicated and involve multiple important organ systems including cardiovascular and neurologic complications. Cerebrospinal Fluid (CSF) examination may be required. It is strongly recommended to refer to an infectious disease specialist for comprehensive evaluation and management.',
+                            'La sífilis terciaria puede ser complicada e involucrar múltiples sistemas de órganos importantes, incluyendo complicaciones cardiovasculares y neurológicas. Puede requerirse examen del líquido cefalorraquídeo (LCR). Se recomienda encarecidamente referir a un especialista en enfermedades infecciosas para evaluación y manejo integral.'
+                        )}</p>
+                    </div>
+                    ` : ''}
+                    
+                    <table class="treatment-table">
+                        <tr>
+                            <th>${getLangSpan('Clinical Features', 'Características Clínicas')}</th>
+                            <td>${stageInfo.staging}</td>
+                        </tr>
+                        <tr>
+                            <th>${getLangSpan('Treatment', 'Tratamiento')}</th>
+                            <td>${stageInfo.treatment}</td>
+                        </tr>
+                        <tr>
+                            <th>${getLangSpan('Alternative Treatment<br>ONLY for Penicillin Allergic<br>(Benzathine Penicillin G is the most effective treatment)', 'Tratamiento Alternativo <br>SOLO para Alérgicos a la Penicilina <br>(Benzatínica es el tratamiento más efectivo)')}</th>
+                            <td>${stageInfo.alternativeTreatment}</td>
+                        </tr>
+                        <tr>
+                            <th>${getLangSpan('Follow-up Required', 'Seguimiento Requerido')}</th>
+                            <td>${stageInfo.followUp}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="warning">
+                        <strong>${getLangSpan('Important Actions:', 'Acciones Importantes:')}</strong>
+                        <ul>
+                            <li>${getLangSpan('Document all test results and titers on Form I-693', 'Documentar todos los resultados de pruebas y títulos en el Formulario I-693')}</li>
+                            <li>${getLangSpan('Record treatment details including drug, dose, route, dates', 'Registrar detalles del tratamiento incluyendo medicamento, dosis, vía, fechas')}</li>
+                            <li>${getLangSpan('Advise testing for other STIs (HIV, chlamydia, gonorrhea)', 'Aconsejar pruebas para otras ITS (VIH, clamidia, gonorrea)')}</li>
+                            <li>${getLangSpan('Inform about partner notification', 'Informar sobre notificación a parejas')}</li>
+                            <li>${getLangSpan('Schedule follow-up appointments', 'Programar citas de seguimiento')}</li>
+                        </ul>
+                    </div>
+                    
+                    ${stage === 'tertiary' ? `
+                    <div class="info">
+                        <strong>${getLangSpan('Neurosyphilis Assessment:', 'Evaluación de Neurosífilis:')}</strong>
+                        <p>${getLangSpan(
+                            'Evaluate for cranial nerve dysfunction, meningitis, stroke, altered mental status, loss of vibration sense, auditory/ophthalmic abnormalities. Consider CSF analysis if indicated.',
+                            'Evaluar disfunción de nervios craneales, meningitis, accidente cerebrovascular, estado mental alterado, pérdida del sentido de vibración, anomalías auditivas/oftálmicas. Considerar análisis de LCR si está indicado.'
+                        )}</p>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="info">
+                        <strong>${getLangSpan('Penicillin Allergy:', 'Alergia a la Penicilina:')}</strong>
+                        <p>${getLangSpan(
+                            'If allergic and pregnant or has neurosyphilis/congenital syphilis: desensitization and penicillin treatment required. Otherwise, consult CDC STI Treatment Guidelines for alternatives.',
+                            'Si es alérgico y está embarazada o tiene neurosífilis/sífilis congénita: se requiere desensibilización y tratamiento con penicilina. De lo contrario, consulte las Guías de Tratamiento de ITS de los CDC para alternativas.'
+                        )}</p>
+                    </div>
+                </div>
+            `;
+            showResults(content);
+        }
+
+        // Wire the syphilis module to the shared engine (app.js)
+        App.configure({
+            totalSteps: 6,
+            firstStep: 1,
+            onStep: function (stepNumber, titer) {
+                if (titer) {
+                    titerLevel = titer;
+                }
+                // Show Class A status for both high and low titers on Clinical Staging Assessment page
+                if (stepNumber === 6) {
+                    const classAStatus = document.getElementById('classAStatus');
+                    if (classAStatus) {
+                        classAStatus.style.display = (titerLevel === 'high' || titerLevel === 'low') ? 'block' : 'none';
+                    }
+                }
+            },
+            onReset: function () {
+                titerLevel = '';
+            }
+        });
+    </script>
+</body>
+</html>

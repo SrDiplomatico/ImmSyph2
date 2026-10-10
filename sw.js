@@ -1,7 +1,12 @@
-const CACHE_NAME = 'syphilis-guide-v2';
+const CACHE_NAME = 'civil-surgeon-guide-v3';
 const urlsToCache = [
   './',
   './index.html',
+  './styles.css',
+  './app.js',
+  './syphilis.html',
+  './gonorrhea.html',
+  './tuberculosis.html',
   './manifest.json',
   './imm_syph_icon_192.png',
   './imm_syph_icon_512.png'
@@ -100,6 +105,6 @@ self.addEventListener('push', (event) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification('Syphilis Guide', options)
+    self.registration.showNotification('Civil Surgeon Guide', options)
   );
 });

@@ -1,7 +1,7 @@
 {
-  "name": "Syphilis Evaluation Guide",
-  "short_name": "Syphilis Guide",
-  "description": "CDC Guidelines for Syphilis Evaluation and Treatment - Guía de Evaluación de Sífilis",
+  "name": "Civil Surgeon Guide: Syphilis, Gonorrhea & TB",
+  "short_name": "CS Guide",
+  "description": "CDC Technical Instructions for Civil Surgeons - syphilis, gonorrhea and tuberculosis evaluation, treatment and Form I-693 classification (EN/ES) - Guía para Cirujanos Civiles",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#667eea",
@@ -24,10 +24,34 @@
   "categories": ["medical", "health", "reference"],
   "shortcuts": [
     {
-      "name": "Quick Evaluation",
-      "short_name": "Evaluate",
+      "name": "Syphilis Evaluation",
+      "short_name": "Syphilis",
       "description": "Start syphilis evaluation",
-      "url": "./index.html",
+      "url": "./syphilis.html",
+      "icons": [
+        {
+          "src": "./imm_syph_icon_192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Gonorrhea Evaluation",
+      "short_name": "Gonorrhea",
+      "description": "Start gonorrhea evaluation",
+      "url": "./gonorrhea.html",
+      "icons": [
+        {
+          "src": "./imm_syph_icon_192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Tuberculosis Evaluation",
+      "short_name": "Tuberculosis",
+      "description": "Start tuberculosis (IGRA) evaluation",
+      "url": "./tuberculosis.html",
       "icons": [
         {
           "src": "./imm_syph_icon_192.png",
