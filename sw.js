@@ -1,4 +1,4 @@
-const CACHE_NAME = 'civil-surgeon-guide-v4';
+const CACHE_NAME = 'civil-surgeon-guide-v5';
 const urlsToCache = [
   './',
   './index.html',

@@ -8,7 +8,7 @@ Civil Surgeons. Installable, offline-capable progressive web app (PWA); no build
 |---|---|---|
 | `syphilis.html` | CDC TI for Civil Surgeons — Syphilis | Age-based testing, traditional and reverse algorithms, titer, staging, treatment, adequacy of prior treatment, Class A / Class B / No Class |
 | `gonorrhea.html` | CDC TI for Civil Surgeons — Gonorrhea (effective Sept 1, 2021) + CDC STI Treatment Guidelines 2021 | Testing ages 18–24, NAAT, site-specific treatment (ceftriaxone and alternatives), directly observed onsite treatment, test of cure, Class A (untreated) → Class B (treated) |
-| `tuberculosis.html` | CDC TI for Civil Surgeons — Tuberculosis (effective March 11, 2024) | IGRA for ≥ 2 years, chest x-ray triggers, health-department referral, Class A, B0, B1 (pulmonary / extrapulmonary), B2 (LTBI), Class B other chest condition, No Class; reference table of all TB classes |
+| `tuberculosis.html` | CDC TI for Civil Surgeons — Tuberculosis (effective March 11, 2024) | IGRA for ≥ 2 years, chest x-ray triggers (positive IGRA, signs/symptoms, known HIV, extrapulmonary TB), health-department sputum referral regardless of IGRA / x-ray for symptoms, known HIV or extrapulmonary TB, indeterminate IGRA handling, documented prior treatment, Class A, B0, B1 (pulmonary / extrapulmonary), B2 (LTBI report), Class B other chest condition, No Class; reference table of all TB classes |
 
 ## Classification key
 
